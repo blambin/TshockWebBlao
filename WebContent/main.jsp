@@ -100,6 +100,6 @@ $(function() {
 		</div>
 		<!-- /.col-lg-6 -->
 
-	<div class="alert alert-success" role="alert">${msg}</div>
+	<div class="alert alert-success" role="alert" style="float: left;">${msg}</div>
 </body>
 </html>
