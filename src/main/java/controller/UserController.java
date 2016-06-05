@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-import javax.json.JsonObject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
