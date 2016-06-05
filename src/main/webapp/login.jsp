@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -117,7 +118,7 @@ span {
 </script>
 </head>
 <body>
-
+${msg}
 	<div align="right" class="bodydiv">
 		<center>服务器游戏管理员登陆</center>
 		<hr />
@@ -130,7 +131,7 @@ span {
 		<div class="maindiv displaynone" id="login">
 
 			<div class="hr"></div>
-			<form action="login.action">
+			<form action="login.action" method="post">
 				<div>
 					<div class="fld">
 						帐号:<input type="text" name="username"><br />
@@ -150,7 +151,7 @@ span {
 		</div>
 		<div class="maindiv displaynone" id="register">
 			<div class="hr"></div>
-			<form action="register.action">
+			<form action="register.action" method="post">
 				<div>
 					<div class="fld">
 						帐号:<input type="text" name="username"><br />
@@ -170,8 +171,10 @@ span {
 			</form>
 		</div>
 		<div class="serverlist" style="float: left;">
-			<span>服务器状态:</span><span id="status"></span><br /> <span>服务器端口号:</span><span
-				id="port"></span><br /> <span>服务器人数:</span><span id="playercount"></span><br />
+			<span>服务器状态:</span><span id="status"></span><br />
+			 <span>服务器端口号:</span><span	id="port"></span><br /> 
+			 <span>服务器人数:</span><span id="playercount"></span><br />
+			 <span></span>
 		</div>
 	</div>
 
