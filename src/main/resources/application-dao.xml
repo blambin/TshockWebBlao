@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        
+        <!-- 配置数据源 -->
+        <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	   		<!-- 提供连接数据库必备的信息 -->
+	   		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
+	   		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/TshockWebBlao"/>
+	   		<property name="user" value="root"/>
+	   		<property name="password" value="root"/>
+	   </bean>
+        
+        <!-- 配置会话工厂 -->
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<!-- 提供数据源 -->
+			<property name="dataSource" ref="dataSource"/>
+			<!-- 提供mybatis核心配置文件的路径 -->
+			<property name="configLocation" value="classpath:mybatis.xml"/>
+		</bean>        
+        <!-- 配置mapper扫描器 -->
+        <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        	<!-- 提供mapper接口所在的包 -->
+        	<property name="basePackage" value="mapper" />
+        	<!-- 提供会话工厂 -->
+        	<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+        </bean>
+ </beans>       
+        
