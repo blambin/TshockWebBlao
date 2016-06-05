@@ -9,10 +9,8 @@ public class UserController {
 		return null;
 		
 	}
-	
 	public String register() {
 		return null;
-		
 	}
 	
 }
