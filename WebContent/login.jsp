@@ -118,7 +118,7 @@ span {
 </script>
 </head>
 <body>
-${msg}
+
 	<div align="right" class="bodydiv">
 		<center>服务器游戏管理员登陆</center>
 		<hr />
@@ -171,6 +171,7 @@ ${msg}
 			</form>
 		</div>
 		<div class="serverlist" style="float: left;">
+		    <span style="color: red; ">${msg}</span><br/>
 			<span>服务器状态:</span><span id="status"></span><br />
 			 <span>服务器端口号:</span><span	id="port"></span><br /> 
 			 <span>服务器人数:</span><span id="playercount"></span><br />
