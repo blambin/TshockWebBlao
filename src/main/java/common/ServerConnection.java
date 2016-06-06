@@ -37,6 +37,7 @@ public class ServerConnection {
 
 			if(response.getStatusLine().getStatusCode()==200){
 				//如果状态码为200,就是正常返回
+				
 				String result=EntityUtils.toString(response.getEntity());
 				return result;
 			};
