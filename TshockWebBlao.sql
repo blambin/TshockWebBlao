@@ -20,7 +20,6 @@ CREATE TABLE  tshockWebBlao.server_user(
     id INT(30)PRIMARY KEY AUTO_INCREMENT,
     serverid INT(30),
     userid INT(30),
-    token VARCHAR(50),
     FOREIGN KEY(serverid) REFERENCES SERVER(id),
     FOREIGN KEY(userid) REFERENCES USER(id)
 );

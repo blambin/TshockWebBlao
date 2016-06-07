@@ -48,7 +48,7 @@ $(function() {
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">这是首页</a>
+			<a class="navbar-brand" href="#">服务器列表</a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->

@@ -111,9 +111,17 @@ span {
 				$("#register").addClass("displaynone");
 				$("#login").removeClass("displaynone");
 			}
-
+		});
+		
+		//提交之前简单验证密码
+		$("#register form").submit(function() {
+			if ($("#regpwd1").val() != $("#regpwd2").val()) {
+				$("#regpwd2").parent().append("<span style='color:red'>两次密码输入不一致，请重新输入.</span>");
+				return false;
+			} else {
+				return true;
+			}
 		})
-
 	});
 </script>
 </head>
@@ -134,11 +142,11 @@ span {
 			<form action="login.action" method="post">
 				<div>
 					<div class="fld">
-						帐号:<input type="text" name="username"><br />
+						帐号:<input type="text" name="username" ><br />
 					</div>
 					<div class="hr"></div>
 					<div class="fld">
-						密码:<input type="password" name="password"><br />
+						密码:<input type="password" name="password" ><br />
 					</div>
 				</div>
 				<div class="hr"></div>
@@ -154,14 +162,14 @@ span {
 			<form action="register.action" method="post">
 				<div>
 					<div class="fld">
-						帐号:<input type="text" name="username"><br />
+						帐号:<input type="text" name="username" ><br />
 					</div>
 					<div class="hr"></div>
 					<div class="fld">
-						密码:<input type="password" name="password"><br />
+						密码:<input type="password" name="password"  id="regpwd1"><br />
 					</div>
 					<div class="fld">
-						重复密码:<input type="password"><br />
+						重复密码:<input type="password"  id="regpwd2"><br />
 					</div>
 				</div>
 				<div class="hr"></div>
