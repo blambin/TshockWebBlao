@@ -12,6 +12,6 @@
 <!-- 扫描器写到 application-controller.xml 去了 -->
 <!--         <bean id="topicService" class="service.impl.TopicService" ></bean> -->
         <bean id="userService" class="service.impl.UserService" ></bean>
-<bean id="server" class="common.impl.Server" ></bean>
+<!-- <bean id="server" class="common.impl.Server" ></bean> -->
 
 </beans>

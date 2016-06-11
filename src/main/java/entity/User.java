@@ -3,7 +3,8 @@ package entity;
 public class User {
 
 	private String id;
-	private String username;
+	private String displayName;
+	private String userName;
 	private String password;
 	
 
@@ -15,12 +16,20 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getDisplayName() {
+		return displayName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -30,5 +39,5 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 }
