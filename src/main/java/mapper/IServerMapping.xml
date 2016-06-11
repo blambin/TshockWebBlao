@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 	</select> -->
 		
 	<insert id="saveServer"   parameterType="entity.Server" >
-	    insert into server(servername,serverurl,serverport,serverrestapiport,serverpassword,serveradminusername,serveradminpassword,serverowner) values(#{serverName},#{serverUrl},#{serverPort},#{serverRestAPIPort},#{serverPassword},serverAdminUserName},#{serverAdminPassword},#{serverOwner})
+	    insert into server(servername,serverurl,serverport,serverrestapiport,serverpassword,serveradminusername,serveradminpassword,serverowner) values(#{serverName},#{serverUrl},#{serverPort},#{serverRestAPIPort},#{serverPassword},serverAdminUserName},#{serverAdminPassword},#{serverOwner.id})
 	</insert>
 	
 </mapper>
