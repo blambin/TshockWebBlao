@@ -7,4 +7,6 @@ public interface IUserService {
 	public void register(User user);
 	
 	public User login(User user);
+	
+	public int queryUserNameCount(User user);
 }

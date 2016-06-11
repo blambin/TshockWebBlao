@@ -1,11 +1,13 @@
 package service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import entity.User;
 import mapper.IUserMapping;
 import service.IUserService;
 
+@Service
 public class UserService implements IUserService {
 
 	@Autowired
@@ -19,6 +21,11 @@ public class UserService implements IUserService {
 	@Override
 	public User login(User user) {
 		return userMapping.login(user);
+	}
+
+	@Override
+	public int queryUserNameCount(User user) {
+		return userMapping.queryUserNameCount(user);
 	}
 
 }

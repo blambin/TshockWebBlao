@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.IServerMapping" >
+<!-- 	<select id="login" resultType="entity.User" -->
+<!-- 		parameterType="entity.User"> -->
+<!-- 		select * from user where username=#{userName} and password=#{password} -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="queryUserNameCount" resultType="int" parameterType="entity.User"> -->
+<!-- 	   select count(*) from user where username=#{userName} -->
+<!-- 	</select> -->
+		
+	<insert id="saveServer"   parameterType="entity.Server" >
+	    insert into server(servername,serverurl,serverport,serverrestapiport,serverpassword,serveradminusername,serveradminpassword,serverowner) values(#{serverName},#{serverUrl},#{serverPort},#{serverRestAPIPort},#{serverPassword},serverAdminUserName},#{serverAdminPassword},#{serverOwner})
+	</insert>
+	
+</mapper>

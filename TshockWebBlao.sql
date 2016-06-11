@@ -2,8 +2,8 @@ CREATE DATABASE tshockWebBlao;
 
 CREATE TABLE tshockWebBlao.user(
     id INT(30) PRIMARY KEY AUTO_INCREMENT,
-    displayName VARCHAR(50),
-    username VARCHAR(30),
+    displayname VARCHAR(50),
+    username VARCHAR(30) UNIQUE,
     PASSWORD VARCHAR(40)
 );
 
@@ -23,3 +23,7 @@ CREATE TABLE tshockWebBlao.server(
 
 
 SELECT * FROM tshockWebBlao.USER;
+
+
+INSERT INTO tshockWebBlao.USER(displayname,username,PASSWORD) VALUES('blambin','blambin','123456');
+INSERT INTO tshockWebBlao.USER(displayname,username,PASSWORD) VALUES('mimi','mimi','123456')

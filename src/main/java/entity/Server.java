@@ -10,7 +10,7 @@ public class Server {
     private String serverPassword;
     private String serverAdminUserName;
     private String serverAdminPassword;
-    private int serverAdminOwner;
+    private User serverOwner;
 	public int getId() {
 		return id;
 	}
@@ -59,12 +59,13 @@ public class Server {
 	public void setServerAdminPassword(String serverAdminPassword) {
 		this.serverAdminPassword = serverAdminPassword;
 	}
-	public int getServerAdminOwner() {
-		return serverAdminOwner;
+	public User getServerOwner() {
+		return serverOwner;
 	}
-	public void setServerAdminOwner(int serverAdminOwner) {
-		this.serverAdminOwner = serverAdminOwner;
+	public void setServerOwner(User serverOwner) {
+		this.serverOwner = serverOwner;
 	}
-    
+
+
 	
 } 

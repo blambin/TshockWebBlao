@@ -5,10 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="mapper.IUserMapping" >
 	<select id="login" resultType="entity.User"
 		parameterType="entity.User">
-		select * from user where username=#{username} and password=#{password}
+		select * from user where username=#{userName} and password=#{password}
 	</select>
 	
+	<select id="queryUserNameCount" resultType="int" parameterType="entity.User">
+	   select count(*) from user where username=#{userName}
+	</select>
+		
 	<insert id="saveUser"   parameterType="entity.User" >
-	    insert into user(username,password) values(#{username},#{password})
+	    insert into user(displayname,username,password) values(#{displayName},#{userName},#{password})
 	</insert>
+	
 </mapper>

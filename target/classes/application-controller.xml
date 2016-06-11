@@ -13,7 +13,7 @@
 	<!-- 打开注解模式:默认加载了很多的处理器适配器 -->
 	<mvc:annotation-driven/>
 	<!-- 通过提供注解扫描包，让mvc自动扫描通过Controller,service.impl 注解的所有的处理器 -->
-	<context:component-scan base-package="common.impl,controller" />
+	<context:component-scan base-package="controller,service.impl" />
 	<!-- 配置视图解析器 -->
 	<!-- 视图解析器：逻辑视图和物理视图的匹配规则 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

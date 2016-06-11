@@ -142,11 +142,14 @@ span {
 			<form action="login.action" method="post">
 				<div>
 					<div class="fld">
-						帐号:<input type="text" name="username" ><br />
+						帐号:<input type="text" name="userName" ><br />
 					</div>
 					<div class="hr"></div>
 					<div class="fld">
 						密码:<input type="password" name="password" ><br />
+					</div>
+					<div class="fld">
+						<span style="color: red; ">${msg}</span><br/>
 					</div>
 				</div>
 				<div class="hr"></div>
@@ -161,8 +164,11 @@ span {
 			<div class="hr"></div>
 			<form action="register.action" method="post">
 				<div>
+				    <div class="fld">
+						昵称::<input type="text" name="displayName" ><br />
+					</div>
 					<div class="fld">
-						帐号:<input type="text" name="username" ><br />
+						帐号:<input type="text" name="userName" ><br />
 					</div>
 					<div class="hr"></div>
 					<div class="fld">
@@ -178,13 +184,12 @@ span {
 				</div>
 			</form>
 		</div>
-		<div class="serverlist" style="float: left;">
-		    <span style="color: red; ">${msg}</span><br/>
-			<span>服务器状态:</span><span id="status"></span><br />
-			 <span>服务器端口号:</span><span	id="port"></span><br /> 
-			 <span>服务器人数:</span><span id="playercount"></span><br />
-			 <span></span>
-		</div>
+<!-- 		<div class="serverlist" style="float: left;"> -->
+<!-- 			<span>服务器状态:</span><span id="status"></span><br /> -->
+<!-- 			 <span>服务器端口号:</span><span	id="port"></span><br />  -->
+<!-- 			 <span>服务器人数:</span><span id="playercount"></span><br /> -->
+<!-- 			 <span></span> -->
+<!-- 		</div> -->
 	</div>
 
 </body>
