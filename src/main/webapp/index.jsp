@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>首页</title>
 <meta http-equiv="refresh"
-	content="0; url= <%=basePath%>login.jsp">
+	content="0; url= <%=basePath%>main.jsp">
 </head>
 <body>
 

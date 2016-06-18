@@ -3,17 +3,38 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.IServerMapping" >
-<!-- 	<select id="login" resultType="entity.User" -->
-<!-- 		parameterType="entity.User"> -->
-<!-- 		select * from user where username=#{userName} and password=#{password} -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="queryUserNameCount" resultType="int" parameterType="entity.User"> -->
-<!-- 	   select count(*) from user where username=#{userName} -->
-<!-- 	</select> -->
-		
+    
+	<resultMap id="Server" type="entity.Server" >
+	    <id property="id" column="id" />
+	    <result property="serverAdminPassword" column="serveradminpassword" />
+	    <result property="serverAdminUserName" column="serveradminuserName" />
+	    <result property="serverName" column="servername" />
+	    <result property="serverUrl" column="serverUrl" />
+	    <result property="serverPassword" column="serverpassword" />
+	    <result property="serverPort" column="serverport" />
+	    <result property="serverRestAPIPort" column="serverrestapiport" />
+	    <association property="serverOwner" column="serverowner" javaType="entity.User">
+	        <id property="id" column="userid"/>
+	        <result property="displayName" column="displayname" />
+	        <result property="userName" column="username" />
+	        <result property="password" column="password" />
+	    </association>
+	</resultMap>
 	<insert id="saveServer"   parameterType="entity.Server" >
-	    insert into server(servername,serverurl,serverport,serverrestapiport,serverpassword,serveradminusername,serveradminpassword,serverowner) values(#{serverName},#{serverUrl},#{serverPort},#{serverRestAPIPort},#{serverPassword},serverAdminUserName},#{serverAdminPassword},#{serverOwner.id})
+	    insert into server(servername,serverurl,serverport,serverrestapiport,serverpassword,serveradminusername,serveradminpassword,serverowner) values(#{serverName},#{serverUrl},#{serverPort},#{serverRestAPIPort},#{serverPassword},#{serverAdminUserName},#{serverAdminPassword},#{serverOwner.id})
 	</insert>
+	<select id="queryServerByUser" parameterType="entity.User" resultMap="Server" >
+	    select * from Server where ServerOwner = #{id}
+	</select>
+	<select id="queryServerByServerId" parameterType="entity.Server" resultMap="Server" >
+	    SELECT server.id ,server.serveradminpassword,server.serveradminusername,server.servername,server.serverpassword,server.serverport,server.serverrestapiport,server.serverurl, user.id AS userid,username,displayname,password FROM SERVER LEFT JOIN USER  ON server.serverowner = user.id WHERE server.id =#{id}
+	</select>
+	<update id="updateserver" parameterType="entity.Server" >
+	    UPDATE SERVER SET servername = #{serverName}, serverurl =#{serverUrl},serverport = #{serverPort},serverrestapiport = #{serverRestAPIPort},serverpassword = #{serverPassword},serveradminusername = #{serverAdminUserName},serveradminpassword = #{serverAdminPassword},serverowner = #{serverOwner.id} where id = #{id}
+	</update>
+	<delete id="deleteserver"  parameterType="entity.Server" >
+	    delete from Server where id=#{id}
+	</delete>
+	
 	
 </mapper>

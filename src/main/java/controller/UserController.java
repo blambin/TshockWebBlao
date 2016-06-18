@@ -8,40 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import entity.User;
+import service.IServerService;
 import service.IUserService;
 
 @Controller
 public class UserController {
 
 	
-	//private ApiServlet apiServet;
-	
-	
-//	@RequestMapping("/login")
-//	public ModelAndView login(User user,HttpServletResponse res,HttpSession session,ModelAndView mo) throws IOException{
-//		
-//		apiServet = new ApiServlet();
-//		String json =apiServet.v2TokenCreate(user);
-//		JSONObject jsonObject = new JSONObject(json);
-//		String tmp = jsonObject.getString("status");
-//		if ("200".equals(tmp)) {
-//			String msg = "登陆成功, token是:" +jsonObject.getString("token");
-//			session.setAttribute("token", jsonObject.getString("token"));
-//			mo.addObject("token", jsonObject.getString("token"));
-//			mo.addObject("msg", msg);
-//			
-//			mo.setViewName("main");
-//			return mo;
-//		} else {
-//			String msg = "登陆失败,请检查用户名密码.";
-//			mo.addObject("msg", msg);	
-//			mo.setViewName("login");
-//			return mo;
-//		}
-//	}
-	
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private IServerService serverService;
 	
 	@RequestMapping("/register")
 	public ModelAndView register(User user,ModelAndView mv) {
@@ -65,6 +43,10 @@ public class UserController {
 				if (u!=null) {
 					session.setAttribute("user", u);
 					session.setMaxInactiveInterval(3600);
+					
+					//登陆成功并展示用户服务器
+					session.setAttribute("servers", serverService.queryServerByUser(u)); 
+					
 					return "main";
 				} else {
 					return "login";

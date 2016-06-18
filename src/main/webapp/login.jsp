@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>TshockWebBlao 登陆</title>
+<title>TshockWebBlao 登陆/注册 </title>
 <!-- 新 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet"
 	href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -98,16 +98,6 @@
 				}
 			}
 		});
-
-		//切换注册、登陆div
-		// 		$("#togglediv span").toggle(function() {
-		// 			$("#register").addClass(".displayinline");
-		// 			$("#login").addClass(".displaynone");
-		// 		}, function () {
-		// 			$("#register").addClass(".displaynone");
-		// 			$("#login").addClass(".displayinline");
-		// 		});
-
 		//切换注册、登陆div
 		$("#login").removeClass("displaynone");
 
