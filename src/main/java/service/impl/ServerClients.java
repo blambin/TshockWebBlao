@@ -2,8 +2,6 @@ package service.impl;
 
 import java.util.List;
 
-import org.apache.http.impl.client.HttpClients;
-
 import entity.Server;
 import entity.User;
 

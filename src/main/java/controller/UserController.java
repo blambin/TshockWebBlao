@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import common.MD5Util;
 import entity.User;
 import service.IServerService;
 import service.IUserService;
@@ -26,6 +27,8 @@ public class UserController {
 		
 		//如果没有重复名字，才能注册
 		if (userService.queryUserNameCount(user) == 0) {
+			
+			user.setPassword(MD5Util.Md5(user.getPassword()));
 			userService.register(user);
 			mv.addObject("msg", "注册成功!");
 		}else {
@@ -38,6 +41,7 @@ public class UserController {
 	@RequestMapping("/login")
 	public String login(User user,HttpSession session){
 		
+		user.setPassword(MD5Util.Md5(user.getPassword()));
 		User u = userService.login(user);
 		//如果能查询出数据,说明成功登陆
 				if (u!=null) {

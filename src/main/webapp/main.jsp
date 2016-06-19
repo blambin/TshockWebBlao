@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib tagdir="/WEB-INF/tags" prefix="tsweb" %>
+<tsweb:base></tsweb:base>
 <!DOCTYPE html  >
 <html>
 <head>
@@ -49,6 +51,15 @@
 			}
 		});		
 	});
+	
+	$("#2levernav").hide();
+	//
+	$(function(){
+		if ($("#currentServerp").attr("currentServer") == true) {
+			$("#2levernav").show();
+		}
+		
+	});
 </script>
 
 <title>后台页面</title>
@@ -56,7 +67,7 @@
 <body>
 
 	<nav class="navbar navbar-default">
-		<div class="container-fluid">
+		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -74,45 +85,27 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">服务器<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li ><a href="#">服务器列表</a></li>
-							<li role="separator" class="divider"></li>
-							<li ><a href="#">添加服务器</a></li>
-						</ul>
-					</li>
+				     <li ><a href="home/content.action?contentid=1">添加服务器<span class="sr-only">添加服务器</span></a></li>
 				</ul>
 
+                <div id="2levernav" >
 				<ul class="nav navbar-nav">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">服务器命令<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">广播</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Separated link</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">One more separated link</a></li>
-						</ul></li>
+				    <li ><a href="home/content.action?contentid=3">服务器基本命令<span class="sr-only">服务器基本命令</span></a></li>
+					
 				</ul>
-				<ul class="nav navbar-nav">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Dropdown <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Separated link</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">One more separated link</a></li>
-						</ul></li>
-				</ul>
+				
+				<p class="navbar-text" id="currentServerp" currentServer="${ not empty sessionScope.currentServer}" >
+				    <c:choose >                     
+				         <c:when test="${ not empty sessionScope.currentServer}">
+				                                                当前选择服务器:<span style="color: green;">${sessionScope.currentServer.serverName}</span>
+				         </c:when>
+				         <c:otherwise>
+				                                                当前没有选择任何服务器。
+				         </c:otherwise>
+				    </c:choose>
+				    
+				</p>
+				</div>
 			</div>
 		</div>
 	</nav>
@@ -144,17 +137,7 @@
 
 
 	<!-- 	<div class="container"> -->
-	<!-- 		<div class="col-lg-6"> -->
-	<!-- 			<div class="input-group"> -->
 
-	<!-- 				<input type="text" id="broadcast" name="msg" class="form-control" -->
-	<!-- 					placeholder="输入广播信息..."> <span class="input-group-btn"> -->
-	<!-- 					<button id="broadcastsendbtn" class="btn btn-default" type="button">发送！</button> -->
-	<!-- 				</span> -->
-
-	<!-- 			</div> -->
-	<!-- 			<!-- /input-group -->
-	<!-- 		</div> -->
 	<!-- 		<!-- /.col-lg-6 -->
 	<%-- 		<div class="alert alert-success" role="alert" style="float: left;">${msg}</div> --%>
 	<!-- 	</div> -->

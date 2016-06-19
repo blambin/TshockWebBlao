@@ -14,6 +14,9 @@
            <c:when test="${ param.contentid == 2}">
               <jsp:include page="serverdetail.jsp"></jsp:include>
           </c:when>
+           <c:when test="${ param.contentid == 3}">
+              <jsp:include page="serverbasecommand.jsp"></jsp:include>
+          </c:when>
           <c:otherwise>
                                                 参数错误!
           </c:otherwise>

@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,14 +12,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
-import com.mysql.fabric.Response;
-
+import common.RestServer;
 import entity.Server;
 import entity.User;
 import service.IServerService;
@@ -49,8 +45,14 @@ public class ServerController {
 		server.setServerOwner(user);
 		serverService.saveServer(server);
 
-		// 设置当前服务器
+		// 设置当前服务器并设置token
 		session.setAttribute("currentServer", serverService.queryServerByServerId(server));
+
+		RestServer rs = new RestServer(session);
+		if (null == (rs.getToken())) {
+			rs.setServerToken();
+		}
+		session.setAttribute("rs", rs);
 
 		// 刷新服务器列表
 		session.setAttribute("servers", serverService.queryServerByUser(user));
@@ -98,10 +100,8 @@ public class ServerController {
 		// 判断是不是这个人的服务器，不能乱改233
 		User user = (User) session.getAttribute("user");
 
-	
-		if ( serverService.queryServerByServerId(server).getServerOwner().getId().equals(user.getId())) {
+		if (serverService.queryServerByServerId(server).getServerOwner().getId().equals(user.getId())) {
 
-			
 			serverService.deleteserver(server);
 
 			// 刷新服务器列表

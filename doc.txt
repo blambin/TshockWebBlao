@@ -1,0 +1,6 @@
+session里保存的数据:
+
+---rs---               RestServer类,包括token 等等  
+---currentServer---    当前选择的服务器
+---servers---          当前个人的服务器列表
+---user---             当前登陆用户
