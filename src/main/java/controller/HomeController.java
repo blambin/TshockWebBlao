@@ -78,9 +78,17 @@ public class HomeController {
 	
 	
 	@RequestMapping("/rawcmd")
-	public @ResponseBody Map<String, Object> rawcmd(HttpSession session,String cmd){
+	public @ResponseBody Map<String, Object> rawcmd(HttpSession session,String cmd,HttpServletRequest request){
 		RestServer rs = (RestServer) session.getAttribute("rs");
 		rs.setServerToken();
+
 		return JSONHelper.jsonToMap(rs.rawcmd(cmd));
+	}
+	
+	@RequestMapping("/broadcast")
+	public  @ResponseBody Map<String, Object> broadcast(HttpSession session,String msg,HttpServletRequest request){
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		return JSONHelper.jsonToMap(rs.broadcast(msg));
 	}
 }

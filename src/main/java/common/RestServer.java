@@ -97,7 +97,7 @@ public class RestServer {
 		
 		String exUrl = baseUrl + "/tokentest?token="+token ;
 		JSONObject jo = getJsonFromUrlString(exUrl);
-		if(jo.getString("status")=="200"){
+		if("200".equals(jo.getString("status"))){
 			return true;
 		}else {
 			return false;
@@ -145,10 +145,14 @@ public class RestServer {
 	 */
 	public JSONObject getJsonFromUrlString(String urlString){
 		try {
-			url = new URL(urlString);
+			
+			String encodeUrlString  = urlString.replace(" ", "%20");
+			url = new URL(encodeUrlString);
+			
 			
 			String contentBuffer = "";
-			Scanner sc = new Scanner(url.openStream());
+			
+			Scanner sc = new Scanner(url.openStream(),"utf-8");
 			while (sc.hasNextLine()) {
 				contentBuffer += sc.nextLine();
 			}
@@ -167,8 +171,9 @@ public class RestServer {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 		return null;
 	}
 }

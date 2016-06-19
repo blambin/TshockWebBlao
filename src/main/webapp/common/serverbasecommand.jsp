@@ -12,18 +12,15 @@
 		</div>
 
 		<div class="panel-body">
-			<div class="panel-body">
-			    <div id="chatboxmsg" >
-			        <pre class="bg-info">第一条信息</pre>
-					<pre class="bg-info">第一条信息</pre>
-					<pre class="bg-success blockquote-reverse">第一条信息</pre>
+			<div class="panel-body " >
+			    <div id="chatboxmsg" class="pre-scrollable">
+			        
 			    </div>
-				
 				<div class="input-group">
 				    <span class="input-group-addon" id="sizing-addon3">#</span>
-					<input type="text" class="form-control" placeholder="在这里输入命令..以/开始">
+					<input id="chatboxmsginputbox" type="text" class="form-control" placeholder="在这里输入命令..以/开始">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">发送!</button>
+						<button class="btn btn-default" type="button" id="chatboxmsgbutton" >发送!</button>
 					</span>
 				</div>
 			</div>
