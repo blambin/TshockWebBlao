@@ -45,8 +45,9 @@ public class ServerController {
 		server.setServerOwner(user);
 		serverService.saveServer(server);
 
+		// 刚添加完肯定会有一个服务器
 		// 设置当前服务器并设置token
-		session.setAttribute("currentServer", serverService.queryServerByServerId(server));
+		session.setAttribute("currentServer", serverService.queryServerByUser(user).get(0));
 
 		RestServer rs = new RestServer(session);
 		if (null == (rs.getToken())) {

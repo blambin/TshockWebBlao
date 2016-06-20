@@ -19,14 +19,21 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd">
         
         <!-- 配置数据源 -->
+        <!-- 	   		提供连接数据库必备的信息 -->
+<!--         <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"> -->
+
+<!-- 	   		<property name="driverClass" value="com.mysql.jdbc.Driver"/> -->
+<!-- 	   		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/TshockWebBlao"/> -->
+<!-- 	   		<property name="user" value="root"/> -->
+<!-- 	   		<property name="password" value="root"/> -->
+<!-- 	   </bean> -->
+	   <!--  -->
         <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-	   		<!-- 提供连接数据库必备的信息 -->
-	   		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
-	   		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/TshockWebBlao"/>
+            <property name="driverClass" value="org.mariadb.jdbc.Driver"></property>
+            <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/tshockwebblao"/>
 	   		<property name="user" value="root"/>
-	   		<property name="password" value="root"/>
-	   </bean>
-        
+	   		<property name="password" value="ff745600"/>
+        </bean>
         <!-- 配置会话工厂 -->
 		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 			<!-- 提供数据源 -->

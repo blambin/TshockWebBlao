@@ -24,16 +24,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    insert into server(servername,serverurl,serverport,serverrestapiport,serverpassword,serveradminusername,serveradminpassword,serverowner) values(#{serverName},#{serverUrl},#{serverPort},#{serverRestAPIPort},#{serverPassword},#{serverAdminUserName},#{serverAdminPassword},#{serverOwner.id})
 	</insert>
 	<select id="queryServerByUser" parameterType="entity.User" resultMap="Server" >
-	    select * from Server where ServerOwner = #{id}
+	    select * from server where serverowner = #{id}
 	</select>
 	<select id="queryServerByServerId" parameterType="entity.Server" resultMap="Server" >
-	    SELECT server.id ,server.serveradminpassword,server.serveradminusername,server.servername,server.serverpassword,server.serverport,server.serverrestapiport,server.serverurl, user.id AS userid,username,displayname,password FROM SERVER LEFT JOIN USER  ON server.serverowner = user.id WHERE server.id =#{id}
+	    SELECT server.id ,server.serveradminpassword,server.serveradminusername,server.servername,server.serverpassword,server.serverport,server.serverrestapiport,server.serverurl, user.id AS userid,username,displayname,password FROM server LEFT JOIN user  ON server.serverowner = user.id WHERE server.id =#{id}
 	</select>
 	<update id="updateserver" parameterType="entity.Server" >
-	    UPDATE SERVER SET servername = #{serverName}, serverurl =#{serverUrl},serverport = #{serverPort},serverrestapiport = #{serverRestAPIPort},serverpassword = #{serverPassword},serveradminusername = #{serverAdminUserName},serveradminpassword = #{serverAdminPassword},serverowner = #{serverOwner.id} where id = #{id}
+	    UPDATE server SET servername = #{serverName}, serverurl =#{serverUrl},serverport = #{serverPort},serverrestapiport = #{serverRestAPIPort},serverpassword = #{serverPassword},serveradminusername = #{serverAdminUserName},serveradminpassword = #{serverAdminPassword},serverowner = #{serverOwner.id} where id = #{id}
 	</update>
 	<delete id="deleteserver"  parameterType="entity.Server" >
-	    delete from Server where id=#{id}
+	    delete from server where id=#{id}
 	</delete>
 	
 	

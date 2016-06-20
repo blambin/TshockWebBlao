@@ -60,8 +60,8 @@
 		</div>
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-default">修改</button>
-				<button type="button" class="btn btn-default" id="deleteserver" value="${sessionScope.currentServer.id}" >删除这个服务器</button>
+				<button id="modifyserverbutton" type="submit" class="btn btn-default btn-primary" >修改</button>
+				<button id="deleteserverbutton" type="button" class="btn btn-default btn-primary" value="${sessionScope.currentServer.id}" >删除这个服务器</button>
 				
 			</div>
 		</div>

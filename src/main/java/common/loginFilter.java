@@ -44,6 +44,9 @@ public class loginFilter implements Filter {
 		if ("/login.jsp".equals(uri) || "/login.action".equals(uri)) {
 			chain.doFilter(hreq, hresp);
 			return;
+		}else if ("/register.action".equals(uri)){
+			chain.doFilter(hreq, hresp);
+			return;
 		}else if (hreq.getSession().getAttribute("user") != null) {
 			chain.doFilter(hreq, hresp);
 			return;

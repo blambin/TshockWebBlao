@@ -53,11 +53,16 @@
 	
 	//删除服务器按钮
 	$(function(){
-		$("#deleteserver").click(function(){
-			alert($(this).val());
+		$("#deleteserverbutton").click(function(){
+			var id = $(this).val();
 			if (confirm("你确定要删除这个服务器么?")) {
 				$.get("server/deleteserver.action",{id:$(this).val()},function(){
 					alert("删除服务器成功");
+					//隐藏删除了的服务器按钮
+					$("#"+id).hide();
+					//禁止点击"修改和删除"已经被删除了的服务器
+					$("#modifyserverbutton").attr("disabled","disabled");
+					$("#deleteserverbutton").attr("disabled","disabled");
 				});
 			}
 		});		
@@ -147,7 +152,7 @@
 						href="home/content.action?contentid=1">添加服务器</a></li>
 					<c:if test="${not empty sessionScope.servers}">
 						<c:forEach var="server" items="${sessionScope.servers}">
-							<li role="presentation"><a
+							<li role="presentation" id="${server.id}" ><a
 								href="server/queryServerByServerId.action?id=${server.id}">${server.serverName}</a></li>
 						</c:forEach>
 					</c:if>
