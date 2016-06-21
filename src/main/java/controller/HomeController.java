@@ -69,12 +69,44 @@ public class HomeController {
 		session.setAttribute("rs", rs);
 	}
 	
-	
+	/***
+	 * 服务器命令页面
+	 * @param session
+	 * @param request
+	 */
 	public void ServerBaseCommand(HttpSession session,HttpServletRequest request){
 		
 		RestServer rs = (RestServer) session.getAttribute("rs");
-		JSONObject jo = rs.setServerToken();
-		if (jo != null) {
+		//设置临牌
+		JSONObject getTokenstatus = rs.setServerToken();
+		//提取基本消息
+		JSONObject jo = rs.status();
+		
+		if (getTokenstatus != null) {
+			
+			//正常登陆/正常创建token
+			if (jo.getInt("status") == ErrorCode.ServerOK) {
+				request.setAttribute("tokenstatus",JSONHelper.jsonToMap(getTokenstatus));
+			}else if (jo.getInt("tokenstatus") == ErrorCode.ServerUnreach) {
+				//传入错误信息
+				request.setAttribute("tokenstatus",JSONHelper.jsonToMap(getTokenstatus));
+			}else if (jo.getInt("tokenstatus") == ErrorCode.ErrorAPI) {
+				//传入错误信息
+				request.setAttribute("tokenstatus",JSONHelper.jsonToMap(getTokenstatus));
+			}else if (jo.getInt("tokenstatus") == ErrorCode.TokenUnvalid) {
+				//传入错误信息
+				request.setAttribute("tokenstatus",JSONHelper.jsonToMap(getTokenstatus));
+			}else if (jo.getInt("tokenstatus") == ErrorCode.URLError) {
+				//传入错误信息
+				request.setAttribute("tokenstatus",JSONHelper.jsonToMap(getTokenstatus));
+			}else if (jo.getInt("tokenstatus") == ErrorCode.UnKnownError) {
+				//传入错误信息
+				request.setAttribute("tokenstatus",JSONHelper.jsonToMap(getTokenstatus));
+			}
+		}
+		
+		
+ 		if (jo != null) {
 			
 			//只有没错误的情况下才显示服务器信息
 			if (jo.getInt("status") == ErrorCode.ServerOK) {

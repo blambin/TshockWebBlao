@@ -116,9 +116,14 @@
 	
 	$(function(){
 		//如果有错误而且获取到这个元素，则输出错误
-		if ($("#serverstatus").html()!= 200 && $("#serverstatus").html() != undefined) {
+		if ($("#serverstatus").attr("errorcode") != 200 && $("#serverstatus").html() != undefined) {
 			alert("错误信息: " + $("#serverstatus").attr("errormsg"));
-		}
+		};
+		
+		//如果验证服务器地址,端口,帐号密码都成功的话
+		if ($("#serverstatus").attr("errorcode") == 200 && $("#serverstatus").html() != undefined) {
+			alert("登陆成功了喵~: " + $("#serverstatus").attr("errormsg"));
+		};
 	});
 </script>
 

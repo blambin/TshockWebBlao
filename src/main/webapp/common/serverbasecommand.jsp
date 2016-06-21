@@ -51,7 +51,7 @@
 		<table class="table">
 			<tr>
 				<th>状态:</th>
-				<td id="serverstatus" errormsg="${status.msg}" >${status.status}</td>
+				<td id="serverstatus" errorcode="${tokenstatus.status}" errormsg="${tokenstatus.msg}" >${status.status}</td>
 				<th>版本:</th>
 				<td>${status.serverversion}</td>
 			</tr>

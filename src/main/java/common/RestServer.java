@@ -184,25 +184,50 @@ public class RestServer {
 
 	public JSONObject broadcast(String msg) {
 		String exUrl = baseUrl + "/v2/server/broadcast?msg=" + msg + "&token=" + token;
+		
+		JSONObject jo;
+		JSONObject errorJson;
 		try {
-			return getJsonFromUrlString(exUrl);
+			jo = getJsonFromUrlString(exUrl);
+			return jo;
 		} catch (URLErrorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.URLError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
 		} catch (ServerUnreachException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ServerUnreach);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
 		} catch (TokenUnvalidException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			errorJson = new JSONObject();
+			
+			errorJson.put("status", ErrorCode.TokenUnvalid);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
 		} catch (ErrorAPIException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ErrorAPI);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
 		} catch (UnKnownErrorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
 		}
-		return null;
 	}
 
 	/***
@@ -212,25 +237,52 @@ public class RestServer {
 	 */
 	public JSONObject status() {
 		String exUrl = baseUrl + "/v2/server/status?token=" + token + "&players=true&rules=true";
+		
+		JSONObject jo;
+		JSONObject errorJson;
+		
 		try {
-			return getJsonFromUrlString(exUrl);
+			jo = getJsonFromUrlString(exUrl);
+			return jo;
+			
 		} catch (URLErrorException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.URLError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
 		} catch (ServerUnreachException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ServerUnreach);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
 		} catch (TokenUnvalidException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			errorJson = new JSONObject();
+			
+			errorJson.put("status", ErrorCode.TokenUnvalid);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
 		} catch (ErrorAPIException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ErrorAPI);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
 		} catch (UnKnownErrorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
 		}
-		return null;
 
 	}
 
