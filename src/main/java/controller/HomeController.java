@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import common.ContentType;
+import common.ErrorCode;
 import common.JSONHelper;
 import common.RestServer;
 import entity.Server;
@@ -72,8 +73,30 @@ public class HomeController {
 	public void ServerBaseCommand(HttpSession session,HttpServletRequest request){
 		
 		RestServer rs = (RestServer) session.getAttribute("rs");
-		rs.setServerToken();
-		request.setAttribute("status",JSONHelper.jsonToMap(rs.status()));
+		JSONObject jo = rs.setServerToken();
+		if (jo != null) {
+			
+			//只有没错误的情况下才显示服务器信息
+			if (jo.getInt("status") == ErrorCode.ServerOK) {
+				request.setAttribute("status",JSONHelper.jsonToMap(rs.status()));
+			}else if (jo.getInt("status") == ErrorCode.ServerUnreach) {
+				//传入错误信息
+				request.setAttribute("status",JSONHelper.jsonToMap(jo));
+			}else if (jo.getInt("status") == ErrorCode.ErrorAPI) {
+				//传入错误信息
+				request.setAttribute("status",JSONHelper.jsonToMap(jo));
+			}else if (jo.getInt("status") == ErrorCode.TokenUnvalid) {
+				//传入错误信息
+				request.setAttribute("status",JSONHelper.jsonToMap(jo));
+			}else if (jo.getInt("status") == ErrorCode.URLError) {
+				//传入错误信息
+				request.setAttribute("status",JSONHelper.jsonToMap(jo));
+			}else if (jo.getInt("status") == ErrorCode.UnKnownError) {
+				//传入错误信息
+				request.setAttribute("status",JSONHelper.jsonToMap(jo));
+			}
+		}	
+		
 	}
 	
 	

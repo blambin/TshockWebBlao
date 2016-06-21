@@ -18,10 +18,9 @@
               <jsp:include page="serverbasecommand.jsp"></jsp:include>
           </c:when>
           <c:otherwise>
-                                                参数错误!
+                                         请点击左边添加服务器
           </c:otherwise>
       </c:choose>
   </div>
-   包含的jsp 值是 ${param.contentid}
 </body>
 </html>

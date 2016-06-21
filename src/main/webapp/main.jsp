@@ -69,7 +69,7 @@
 	});
 	
 	
-	//
+	//没有设置当前服务器时隐藏右边菜单栏目
 	$(function(){
 		
 		if ($("#currentServerp").attr("currentServer") != "true") {
@@ -78,6 +78,7 @@
 		}
 	});
 	
+	//命令行按钮发送信息事件
 	$(function(){
 		$("#chatboxmsgbutton").click(function(){
 			var inputValue = $("#chatboxmsginputbox").val();
@@ -89,7 +90,36 @@
 		});
 	});
 	
+	//保存服务器之前先简单验证信息是否正确  ，，没有写好
+	$(function(){
+		$("#saveform").submit(function(){
+			//alert($("#saveform").html());
+			$.ajax({
+				url:"server/validserverinfo",
+				data:$("#saveform").serializeArray(),
+				success:function(data){
+					if (data.status == "200") {
+						return true;
+					}else if (data.status == "403") {
+						alert("你输入的数据有错误,请检查: " + data.error);
+						return false;
+					}else{
+						alert("你未知错误，请你去找管理员吧~ " + data.status);
+						return false;
+					}					
+				}
+			});
+		});
+	});
+	//服务器状态检测，并弹出框
 	
+	
+	$(function(){
+		//如果有错误而且获取到这个元素，则输出错误
+		if ($("#serverstatus").html()!= 200 && $("#serverstatus").html() != undefined) {
+			alert("错误信息: " + $("#serverstatus").attr("errormsg"));
+		}
+	});
 </script>
 
 <title>后台页面</title>
@@ -165,19 +195,6 @@
 				</jsp:include>
 			</div>
 		</div>
-
 	</div>
-
-
-
-
-
-
-	<!-- 	<div class="container"> -->
-
-	<!-- 		<!-- /.col-lg-6 -->
-	<%-- 		<div class="alert alert-success" role="alert" style="float: left;">${msg}</div> --%>
-	<!-- 	</div> -->
-
 </body>
 </html>

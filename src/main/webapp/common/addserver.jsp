@@ -6,7 +6,7 @@
 <!DOCTYPE html ">
 <html>
 <body>
-	<form class="form-horizontal" action="server/saveserver.action" method="post" >
+	<form id="saveform" class="form-horizontal" action="server/saveserver.action" method="post" >
 	    
 	    <div class="form-group">
 			<label class="col-sm-2 control-label">服务器地址</label>
