@@ -27,7 +27,14 @@ public class HomeController {
 	@Autowired
 	private IServerService serverService;
 	
-	
+	/***
+	 * 根据 contentid 控制如何跳转页面
+	 * @param session
+	 * @param contentid
+	 * @param ra
+	 * @param request
+	 * @return
+	 */
 	
 	@RequestMapping("/content")
 	public String selectBodyContent(HttpSession session,Integer contentid,RedirectAttributes ra,HttpServletRequest request){
@@ -131,6 +138,13 @@ public class HomeController {
 		
 	}
 	
+	/***
+	 * 调用命令功能，返回JSON
+	 * @param session
+	 * @param cmd
+	 * @param request
+	 * @return
+	 */
 	
 	@RequestMapping("/rawcmd")
 	public @ResponseBody Map<String, Object> rawcmd(HttpSession session,String cmd,HttpServletRequest request){
@@ -140,6 +154,13 @@ public class HomeController {
 		return JSONHelper.jsonToMap(rs.rawcmd(cmd));
 	}
 	
+	/***
+	 * 广播功能,返回 JSON
+	 * @param session
+	 * @param msg
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/broadcast")
 	public  @ResponseBody Map<String, Object> broadcast(HttpSession session,String msg,HttpServletRequest request){
 		RestServer rs = (RestServer) session.getAttribute("rs");

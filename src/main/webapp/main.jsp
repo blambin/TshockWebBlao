@@ -32,10 +32,11 @@
 				url:"home/broadcast.action",
 				data:"msg="+$('#broadcast').val(),
 				success:function(data) {
-					alert(data.status + "发送成功~");
+					alert(data.status + " 发送成功~");
+					$('#broadcast').val("");
 				},
 				error:function (XMLHttpRequest, textStatus) {
-					alert(textStatus+", 发送失败." +"我也不知道为什么出错了..");
+					alert(textStatus+" , 发送失败." +"我也不知道为什么出错了..");
 				}
 			    
 			});
@@ -112,8 +113,6 @@
 		});
 	});
 	//服务器状态检测，并弹出框
-	
-	
 	$(function(){
 		
 		var errorcode = $("#serverstatus").attr("errorcode");
@@ -128,12 +127,34 @@
 			alert("登陆成功了喵~: " + $("#serverstatus").attr("errormsg"));
 		};
 	});
+	
+	//键盘事件
+	$(window).keydown(function(event){
+		//命令行发送按钮的键盘事件,焦点在文本框里 并且 按了回车
+		if ($("#chatboxmsginputbox").is($(":focus")) && event.keyCode == 13) {
+			//alert("被抓到了");
+			$("#chatboxmsgbutton").click();
+		};
+		// 广播发送按钮的键盘事件,焦点在文本框里 并且 按了回车
+		if ($("#broadcast").is($(":focus")) && event.keyCode == 13) {
+			
+			$("#broadcastsendbtn").click();
+		};
+	});
+	
+	//命令行清屏功能
+	$(function() {
+		$("#chatboxmsgbuttonclear").click(function(){
+			//alert("aa");
+			$("#chatboxmsg").empty();
+		});
+	});
+	
 </script>
 
 <title>后台页面</title>
 </head>
 <body>
-
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->

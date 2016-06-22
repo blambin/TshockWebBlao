@@ -21,6 +21,7 @@
 					<input id="chatboxmsginputbox" type="text" class="form-control" placeholder="在这里输入命令..以/开始">
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button" id="chatboxmsgbutton" >发送!</button>
+						<button class="btn btn-default" type="button" id="chatboxmsgbuttonclear" >清屏</button>
 					</span>
 				</div>
 			</div>

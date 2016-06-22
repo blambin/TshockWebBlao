@@ -12,35 +12,35 @@
 			<label class="col-sm-2 control-label">服务器地址</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="serverUrl" name="serverUrl"
-					placeholder="服务器地址">
+					placeholder="服务器地址 可以是域名或ip 如:tr.xxx.com ">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">服务器名字</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="serverName" name="serverName"
-					placeholder="服务器名字">
+					placeholder="服务器名字  随便写一个，为了让你自己更好的识别而已">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">管理员用户名</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="serverAdminUserName" name="serverAdminUserName"
-					placeholder="管理员用户名">
+					placeholder="管理员用户名  -可以用来登陆游戏的管理员帐号 需要有 RestAPI 的权限">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">管理员密码</label>
 			<div class="col-sm-10">
 				<input type="password" class="form-control" id="serverAdminPassword" name="serverAdminPassword"
-					placeholder="管理员密码">
+					placeholder="管理员密码  上面帐号的密码">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">服务器密码</label>
 			<div class="col-sm-10">
 				<input type="password" class="form-control" id="serverPassword" name="serverPassword"
-					placeholder="服务器密码-没有密码可以留空">
+					placeholder="服务器密码-进游戏服务器需要用到的密码-没有密码可以留空">
 			</div>
 		</div>
 		<div class="form-group">

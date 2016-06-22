@@ -70,8 +70,11 @@ public class RestServer {
 
 	/***
 	 * 设置基础url
-	 * 
-	 * @return
+	 * @author blambin
+	 * @since 2016年6月22日
+	 * @category :
+	 * @throws 
+	 * void
 	 */
 	public void setBaseUrl() {
 		this.baseUrl = "http://" + server.getServerUrl() + ":" + server.getServerRestAPIPort();
@@ -102,7 +105,7 @@ public class RestServer {
 					token = (String) jo.get("token");
 					return jo;
 				} catch (URLErrorException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 					
 					errorJson = new JSONObject();
@@ -110,14 +113,14 @@ public class RestServer {
 					errorJson.put("msg", e.getMessage());
 					return errorJson;
 				} catch (ServerUnreachException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 					errorJson = new JSONObject();
 					errorJson.put("status", ErrorCode.ServerUnreach);
 					errorJson.put("msg", e.getMessage());
 					return errorJson;
 				} catch (TokenUnvalidException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 					errorJson = new JSONObject();
 					
@@ -125,14 +128,14 @@ public class RestServer {
 					errorJson.put("msg", e.getMessage());
 					return errorJson;
 				} catch (ErrorAPIException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 					errorJson = new JSONObject();
 					errorJson.put("status", ErrorCode.ErrorAPI);
 					errorJson.put("msg", e.getMessage());
 					return errorJson;
 				} catch (UnKnownErrorException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 					errorJson = new JSONObject();
 					errorJson.put("status", ErrorCode.UnKnownError);
@@ -160,19 +163,19 @@ public class RestServer {
 			}
 
 		} catch (URLErrorException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (ServerUnreachException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (TokenUnvalidException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (ErrorAPIException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (UnKnownErrorException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -195,7 +198,7 @@ public class RestServer {
 			jo = getJsonFromUrlString(exUrl);
 			return jo;
 		} catch (URLErrorException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			
 			errorJson = new JSONObject();
@@ -203,14 +206,14 @@ public class RestServer {
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (ServerUnreachException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.ServerUnreach);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (TokenUnvalidException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			
@@ -218,14 +221,14 @@ public class RestServer {
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (ErrorAPIException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.ErrorAPI);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (UnKnownErrorException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.UnKnownError);
@@ -258,14 +261,14 @@ public class RestServer {
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (ServerUnreachException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.ServerUnreach);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (TokenUnvalidException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			
@@ -273,14 +276,14 @@ public class RestServer {
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (ErrorAPIException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.ErrorAPI);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (UnKnownErrorException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.UnKnownError);
@@ -301,19 +304,19 @@ public class RestServer {
 		try {
 			return getJsonFromUrlString(exUrl);
 		} catch (URLErrorException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (ServerUnreachException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (TokenUnvalidException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (ErrorAPIException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (UnKnownErrorException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return null;
