@@ -79,7 +79,9 @@
 		}
 	});
 	
-	//命令行按钮发送信息事件
+	//***
+	//*命令行按钮发送信息事件
+	
 	$(function(){
 		$("#chatboxmsgbutton").click(function(){
 			var inputValue = $("#chatboxmsginputbox").val();
@@ -87,7 +89,11 @@
 			
 			$.get("home/rawcmd.action",{cmd:inputValue},function(data){
 				$("#chatboxmsg").append('<pre class="bg-info">'+data.response+'</pre>');
+				//滚到最底
+				$("#chatboxmsg").scrollTop(100000);
 			});
+			//滚到最底
+			$("#chatboxmsg").scrollTop(100000);
 		});
 	});
 	
