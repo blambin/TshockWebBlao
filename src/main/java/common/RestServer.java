@@ -85,6 +85,10 @@ public class RestServer {
 
 	/***
 	 * 设置令牌
+	 * 
+	 * 第一次设置成功会返回 200 
+	 * 如果返回 null ,则表示不更改原先的 token
+	 * 如果返回错误代码，则以msg为准
 	 */
 	public JSONObject setServerToken() {
 		// 判断是否为空或过期

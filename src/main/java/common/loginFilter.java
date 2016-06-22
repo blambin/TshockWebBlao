@@ -39,6 +39,13 @@ public class loginFilter implements Filter {
 		subffix.add("css");
 		subffix.add("jpg");
 		
+		//最先让资源文件通过
+		for (String string : subffix) {
+			if (uri.endsWith("."+string)) {
+				chain.doFilter(hreq, hresp);
+				return;
+			}
+		}
 		
 		//判断是不是登陆页面 、是不是登陆了
 		if ("/login.jsp".equals(uri) || "/login.action".equals(uri)) {
@@ -48,9 +55,6 @@ public class loginFilter implements Filter {
 			chain.doFilter(hreq, hresp);
 			return;
 		}else if (hreq.getSession().getAttribute("user") != null) {
-			chain.doFilter(hreq, hresp);
-			return;
-		}else if (subffix.contains(uri.endsWith("."))) {
 			chain.doFilter(hreq, hresp);
 			return;
 		}else {

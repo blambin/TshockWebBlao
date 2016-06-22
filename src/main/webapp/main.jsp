@@ -115,13 +115,16 @@
 	
 	
 	$(function(){
+		
+		var errorcode = $("#serverstatus").attr("errorcode");
+		
 		//如果有错误而且获取到这个元素，则输出错误
-		if ($("#serverstatus").attr("errorcode") != 200 && $("#serverstatus").html() != undefined) {
+		if (errorcode != 200 && errorcode != undefined && errorcode != "") {
 			alert("错误信息: " + $("#serverstatus").attr("errormsg"));
 		};
 		
 		//如果验证服务器地址,端口,帐号密码都成功的话
-		if ($("#serverstatus").attr("errorcode") == 200 && $("#serverstatus").html() != undefined) {
+		if (errorcode == 200 && errorcode != undefined && errorcode != "") {
 			alert("登陆成功了喵~: " + $("#serverstatus").attr("errormsg"));
 		};
 	});
@@ -156,8 +159,8 @@
 
 				<div id="2levernav" class="">
 					<ul class="nav navbar-nav">
-						<li><a href="home/content.action?contentid=3">服务器基本命令<span
-								class="sr-only">服务器基本命令</span></a></li>
+						<li><a href="home/content.action?contentid=3">服务器基本信息和命令行<span
+								class="sr-only">服务器基本信息和命令行</span></a></li>
 
 					</ul>
 

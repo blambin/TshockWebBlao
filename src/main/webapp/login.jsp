@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>TshockWebBlao 登陆/注册 </title>
+<title>TshockWebBlao 登陆/注册</title>
 <!-- 新 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet"
 	href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link href="css/signin.css" rel="stylesheet" type="text/css">
 <!-- 可选的Bootstrap主题文件（一般不用引入） -->
 <link rel="stylesheet"
 	href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
@@ -16,56 +17,10 @@
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
 <style type="text/css">
-/* .bodydiv { */
-/* 	height: 300px;; */
-/* 	background-color: beige; */
-/* 	margin: 80px 140px; */
-/* 	padding: 35px 50px; */
-/* } */
-
-/* .fld { */
-/* 	width: 240px; */
-/* 	height: 40px; */
-/* 	text-align: right; */
-/* 	line-height: 100%; */
-/* } */
-
-/* .maindiv { */
-/* 	margin-right: 80px; */
-/* 	margin-top: 20px; */
-/* 	width: 180px; */
-/* 	float: right; */
-/* } */
-
-/* .log { */
-/* 	width: 80px; */
-/* 	height: 40px; */
-/* 	float: right; */
-/* } */
-
-/* .reg { */
-/* 	width: 80px; */
-/* 	height: 40px; */
-/* 	float: left; */
-/* } */
-
-/* .hr { */
-/* 	height: 5px; */
-/* } */
-
-/* .serverlist { */
-/* 	margin-left: 50px; */
-/* 	margin-top: 30px; */
-/* 	position: absolute; */
-/* } */
-
-/* span { */
-/* 	float: left; */
-/* } */
 #togglediv {
-	height: 30px;
-	width: 210px;
 }
 
 .displaynone {
@@ -76,7 +31,7 @@
 	display: inline;
 }
 </style>
-<script type="text/javascript" src="js/jquery-1.12.1.js"></script>
+<script type="text/javascript" src="js/jquery_1_12_1.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$.get("status.action", function(status) {
@@ -105,9 +60,11 @@
 			if ($("#register").hasClass("displaynone")) {
 				$("#login").addClass("displaynone");
 				$("#register").removeClass("displaynone");
+				$("#togglediv span").html("切换到登陆界面");
 			} else {
 				$("#register").addClass("displaynone");
 				$("#login").removeClass("displaynone");
+				$("#togglediv span").html("切换到注册界面");
 			}
 		});
 
@@ -128,61 +85,63 @@
 	});
 </script>
 </head>
-<body class="container">
-		<center>服务器游戏管理员登陆</center>
+<body>
+
+	<div class="container">
+		<div class="center-block" ><span>服务器游戏管理员登陆</span></div>
 		<hr />
-		<div class="">
-			<div id="togglediv" class="btn btn-default ">
-				<span>注册/登陆</span>
+
+		<div class="form-signin">
+			<div id="togglediv"
+				class="btn btn-lg btn-primary btn-block center-block">
+				<span>切换到注册界面</span>
 			</div>
 		</div>
 		<div class="maindiv displaynone " id="login">
-
 			<div class="hr"></div>
-			<form action="login.action" method="post" class="form-inline">
+			<form action="login.action" method="post" class="form-signin">
+
+				<h2 class="form-signin-heading">请登陆</h2>
 				<div>
-					<div class="form-group">
-						<label class="sr-only">帐号:</label> <input class="form-control" type="text"
-							name="userName"  placeholder="请输入你的帐号">
-					</div><br />
-					<div class="form-group">
-						<label class="sr-only">密码:</label> <input class="form-control" type="password"
-							name="password"  placeholder="请输入你的密码">
-					</div><br />
-					<div class="fld " >
+
+					<label class="sr-only">帐号:</label> <input class="form-control"
+						type="text" name="userName" placeholder="请输入你的帐号"> <br />
+					<label class="sr-only">密码:</label> <input class="form-control"
+						type="password" name="password" placeholder="请输入你的密码"> <br />
+					<div class="fld ">
 						<span style="color: red;">${msg}</span>
 					</div>
 				</div>
-				<input type="submit" class="btn btn-default form-control"
+				<input type="submit"
+					class="btn btn-default form-control btn-lg btn-primary btn-block"
 					value="管理登陆">
 			</form>
 		</div>
 		<div class="displaynone" id="register">
-			<form action="register.action" method="post" class="form-inline">
+			<form action="register.action" method="post" class="form-signin">
+				<h2 class="form-signin-heading">请注册</h2>
 				<div>
-					<div class="form-group">
-						<label class="sr-only">昵称:</label> 
-						<input class="form-control" type="text"
-							name="displayName" placeholder="请输入你的昵称">
-					</div><br />
-					<div class="form-group">
-						<label class="sr-only">帐号:</label> <input class="form-control" type="text"
-							name="userName"  placeholder="请输入你的帐号">
-					</div><br />
+
+					<label class="sr-only">昵称:</label> <input class="form-control"
+						type="text" name="displayName" placeholder="请输入你的昵称"> <br />
+
+					<label class="sr-only">帐号:</label> <input class="form-control"
+						type="text" name="userName" placeholder="请输入你的帐号"> <br />
 					<div class="hr">
-					<div class="form-group">
-						<label class="sr-only">密码:</label>
-						 <input class="form-control" type="password"
-							name="password" id="regpwd1"  placeholder="请输入你的密码" >
-					</div><br />
-					<div class="form-group">
-						<label class="sr-only">重复密码:</label> <input class="form-control" type="password"
-							id="regpwd2"  placeholder="重复密码">
-					</div><br />
-				</div>
-				<input type="submit" class="btn btn-default " value="注册">
+
+						<label class="sr-only">密码:</label> <input class="form-control"
+							type="password" name="password" id="regpwd1"
+							placeholder="请输入你的密码"> <br /> <label class="sr-only">重复密码:</label>
+						<input class="form-control" type="password" id="regpwd2"
+							placeholder="重复密码"> <br />
+					</div>
+					<input type="submit"
+						class="btn btn-default btn-lg btn-primary btn-block" value="注册">
 				</div>
 			</form>
-			</div>
+		</div>
+	</div>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
