@@ -2,10 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="tsweb"%>
-<tsweb:base></tsweb:base>
-<!DOCTYPE html ">
-<html>
-<body>
+
 	<form id="saveform" class="form-horizontal" action="server/saveserver.action" method="post" >
 	    
 	    <div class="form-group">
@@ -63,5 +60,3 @@
 			</div>
 		</div>
 	</form>
-</body>
-</html>

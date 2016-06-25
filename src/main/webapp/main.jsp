@@ -23,11 +23,6 @@
 <script type="text/javascript">
 	$(function() {
 		$("#broadcastsendbtn").click(function() {
-// 			$.get("home/broadcast.action", {
-// 				msg:$('#broadcast').val()
-// 			}, function(data) {
-// 				alert(data);
-// 			});
 			$.ajax({
 				url:"home/broadcast.action",
 				data:"msg="+$('#broadcast').val(),
@@ -37,6 +32,7 @@
 				},
 				error:function (XMLHttpRequest, textStatus) {
 					alert(textStatus+" , 发送失败." +"我也不知道为什么出错了..");
+					$('#broadcast').val("");
 				}
 			    
 			});
@@ -94,6 +90,8 @@
 			});
 			//滚到最底
 			$("#chatboxmsg").scrollTop(100000);
+			//清空输入框
+			$("#chatboxmsginputbox").val("");
 		});
 	});
 	
@@ -188,6 +186,11 @@
 					<ul class="nav navbar-nav">
 						<li><a href="home/content.action?contentid=3">服务器基本信息和命令行<span
 								class="sr-only">服务器基本信息和命令行</span></a></li>
+
+					</ul>
+					<ul class="nav navbar-nav">
+						<li><a href="home/content.action?contentid=4">玩家和组<span
+								class="sr-only">玩家和组</span></a></li>
 
 					</ul>
 

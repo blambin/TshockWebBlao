@@ -2,10 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="tsweb"%>
-<tsweb:base></tsweb:base>
-<!DOCTYPE html ">
-<html>
-<body>
+
     <div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">命令行</h3>
@@ -109,7 +106,3 @@
 			</tr>
 		</table>
 	</div>
-	
-	
-</body>
-</html>

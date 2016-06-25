@@ -2,10 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="tsweb"%>
-<tsweb:base></tsweb:base>
-<!DOCTYPE html ">
-<html>
-<body>
+
 	<form class="form-horizontal" action="server/updateserver.action" method="post" >
 	    <input type="hidden" name="id" value="${sessionScope.currentServer.id}" >
 	    
@@ -66,5 +63,3 @@
 			</div>
 		</div>
 	</form>
-</body>
-</html>
