@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +52,10 @@ public class HomeController {
 		if (contentid == ContentType.ServerBaseCommand) {
 			ServerBaseCommand(session, request);
 		}
+		if (contentid == ContentType.UserAndGroupManager) {
+			UserAndGroupManager(session, request);
+		}
+		
 		
 		return "main";
 		
@@ -139,6 +145,21 @@ public class HomeController {
 	}
 	
 	/***
+	 * 用户和组管理详情页面
+	 * @author blambin
+	 * @since 2016年6月25日
+	 * @category TODO:
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * void
+	 */
+	public void UserAndGroupManager(HttpSession session,HttpServletRequest request){
+		request.setAttribute("user", showUserList(session, request, 1)); //装入第一页码的用户信息
+	}
+	
+	
+	/***
 	 * 调用命令功能，返回JSON
 	 * @param session
 	 * @param cmd
@@ -166,5 +187,53 @@ public class HomeController {
 		RestServer rs = (RestServer) session.getAttribute("rs");
 		rs.setServerToken();
 		return JSONHelper.jsonToMap(rs.broadcast(msg));
+	}
+	
+	@RequestMapping("/showuserlist")
+	public  @ResponseBody Map<String, Object> showUserList(HttpSession session,HttpServletRequest request ,int index){
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		JSONObject jo = rs.showUserList();
+		
+		int pageSize = 10; //每页显示条数
+		if (jo.getInt("status") == ErrorCode.ServerOK) {
+			JSONArray ja = jo.getJSONArray("users");
+			JSONArray newja = new JSONArray();
+			
+			int pageindex = (index - 1) * pageSize; //当前页面的起始条目id
+			
+			
+			//循环选择json数据
+			for (int i = pageindex,j = pageindex; i < (j + pageSize); i++) {
+				try {
+					newja.put(ja.get(i));
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					break; //如果报错是就跳出循环
+				}
+			}
+			//分页基本信息
+			int jsonLength = ja.length(); //json的长度
+			int pageTotal = ((jsonLength % pageSize) > 0)?(jsonLength / pageSize):((jsonLength / pageSize) + 1); //总页数
+			
+			JSONObject pageJsonObject = new JSONObject();
+			pageJsonObject.put("jsonlength", jsonLength);
+			pageJsonObject.put("pagetotal", pageTotal);
+			pageJsonObject.put("index", index);
+			
+			//构建分页后的jsonobject对象
+			JSONObject newjo = new JSONObject();
+			
+			newjo.put("status", 200);
+			newjo.put("users", newja);
+			newjo.put("pageinfo", pageJsonObject);
+			
+			return JSONHelper.jsonToMap(newjo);
+		}
+		
+		
+		return JSONHelper.jsonToMap(jo);
 	}
 }

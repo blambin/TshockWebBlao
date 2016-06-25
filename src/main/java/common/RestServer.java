@@ -321,6 +321,56 @@ public class RestServer {
 		}
 		return null;
 	}
+	
+	
+	public JSONObject showUserList(){
+		String exUrl = baseUrl + "/v2/users/list?token=" + token;
+		
+		JSONObject jo;
+		JSONObject errorJson;
+		
+		try {
+			jo = getJsonFromUrlString(exUrl);
+			return jo;
+		} catch (URLErrorException e) {
+			
+			e.printStackTrace();
+			
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.URLError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ServerUnreachException e) {
+			
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ServerUnreach);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (TokenUnvalidException e) {
+			
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			
+			errorJson.put("status", ErrorCode.TokenUnvalid);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ErrorAPIException e) {
+			
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ErrorAPI);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (UnKnownErrorException e) {
+			
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}
+	}
 
 	public String getToken() {
 		return token;

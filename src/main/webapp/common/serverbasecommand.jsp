@@ -3,12 +3,15 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="tsweb"%>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" id="commandpanel">
 		<div class="panel-heading">
-			<h3 class="panel-title">命令行</h3>
+			<h3 class="panel-title">
+			<a role="button" data-toggle="collapse" data-parent="commandpanel" aria-expanded="true" 
+				data-target="#commandbody">命令行</a>
+			</h3>
 		</div>
 
-		<div class="panel-body">
+		<div class="panel-body collapse in" id="commandbody" >
 			<div class="panel-body " >
 			    <div id="chatboxmsg" class="pre-scrollable">
 			        
@@ -77,9 +80,12 @@
 			<tr>
 				<th>在线玩家列表:</th>
 				<c:forEach var="player" items="${status.players}">
-					<td><span style="color: green;">${player.nickname}(组:${player.group }),</span>
+				<tr>
+					<td><span style="color: green;">${player.nickname}</span>
 					</td>
-				</c:forEach>
+					<td style="color: blue;">(组:${player.group })</td>
+				</tr>
+			</c:forEach>
 			</tr>
 		</table>
 
