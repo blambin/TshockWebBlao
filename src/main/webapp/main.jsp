@@ -11,6 +11,7 @@
 	href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/maincustom.css">
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
@@ -181,7 +182,7 @@
 					
 				}else {
 					//避免页码越界
-					if (pagenumber > maxPage) {
+					if (pagenumber >= maxPage) {
 						$(this).addClass("disabled");
 					}else {
 						$(this).click(function() {
@@ -241,6 +242,15 @@
 		
 		
 	});
+	
+	//在线用户标签页点击功能 
+	$(function() {
+		var Tab = $("#onlineuserdiv ul");
+		Tab.find('li a').click(function (e) {
+			  e.preventDefault()
+			  $(this).tab('show')
+			})
+	})
 	
 	
 </script>

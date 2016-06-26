@@ -1,7 +1,84 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib tagdir="/WEB-INF/tags" prefix="tsweb"%>
+<div class="panel panel-default panel-warning" id="activeuserpanel">
+	<div class="panel-heading">
+		<div class="panel-title">
+			<a role="button" data-toggle="collapse" data-parent="activeuserpanel"
+				aria-expanded="true" data-target="#onlineuserdiv">在线玩家查背包</a>
+		</div>
+	</div>
+	<div id="onlineuserdiv" class="collapse in">
+		<ul class="nav nav-tabs  nav-pills">
+		    <c:forEach var="player"  items="${onlineUser.players}">
+		        <li role="presentation"><a href="#${fn:replace(player.position,',','and')}" aria-controls="${player.nickname}" role="tab" data-toggle="tab">${player.nickname}</a></li>
+		    </c:forEach>
+			
+		</ul>
+		<div class="tab-content">
+		    <c:forEach var="player"  items="${onlineUser.players}">
+		        <div role="tabpanel" class="tab-pane" id="${fn:replace(player.position,',','and')}">
+		            
+		            <!-- BUFF栏循环 -->
+		            <div class="inner-content">
+		                <span class="label label-success">Buffs</span>
+		            </div>
+		            <div class="buffs-div inner-content">
+		                <c:forTokens var="buff" items="${player.buffs}" delims=", " >
+		                    <img src="images/buff/${buff}.png" alt="" class="img-rounded">
+		                </c:forTokens>
+		            </div>
+		            
+		            <!-- 物品栏循环 -->
+		            <div class="inner-content">
+		                <span class="label label-success">背包栏</span>
+		            </div>
+		            <div class="items-div inner-content">
+		               
+		               <c:forTokens var="itemWithCount" items="${player.inventory}" delims="," >
+		                    
+		                    <div class="item-pic" >
+		                        <!-- 循环显示每个物品和他们自己胶囊 -->
+		                        <img src="images/item/${fn:substringBefore(fn:replace(fn:trim(itemWithCount),' ','_'),':')}.png" alt="" class="img-rounded ">
+		                        <c:if test="${(fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')) > 1}">
+		                            <span class="badge">${fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')}</span>		                        
+		                        </c:if>
+		                    </div>
+		                </c:forTokens>
+		            </div>
+		            <!-- 装备栏循环 -->
+		            <div class="inner-content">
+		                <span class="label label-success">装备栏</span>
+		            </div>
+		            <div class="items-div inner-content">
+		                <c:forTokens var="armorWithPrefix" items="${player.armor}" delims=", " >
+		                    <img src="images/item/${fn:substringBefore(armorWithPrefix,':')}.png" alt="" class="img-rounded ">
+		                </c:forTokens>
+		            </div>
+		            <!-- 染料栏循环 -->
+		            <div class="inner-content">
+		                <span class="label label-success">染料栏</span>
+		            </div>
+		            <div class="items-div inner-content">
+		               
+		               <c:forTokens var="dye" items="${player.dyes}" delims="," >
+		                    
+		                    <div class="item-pic" >
+		                        <!-- 循环显示每个物品 -->
+		                        <img src="images/item/${fn:replace(fn:trim(dye),' ','_')}.png" alt="" class="img-rounded ">
+		                    </div>
+		                </c:forTokens>
+		            </div>
+		        </div>
+		    </c:forEach>
+<!-- 			<div role="tabpanel" class="tab-pane active" id="home">home</div> -->
+		</div>
+	</div>
+</div>
+
+
 
 <div class="panel panel-default panel-warning" id="userpanel">
 	<div class="panel-heading">
@@ -12,8 +89,9 @@
 	</div>
 
 	<div id="usertable" class="collapse in">
-		<div class="panel-body"> 所有注册玩家 </div>
-		<table class="table table-hover table-condensed table-striped " id="userdatatable">
+		<div class="panel-body">所有注册玩家</div>
+		<table class="table table-hover table-condensed table-striped "
+			id="userdatatable">
 			<tr>
 				<th>id</th>
 				<th>用户名</th>
@@ -82,17 +160,17 @@
 		</table>
 		<div>
 			<nav style="text-align: center;" id="usermanagernav">
-				<ul class="pagination" pagetotal="${user.pageinfo.pagetotal}" >
-					<li><a aria-label="Previous" id="previous" pageindex="${user.pageinfo.index}" > <span
-							aria-hidden="true">&laquo;</span>
+				<ul class="pagination" pagetotal="${user.pageinfo.pagetotal}">
+					<li><a aria-label="Previous" id="previous"
+						pageindex="${user.pageinfo.index}"> <span aria-hidden="true">&laquo;</span>
 					</a></li>
-					<li><a >${user.pageinfo.index - 2}</a></li>
-					<li><a >${user.pageinfo.index -1}</a></li>
-					<li><a >${user.pageinfo.index}</a></li>
-					<li><a >${user.pageinfo.index + 1}</a></li>
-					<li><a >${user.pageinfo.index + 2}</a></li>
-					<li><a  aria-label="Next" id="next"  pageindex="${user.pageinfo.index}" > <span
-							aria-hidden="true">&raquo;</span>
+					<li><a>${user.pageinfo.index - 2}</a></li>
+					<li><a>${user.pageinfo.index -1}</a></li>
+					<li><a>${user.pageinfo.index}</a></li>
+					<li><a>${user.pageinfo.index + 1}</a></li>
+					<li><a>${user.pageinfo.index + 2}</a></li>
+					<li><a aria-label="Next" id="next"
+						pageindex="${user.pageinfo.index}"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</ul>
 			</nav>

@@ -1,7 +1,6 @@
 package common;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -45,6 +44,13 @@ public class FetchTerrariaPics {
 				String picname = element.select("img").attr("alt").replace(" ", "_"); // 图片名字；
 				String itemId = element.child(1).html(); // item id
 
+				//处理某些页面获取的id带不规范标签的问题
+				if (itemId.contains("<")) {
+					String[] newitemID = itemId.split("<");
+					itemId = newitemID[0];
+				}
+				
+				
 				File path = new File(fullPath);
 
 				if (!path.isDirectory()) {
@@ -60,6 +66,8 @@ public class FetchTerrariaPics {
 					URL url = new URL(picUrl);
 					URLConnection uc = url.openConnection();
 					InputStream fis = uc.getInputStream();
+					
+					System.out.println("正在下载 物品图片: "+picname +" id:" + itemId);
 
 					byte[] bs = new byte[1024];
 
@@ -85,7 +93,7 @@ public class FetchTerrariaPics {
 					e.printStackTrace();
 				}
 			}
-			System.out.println(list);
+			
 		}
 		pageNumber = 1;
 	}

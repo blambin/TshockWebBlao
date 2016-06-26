@@ -69,12 +69,7 @@ public class RestServer {
 	}
 
 	/***
-	 * 设置基础url
-	 * @author blambin
-	 * @since 2016年6月22日
-	 * @category :
-	 * @throws 
-	 * void
+	 * 设置基础url @author blambin @since 2016年6月22日 @category : @throws void
 	 */
 	public void setBaseUrl() {
 		this.baseUrl = "http://" + server.getServerUrl() + ":" + server.getServerRestAPIPort();
@@ -89,9 +84,7 @@ public class RestServer {
 	/***
 	 * 设置令牌
 	 * 
-	 * 第一次设置成功会返回 200 
-	 * 如果返回 null ,则表示不更改原先的 token
-	 * 如果返回错误代码，则以msg为准
+	 * 第一次设置成功会返回 200 如果返回 null ,则表示不更改原先的 token 如果返回错误代码，则以msg为准
 	 */
 	public JSONObject setServerToken() {
 		// 判断是否为空或过期
@@ -100,48 +93,48 @@ public class RestServer {
 					+ server.getServerAdminPassword();
 			JSONObject jo;
 			JSONObject errorJson;
-				try {
-					jo = getJsonFromUrlString(exUrl);
-					token = (String) jo.get("token");
-					return jo;
-				} catch (URLErrorException e) {
-					
-					e.printStackTrace();
-					
-					errorJson = new JSONObject();
-					errorJson.put("status", ErrorCode.URLError);
-					errorJson.put("msg", e.getMessage());
-					return errorJson;
-				} catch (ServerUnreachException e) {
-					
-					e.printStackTrace();
-					errorJson = new JSONObject();
-					errorJson.put("status", ErrorCode.ServerUnreach);
-					errorJson.put("msg", e.getMessage());
-					return errorJson;
-				} catch (TokenUnvalidException e) {
-					
-					e.printStackTrace();
-					errorJson = new JSONObject();
-					
-					errorJson.put("status", ErrorCode.TokenUnvalid);
-					errorJson.put("msg", e.getMessage());
-					return errorJson;
-				} catch (ErrorAPIException e) {
-					
-					e.printStackTrace();
-					errorJson = new JSONObject();
-					errorJson.put("status", ErrorCode.ErrorAPI);
-					errorJson.put("msg", e.getMessage());
-					return errorJson;
-				} catch (UnKnownErrorException e) {
-					
-					e.printStackTrace();
-					errorJson = new JSONObject();
-					errorJson.put("status", ErrorCode.UnKnownError);
-					errorJson.put("msg", e.getMessage());
-					return errorJson;
-				}
+			try {
+				jo = getJsonFromUrlString(exUrl);
+				token = (String) jo.get("token");
+				return jo;
+			} catch (URLErrorException e) {
+
+				e.printStackTrace();
+
+				errorJson = new JSONObject();
+				errorJson.put("status", ErrorCode.URLError);
+				errorJson.put("msg", e.getMessage());
+				return errorJson;
+			} catch (ServerUnreachException e) {
+
+				e.printStackTrace();
+				errorJson = new JSONObject();
+				errorJson.put("status", ErrorCode.ServerUnreach);
+				errorJson.put("msg", e.getMessage());
+				return errorJson;
+			} catch (TokenUnvalidException e) {
+
+				e.printStackTrace();
+				errorJson = new JSONObject();
+
+				errorJson.put("status", ErrorCode.TokenUnvalid);
+				errorJson.put("msg", e.getMessage());
+				return errorJson;
+			} catch (ErrorAPIException e) {
+
+				e.printStackTrace();
+				errorJson = new JSONObject();
+				errorJson.put("status", ErrorCode.ErrorAPI);
+				errorJson.put("msg", e.getMessage());
+				return errorJson;
+			} catch (UnKnownErrorException e) {
+
+				e.printStackTrace();
+				errorJson = new JSONObject();
+				errorJson.put("status", ErrorCode.UnKnownError);
+				errorJson.put("msg", e.getMessage());
+				return errorJson;
+			}
 		}
 		return null;
 	}
@@ -163,19 +156,19 @@ public class RestServer {
 			}
 
 		} catch (URLErrorException e) {
-			
+
 			e.printStackTrace();
 		} catch (ServerUnreachException e) {
-			
+
 			e.printStackTrace();
 		} catch (TokenUnvalidException e) {
-			
+
 			e.printStackTrace();
 		} catch (ErrorAPIException e) {
-			
+
 			e.printStackTrace();
 		} catch (UnKnownErrorException e) {
-			
+
 			e.printStackTrace();
 		}
 
@@ -191,44 +184,44 @@ public class RestServer {
 
 	public JSONObject broadcast(String msg) {
 		String exUrl = baseUrl + "/v2/server/broadcast?msg=" + msg + "&token=" + token;
-		
+
 		JSONObject jo;
 		JSONObject errorJson;
 		try {
 			jo = getJsonFromUrlString(exUrl);
 			return jo;
 		} catch (URLErrorException e) {
-			
+
 			e.printStackTrace();
-			
+
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.URLError);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (ServerUnreachException e) {
-			
+
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.ServerUnreach);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (TokenUnvalidException e) {
-			
+
 			e.printStackTrace();
 			errorJson = new JSONObject();
-			
+
 			errorJson.put("status", ErrorCode.TokenUnvalid);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (ErrorAPIException e) {
-			
+
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.ErrorAPI);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (UnKnownErrorException e) {
-			
+
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.UnKnownError);
@@ -244,46 +237,46 @@ public class RestServer {
 	 */
 	public JSONObject status() {
 		String exUrl = baseUrl + "/v2/server/status?token=" + token + "&players=true&rules=true";
-		
+
 		JSONObject jo;
 		JSONObject errorJson;
-		
+
 		try {
 			jo = getJsonFromUrlString(exUrl);
 			return jo;
-			
+
 		} catch (URLErrorException e) {
-			
+
 			e.printStackTrace();
-			
+
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.URLError);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (ServerUnreachException e) {
-			
+
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.ServerUnreach);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (TokenUnvalidException e) {
-			
+
 			e.printStackTrace();
 			errorJson = new JSONObject();
-			
+
 			errorJson.put("status", ErrorCode.TokenUnvalid);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (ErrorAPIException e) {
-			
+
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.ErrorAPI);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (UnKnownErrorException e) {
-			
+
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.UnKnownError);
@@ -304,66 +297,192 @@ public class RestServer {
 		try {
 			return getJsonFromUrlString(exUrl);
 		} catch (URLErrorException e) {
-			
+
 			e.printStackTrace();
 		} catch (ServerUnreachException e) {
-			
+
 			e.printStackTrace();
 		} catch (TokenUnvalidException e) {
-			
+
 			e.printStackTrace();
 		} catch (ErrorAPIException e) {
-			
+
 			e.printStackTrace();
 		} catch (UnKnownErrorException e) {
-			
+
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	
-	public JSONObject showUserList(){
+
+	/***
+	 * 显示所有注册 用户列表
+	 * 
+	 * @author blambin
+	 * @since 2016年6月25日
+	 * @category TODO:
+	 * @throws @return
+	 *             JSONObject
+	 */
+
+	public JSONObject showUserList() {
 		String exUrl = baseUrl + "/v2/users/list?token=" + token;
-		
+
 		JSONObject jo;
 		JSONObject errorJson;
-		
+
 		try {
 			jo = getJsonFromUrlString(exUrl);
 			return jo;
 		} catch (URLErrorException e) {
-			
+
 			e.printStackTrace();
-			
+
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.URLError);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (ServerUnreachException e) {
-			
+
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.ServerUnreach);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (TokenUnvalidException e) {
-			
+
 			e.printStackTrace();
 			errorJson = new JSONObject();
-			
+
 			errorJson.put("status", ErrorCode.TokenUnvalid);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (ErrorAPIException e) {
-			
+
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.ErrorAPI);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		} catch (UnKnownErrorException e) {
-			
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}
+	}
+
+	/***
+	 * 获取当前所有在线玩家列表 
+	 * @author blambin
+	 * @since 2016年6月25日
+	 * @category TODO:
+	 * @throws 
+	 * @return
+	 * JSONObject
+	 */
+	public JSONObject getActivePlayers() {
+		String exUrl = baseUrl + "/v2/players/list?token=" + token;
+
+		JSONObject jo;
+		JSONObject errorJson;
+
+		try {
+			jo = getJsonFromUrlString(exUrl);
+			return jo;
+		} catch (URLErrorException e) {
+
+			e.printStackTrace();
+
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.URLError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ServerUnreachException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ServerUnreach);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (TokenUnvalidException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+
+			errorJson.put("status", ErrorCode.TokenUnvalid);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ErrorAPIException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ErrorAPI);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (UnKnownErrorException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}
+	}
+	
+	/***
+	 * 获取具体一个用户的详细信息
+	 * @author blambin
+	 * @since 2016年6月25日
+	 * @category TODO:
+	 * @throws 
+	 * @param username 游戏名或注册名
+	 * @return
+	 * JSONObject
+	 */
+	public JSONObject getPlayerDetail(String username) {
+		String exUrl = baseUrl + "/v3/players/read?token=" + token + "&player=" + username;
+
+		JSONObject jo;
+		JSONObject errorJson;
+
+		try {
+			jo = getJsonFromUrlString(exUrl);
+			return jo;
+		} catch (URLErrorException e) {
+
+			e.printStackTrace();
+
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.URLError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ServerUnreachException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ServerUnreach);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (TokenUnvalidException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+
+			errorJson.put("status", ErrorCode.TokenUnvalid);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ErrorAPIException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ErrorAPI);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (UnKnownErrorException e) {
+
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.UnKnownError);

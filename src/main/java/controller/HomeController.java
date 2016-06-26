@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +14,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -155,7 +159,38 @@ public class HomeController {
 	 * void
 	 */
 	public void UserAndGroupManager(HttpSession session,HttpServletRequest request){
+		
+		
+		
+		//用户信息
 		request.setAttribute("user", showUserList(session, request, 1)); //装入第一页码的用户信息
+		
+		////所有在线用户信息
+		Map<String, Object> activeUsersMap = showActivePlayers(session, request);
+		JSONObject jo = new JSONObject(activeUsersMap);
+		
+		//所有在线用户的用户名列表
+		List<String> usernames = new ArrayList<String>();
+		JSONArray players =  jo.getJSONArray("players");
+		
+		for (int i = 0; i < players.length(); i++) {
+			usernames.add(((JSONObject)players.get(i)).getString("nickname"));
+		}
+		
+		//根据在线用户列表查询出每个用户的详细信息
+		
+		JSONObject newjo = new JSONObject();
+		JSONArray newplayers = new JSONArray();
+		
+		for (String username : usernames) {
+			newplayers.put(getPlayerDetail(session, request, username));
+		}
+
+		newjo.putOnce("status", 200);
+		newjo.put("players", newplayers);
+		request.setAttribute("onlineUser", JSONHelper.jsonToMap(newjo));
+		
+		
 	}
 	
 	
@@ -216,7 +251,7 @@ public class HomeController {
 			}
 			//分页基本信息
 			int jsonLength = ja.length(); //json的长度
-			int pageTotal = ((jsonLength % pageSize) > 0)?(jsonLength / pageSize):((jsonLength / pageSize) + 1); //总页数
+			int pageTotal = ((jsonLength % pageSize) > 0)?((jsonLength / pageSize) + 1):(jsonLength / pageSize); //总页数
 			
 			JSONObject pageJsonObject = new JSONObject();
 			pageJsonObject.put("jsonlength", jsonLength);
@@ -232,8 +267,41 @@ public class HomeController {
 			
 			return JSONHelper.jsonToMap(newjo);
 		}
+		return JSONHelper.jsonToMap(jo);
+	}
+	
+	
+	/***
+	 * 获取当前所有在线玩家列表 
+	 * @author blambin
+	 * @since 2016年6月25日
+	 * @category TODO:
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @return
+	 * Map<String,Object>
+	 */
+	@RequestMapping("/showactiveplayers")
+	public  @ResponseBody Map<String, Object> showActivePlayers(HttpSession session,HttpServletRequest request){
 		
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		JSONObject jo = rs.getActivePlayers();
 		
 		return JSONHelper.jsonToMap(jo);
+		
+	}
+	
+	
+	@RequestMapping("/getplayerdetail")
+	public  @ResponseBody Map<String, Object> getPlayerDetail(HttpSession session,HttpServletRequest request,@RequestParam("player") String username){
+		
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		JSONObject jo = rs.getPlayerDetail(username);
+		
+		return JSONHelper.jsonToMap(jo);
+		
 	}
 }

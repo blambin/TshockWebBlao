@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+
+.inner-content {
+	margin: 15px;
+}
+
+.item-pic {
+	min-height: 50px;
+	min-width: 50px;
+    background-color: lightblue;
+    display: inline;
+    overflow: hidden;
+    background-image: url("../images/item/white.png");
+    
+}
