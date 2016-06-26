@@ -3,6 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib tagdir="/WEB-INF/tags" prefix="tsweb"%>
+<script type="text/javascript" src="js/userandgroupmanager.js"></script>
 <div class="panel panel-default panel-warning" id="activeuserpanel">
 	<div class="panel-heading">
 		<div class="panel-title">
@@ -10,6 +11,10 @@
 				aria-expanded="true" data-target="#onlineuserdiv">在线玩家查背包</a>
 		</div>
 	</div>
+	<c:if test="${empty onlineUser.players }">
+		   <div class="panel-body">没有任何在线玩家....</div>
+	</c:if>
+	
 	<div id="onlineuserdiv" class="collapse in">
 		<ul class="nav nav-tabs  nav-pills">
 		    <c:forEach var="player"  items="${onlineUser.players}">
@@ -18,6 +23,7 @@
 			
 		</ul>
 		<div class="tab-content">
+		    
 		    <c:forEach var="player"  items="${onlineUser.players}">
 		        <div role="tabpanel" class="tab-pane" id="${fn:replace(player.position,',','and')}">
 		            

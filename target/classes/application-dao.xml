@@ -26,13 +26,7 @@
 	   		<property name="user" value="root"/>
 	   		<property name="password" value="root"/>
 	   </bean>
-	   <!--  -->
-<!--         <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"> -->
-<!--             <property name="driverClass" value="org.mariadb.jdbc.Driver"></property> -->
-<!--             <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/tshockwebblao"/> -->
-<!-- 	   		<property name="user" value="root"/> -->
-<!-- 	   		<property name="password" value="ff745600"/> -->
-<!--         </bean> -->
+
         <!-- 配置会话工厂 -->
 		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 			<!-- 提供数据源 -->

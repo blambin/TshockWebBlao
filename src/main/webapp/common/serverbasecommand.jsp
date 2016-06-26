@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="tsweb"%>
-
+<script type="text/javascript" src="js/serverbasecommand.js"></script>
     <div class="panel panel-default" id="commandpanel">
 		<div class="panel-heading">
 			<h3 class="panel-title">
