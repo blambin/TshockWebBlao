@@ -1,12 +1,5 @@
 package controller;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import entity.User;
-
 public class ApiServlet {
 
 //	private String sufixUrl;

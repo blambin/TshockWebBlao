@@ -38,6 +38,8 @@
 	
 	<!-- 面向切面切入事务管理 -->
 	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut="execution(* service.impl.*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* org.blambin.service.impl.*.*(..))"/>
 	</aop:config>
+	
+	
 </beans>

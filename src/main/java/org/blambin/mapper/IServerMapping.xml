@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.blambin.dao.IServerMapping" >
+    
+	<resultMap id="Server" type="org.blambin.entity.Server" >
+	    <id property="id" column="id" />
+	    <result property="serverAdminPassword" column="serveradminpassword" />
+	    <result property="serverAdminUserName" column="serveradminuserName" />
+	    <result property="serverName" column="servername" />
+	    <result property="serverUrl" column="serverUrl" />
+	    <result property="serverPassword" column="serverpassword" />
+	    <result property="serverPort" column="serverport" />
+	    <result property="serverRestAPIPort" column="serverrestapiport" />
+	    <association property="serverOwner" column="serverowner" javaType="org.blambin.entity.User">
+	        <id property="id" column="userid"/>
+	        <result property="displayName" column="displayname" />
+	        <result property="userName" column="username" />
+	        <result property="password" column="password" />
+	    </association>
+	</resultMap>
+	<insert id="saveServer"   parameterType="org.blambin.entity.Server" >
+	    insert into server(servername,serverurl,serverport,serverrestapiport,serverpassword,serveradminusername,serveradminpassword,serverowner) values(#{serverName},#{serverUrl},#{serverPort},#{serverRestAPIPort},#{serverPassword},#{serverAdminUserName},#{serverAdminPassword},#{serverOwner.id})
+	</insert>
+	<select id="queryServerByUser" parameterType="org.blambin.entity.User" resultMap="Server" >
+	    select * from server where serverowner = #{id}
+	</select>
+	<select id="queryServerByServerId" parameterType="org.blambin.entity.Server" resultMap="Server" >
+	    SELECT server.id ,server.serveradminpassword,server.serveradminusername,server.servername,server.serverpassword,server.serverport,server.serverrestapiport,server.serverurl, user.id AS userid,username,displayname,password FROM server LEFT JOIN user  ON server.serverowner = user.id WHERE server.id =#{id}
+	</select>
+	<update id="updateserver" parameterType="org.blambin.entity.Server" >
+	    UPDATE server SET servername = #{serverName}, serverurl =#{serverUrl},serverport = #{serverPort},serverrestapiport = #{serverRestAPIPort},serverpassword = #{serverPassword},serveradminusername = #{serverAdminUserName},serveradminpassword = #{serverAdminPassword},serverowner = #{serverOwner.id} where id = #{id}
+	</update>
+	<delete id="deleteserver"  parameterType="org.blambin.entity.Server" >
+	    delete from server where id=#{id}
+	</delete>
+	
+	
+</mapper>

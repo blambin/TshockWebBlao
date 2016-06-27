@@ -10,19 +10,41 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<bean id="systemProperties"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/configinfo.properties</value>
+			</list>
+		</property>
+		<property name="fileEncoding" value="utf-8"></property>
+	</bean>
+	<!-- 配置mapper扫描器 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
+<!-- 	提供mapper接口所在的包  -->
+		<property name="basePackage" value="org.blambin.dao" />		
+	</bean>
+	
+	
+	
 	<!-- 打开注解模式:默认加载了很多的处理器适配器 -->
-	<mvc:annotation-driven/>
+	<mvc:annotation-driven />
 	<!-- 通过提供注解扫描包，让mvc自动扫描通过Controller,service.impl 注解的所有的处理器 -->
-	<context:component-scan base-package="controller,service.impl" />
+	<context:component-scan base-package="org.blambin.common,org.blambin.controller,org.blambin.service.impl" />
 	<!-- 配置视图解析器 -->
+	
 	<!-- 视图解析器：逻辑视图和物理视图的匹配规则 -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	<!-- 配置多媒体解析器 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	    
-	</bean>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 
+	</bean>
+    <import resource="application-transaction.xml"/>
+    <import resource="application-service.xml"/>
+    <import resource="application-dao.xml"/>
 </beans>

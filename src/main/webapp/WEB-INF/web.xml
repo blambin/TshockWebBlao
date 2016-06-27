@@ -4,14 +4,10 @@
 	version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee">
 	<display-name>TshockWebBlao</display-name>
 	<!-- 指定spring容器文件的路径 -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:application-dao.xml,classpath:application-service.xml,classpath:application-transaction.xml
-		</param-value>
-	</context-param>
+
 	<filter>
 		<filter-name>loginfilter</filter-name>
-		<filter-class>common.loginFilter</filter-class>
+		<filter-class>org.blambin.common.loginFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>loginfilter</filter-name>
