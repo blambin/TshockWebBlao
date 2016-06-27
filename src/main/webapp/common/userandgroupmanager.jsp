@@ -3,6 +3,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib tagdir="/WEB-INF/tags" prefix="tsweb"%>
+<%@taglib prefix="imgTag" uri="/WEB-INF/img2base64.tld" %>
+<tsweb:base></tsweb:base>
 <script type="text/javascript" src="js/userandgroupmanager.js"></script>
 <div class="panel panel-default panel-warning" id="activeuserpanel">
 	<div class="panel-heading">
@@ -33,7 +35,7 @@
 		            </div>
 		            <div class="buffs-div inner-content">
 		                <c:forTokens var="buff" items="${player.buffs}" delims=", " >
-		                    <img src="images/buff/${buff}.png" alt="" class="img-rounded">
+		                    <img src="data:image/png;base64,<imgTag:imgTag imgAddress="images/buff/${buff}.png"></imgTag:imgTag>" alt="" class="img-rounded" />
 		                </c:forTokens>
 		            </div>
 		            
@@ -47,7 +49,7 @@
 		                    
 		                    <div class="item-pic" >
 		                        <!-- 循环显示每个物品和他们自己胶囊 -->
-		                        <img src="images/item/${fn:substringBefore(fn:replace(fn:trim(itemWithCount),' ','_'),':')}.png" alt="" class="img-rounded ">
+		                        <img src="data:image/png;base64,<imgTag:imgTag imgAddress="images/item/${fn:substringBefore(fn:replace(fn:trim(itemWithCount),' ','_'),':')}.png"></imgTag:imgTag>" alt="" class="img-rounded ">
 		                        <c:if test="${(fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')) > 1}">
 		                            <span class="badge">${fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')}</span>		                        
 		                        </c:if>
@@ -60,7 +62,9 @@
 		            </div>
 		            <div class="items-div inner-content">
 		                <c:forTokens var="armorWithPrefix" items="${player.armor}" delims=", " >
-		                    <img src="images/item/${fn:substringBefore(armorWithPrefix,':')}.png" alt="" class="img-rounded ">
+		                    <img src="data:image/png;base64,<imgTag:imgTag imgAddress="images/item/${fn:substringBefore(armorWithPrefix,':')}.png"></imgTag:imgTag>" alt="" class="img-rounded" />
+		                    
+		                    
 		                </c:forTokens>
 		            </div>
 		            <!-- 染料栏循环 -->
@@ -73,7 +77,8 @@
 		                    
 		                    <div class="item-pic" >
 		                        <!-- 循环显示每个物品 -->
-		                        <img src="images/item/${fn:replace(fn:trim(dye),' ','_')}.png" alt="" class="img-rounded ">
+		                        <img src="data:image/png;base64,<imgTag:imgTag imgAddress="images/item/${fn:replace(fn:trim(dye),' ','_')}.png"></imgTag:imgTag>" alt="" class="img-rounded" />
+		                        
 		                    </div>
 		                </c:forTokens>
 		            </div>

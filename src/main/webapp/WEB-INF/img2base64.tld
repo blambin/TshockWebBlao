@@ -1,0 +1,14 @@
+<taglib>
+  <tlib-version>1.0</tlib-version>
+  <jsp-version>3.1</jsp-version>
+  <short-name>imgToBase64 TLD</short-name>
+  <tag>
+    <name>imgTag</name>
+    <tag-class>org.blambin.common.imgTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+        <name>imgAddress</name>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+</taglib>
