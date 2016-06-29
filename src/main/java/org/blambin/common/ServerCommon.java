@@ -2,6 +2,7 @@ package org.blambin.common;
 
 import javax.servlet.http.HttpSession;
 
+import org.blambin.common.configbeans.ConfigInfo;
 import org.blambin.entity.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

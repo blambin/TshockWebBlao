@@ -15,17 +15,17 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
-        
-    
+
+
 	<!-- 配置数据源 -->
 	<!-- 提供连接数据库必备的信息 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" >
-		    <value>com.mysql.jdbc.Driver</value>
+		<property name="driverClass">
+			<value>com.mysql.jdbc.Driver</value>
 		</property>
-		
+
 		<property name="jdbcUrl">
-			<value>jdbc:mysql://localhost:3306/TshockWebBlao</value>
+			<value>jdbc:mysql://localhost:3306/TshockWebBlao?useUnicode=true&amp;characterEncoding=UTF-8</value>
 		</property>
 		<property name="user">
 			<value>root</value>
@@ -36,18 +36,23 @@
 	</bean>
 
 	<!-- 配置会话工厂 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 提供数据源 -->
 		<property name="dataSource" ref="dataSource" />
 		<!-- 提供mybatis核心配置文件的路径 -->
 		<property name="configLocation" value="classpath:mybatis.xml" />
 		<property name="mapperLocations">
-		    <list>
-		        <value>classpath:/org/blambin/mapper/*.xml</value>
-		    </list>
+			<list>
+				<value>classpath:/org/blambin/mapper/*.xml</value>
+			</list>
 		</property>
 	</bean>
-	
-	
+	<!-- 配置mapper扫描器 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 提供mapper接口所在的包 -->
+		<property name="basePackage" value="org.blambin.dao" />
+<!-- 		<property name="sqlSessionFactory" value="sqlSessionFactory"></property> -->
+	</bean>
+
 </beans>       
         

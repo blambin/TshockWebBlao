@@ -1,4 +1,4 @@
-package org.blambin.common;
+package org.blambin.common.configbeans;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,4 @@ public class ConfigInfo {
 	public String getRc4Pwd() {
 		return rc4Pwd;
 	}
-
-	
-	
 }

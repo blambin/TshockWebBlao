@@ -1,8 +1,10 @@
 package org.blambin.common;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Scanner;
 
 import javax.servlet.http.HttpSession;
@@ -294,11 +296,17 @@ public class RestServer {
 	 * 
 	 * @param cmd
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	public JSONObject rawcmd(String cmd) {
-		String exUrl = baseUrl + "/v2/server/rawcmd?token=" + token + "&cmd=" + cmd;
+		
 		try {
+			
+			String newcmd = URLEncoder.encode(cmd, "UTF-8");
+			String exUrl = baseUrl + "/v3/server/rawcmd?token=" + token + "&cmd=" + newcmd;
 			return getJsonFromUrlString(exUrl);
+			
+			
 		} catch (URLErrorException e) {
 
 			e.printStackTrace();
@@ -313,6 +321,9 @@ public class RestServer {
 			e.printStackTrace();
 		} catch (UnKnownErrorException e) {
 
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -517,15 +528,20 @@ public class RestServer {
 			String encodeUrlString = urlString.replace(" ", "%20");
 			url = new URL(encodeUrlString);
 
-			String contentBuffer = "";
+			
+			StringBuilder contentBuffer = new StringBuilder();
 
 			Scanner sc = new Scanner(url.openStream(), "utf-8");
 			while (sc.hasNextLine()) {
-				contentBuffer += sc.nextLine();
+				
+				contentBuffer.append(sc.nextLine());
+				
 			}
 			sc.close();
 
-			JSONObject ja = new JSONObject(contentBuffer);
+			
+			
+			JSONObject ja = new JSONObject(contentBuffer.toString());
 
 			if (ja.get("status").equals("200")) {
 				return ja;

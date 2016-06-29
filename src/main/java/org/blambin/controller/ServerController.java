@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.blambin.common.AESUtil;
-import org.blambin.common.ConfigInfo;
 import org.blambin.common.RestServer;
 import org.blambin.common.ServerCommon;
+import org.blambin.common.configbeans.ConfigInfo;
 import org.blambin.entity.Server;
 import org.blambin.entity.User;
 import org.blambin.service.IServerService;

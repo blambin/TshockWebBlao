@@ -50,7 +50,7 @@
 		                    <div class="item-pic" >
 		                        <!-- 循环显示每个物品和他们自己胶囊 -->
 		                        <img src="data:image/png;base64,<imgTag:imgTag imgAddress="images/item/${fn:substringBefore(fn:replace(fn:trim(itemWithCount),' ','_'),':')}.png"></imgTag:imgTag>" alt="" class="img-rounded ">
-		                        <c:if test="${(fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')) > 1}">
+		                        <c:if test="${(fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')) gt 1}">
 		                            <span class="badge">${fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')}</span>		                        
 		                        </c:if>
 		                    </div>

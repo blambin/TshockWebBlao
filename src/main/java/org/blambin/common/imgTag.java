@@ -1,7 +1,6 @@
 package org.blambin.common;
 
 import java.io.IOException;
-import java.io.StringWriter;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
@@ -18,8 +17,8 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 public class imgTag extends SimpleTagSupport{
 
 	private String imgAddress;
-	
-	
+	String realPath ;
+	String baseCode ;
 	/***
 	 * 设置图片地址
 	 * @author blambin
@@ -42,9 +41,11 @@ public class imgTag extends SimpleTagSupport{
 		JspWriter out = getJspContext().getOut();
 		
 		HttpSession session=((PageContext)this.getJspContext()).getSession();
-		String realPath = session.getServletContext().getRealPath("");
-		String baseCode = ImageBase64Util.convertImageToByte(realPath+imgAddress, "png");
+		realPath = session.getServletContext().getRealPath("");
+		baseCode = ImageBase64Util.convertImageToByte(realPath+imgAddress, "png");
 		out.print(baseCode);
+		out.flush();
+		
 		
 	}
 	

@@ -34,6 +34,7 @@ public class AESUtil {
                     byte[] byteContent = content.getBytes("utf-8");  
                     cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化  
                     byte[] result = cipher.doFinal(byteContent);  
+                    
                     return result; // 加密  
             } catch (NoSuchAlgorithmException e) {  
                     e.printStackTrace();  

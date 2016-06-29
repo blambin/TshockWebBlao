@@ -20,15 +20,15 @@
 	float: left;
 }
 </style>
-
 <script type="text/javascript">
-
-   
 </script>
+
+
 
 <title>后台页面</title>
 </head>
 <body>
+
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -103,5 +103,7 @@
 			</div>
 		</div>
 	</div>
+	
+
 </body>
 </html>
