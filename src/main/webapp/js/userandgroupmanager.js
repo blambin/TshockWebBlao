@@ -41,11 +41,11 @@
 				
 				var pagenumber = $(this).find("a").html();
 				var maxPage = parseInt($("#usermanagernav").children().attr("pagetotal"));
-				
+				var key = 
 				//找出所有符合条件的给添加点击事件, 不符合条件的隐藏起来
 				if (pagenumber > 0 && pagenumber < (maxPage+1)) {
 					$(this).bind("click",function(){
-						getUserData(pagenumber);
+						getUserData(pagenumber,key);
 					});
 				}else {
 					$(this).remove();
@@ -57,8 +57,8 @@
 		};
 		
 		//分页请求数据
-		function getUserData(pagenumber) {
-			$.get("home/showuserlist.action",{index:pagenumber},function(data){
+		function getUserData(pagenumber,key) {
+			$.get("home/showuserlist.action",{index:pagenumber,key:key},function(data){
 				
 				// 替换数据
 				$("#userdatatable").empty();

@@ -168,7 +168,7 @@ public class HomeController {
 		
 		
 		//用户信息
-		request.setAttribute("user", showUserList(session, request, 1)); //装入第一页码的用户信息
+		request.setAttribute("user", showUserList(session, request, 1, "")); //装入第一页码的用户信息
 		
 		////所有在线用户信息
 		Map<String, Object> activeUsersMap = showActivePlayers(session, request);
@@ -233,13 +233,20 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/showuserlist")
-	public  @ResponseBody Map<String, Object> showUserList(HttpSession session,HttpServletRequest request ,int index){
+	public  @ResponseBody Map<String, Object> showUserList(HttpSession session,HttpServletRequest request ,int index,String key){
 		RestServer rs = (RestServer) session.getAttribute("rs");
 		rs.setServerToken();
 		JSONObject jo = rs.showUserList();
 		
+		//
+		
 		int pageSize = 10; //每页显示条数
 		if (jo.getInt("status") == ErrorCode.ServerOK) {
+			
+			JSONArray allja =  jo.getJSONArray("users");//取出所有
+			
+			
+			
 			JSONArray ja = jo.getJSONArray("users");
 			JSONArray newja = new JSONArray();
 			

@@ -50,7 +50,7 @@ public class imgTag extends SimpleTagSupport{
 		realPath = session.getServletContext().getRealPath("/");
 		
 		//记录图片地址 
-		//logger.info(realPath+imgAddress);
+		logger.info(realPath+imgAddress);
 		
 		baseCode = ImageBase64Util.convertImageToByte(realPath+imgAddress, "png");
 		
