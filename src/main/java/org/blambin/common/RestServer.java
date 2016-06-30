@@ -188,11 +188,14 @@ public class RestServer {
 	 */
 
 	public JSONObject broadcast(String msg) {
-		String exUrl = baseUrl + "/v2/server/broadcast?msg=" + msg + "&token=" + token;
-
+		
 		JSONObject jo;
 		JSONObject errorJson;
+		String newmsg;
+		
 		try {
+			newmsg = URLEncoder.encode(msg, "UTF-8");
+		    String exUrl = baseUrl + "/v2/server/broadcast?msg=" + newmsg + "&token=" + token;
 			jo = getJsonFromUrlString(exUrl);
 			return jo;
 		} catch (URLErrorException e) {
@@ -232,7 +235,15 @@ public class RestServer {
 			errorJson.put("status", ErrorCode.UnKnownError);
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
 		}
+		
 	}
 
 	/***
@@ -303,7 +314,7 @@ public class RestServer {
 		try {
 			
 			String newcmd = URLEncoder.encode(cmd, "UTF-8");
-			String exUrl = baseUrl + "/v3/server/rawcmd?token=" + token + "&cmd=" + newcmd;
+			String exUrl = baseUrl + "/v2/server/rawcmd?token=" + token + "&cmd=" + newcmd;
 			return getJsonFromUrlString(exUrl);
 			
 			
@@ -457,12 +468,13 @@ public class RestServer {
 	 * JSONObject
 	 */
 	public JSONObject getPlayerDetail(String username) {
-		String exUrl = baseUrl + "/v3/players/read?token=" + token + "&player=" + username;
-
+		String newusername;
 		JSONObject jo;
 		JSONObject errorJson;
 
 		try {
+			newusername = URLEncoder.encode(username, "UTF-8");
+			String exUrl = baseUrl + "/v3/players/read?token=" + token + "&player=" + newusername;
 			jo = getJsonFromUrlString(exUrl);
 			return jo;
 		} catch (URLErrorException e) {
@@ -497,6 +509,13 @@ public class RestServer {
 			return errorJson;
 		} catch (UnKnownErrorException e) {
 
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			errorJson = new JSONObject();
 			errorJson.put("status", ErrorCode.UnKnownError);

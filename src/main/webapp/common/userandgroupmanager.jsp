@@ -54,6 +54,7 @@
 		                            <span class="badge">${fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')}</span>		                        
 		                        </c:if>
 		                    </div>
+		                    
 		                </c:forTokens>
 		            </div>
 		            <!-- 装备栏循环 -->
