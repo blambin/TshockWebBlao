@@ -33,6 +33,9 @@
 		<property name="password">
 			<value>root</value>
 		</property>
+		<property name="maxIdleTime">
+		    <value>120</value>
+		</property>
 	</bean>
 
 	<!-- 配置会话工厂 -->

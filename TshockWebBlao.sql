@@ -71,10 +71,11 @@ CREATE TABLE `server` (
   `serveradminusername` varchar(50) DEFAULT NULL,
   `serveradminpassword` varchar(50) DEFAULT NULL,
   `serverowner` int(30) DEFAULT NULL,
+  `ispublic` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `serverowner` (`serverowner`),
   CONSTRAINT `server_ibfk_1` FOREIGN KEY (`serverowner`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `user` */
 
@@ -87,7 +88,7 @@ CREATE TABLE `user` (
   `PASSWORD` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

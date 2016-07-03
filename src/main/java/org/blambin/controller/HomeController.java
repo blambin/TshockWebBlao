@@ -1,6 +1,9 @@
 package org.blambin.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -487,14 +490,104 @@ public class HomeController {
 	
 	
 	@RequestMapping("/chat")
-	public  @ResponseBody Map<String, Object> chat(HttpSession session,HttpServletRequest request){
+	public  @ResponseBody Map<String, Object> chat(HttpSession session,HttpServletRequest request) throws ParseException{
 		
 		RestServer rs = (RestServer) session.getAttribute("rs");
 		rs.setServerToken();
+		//获取完全日志
+		JSONObject jo = rs.getLog(1000);
+	
+		//待返回的json
+		JSONObject newjo = new JSONObject();
 		
-		JSONObject jo = rs.getLog(200);
+		String time;
+		String chatcontent;
 		
-		return null;
+		String[] timeCache;
+		String[] chatContentCache;
+		
+		
+		//有log表示有内容或者有api
+		if (jo.has("log")) {
+			JSONArray ja = jo.getJSONArray("log");
+			
+			//状态
+			newjo.put("status", "200");
+			//多条array记录
+			JSONArray mutiChat = new JSONArray();
+			
+			//单条记录
+			JSONObject oneChat;
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			for (Object log : ja) {
+				 String a = (String)log;
+				 
+				 //如果符合聊天内容的需求
+				 if (a.contains("Utils: INFO:")) {
+					 
+					 //取出时间
+					 timeCache = a.split(" - ");
+					 time = timeCache[0];
+					 
+					 //取出聊天内容(最后字符一个对象)
+					 chatContentCache = a.split("Utils: INFO:");
+					 
+					 chatcontent = chatContentCache[(chatContentCache.length - 1)].replace("服务器广播: ", "");
+					 
+					 //如果聊天检查点为空，则全部放到json里
+					 if (session.getAttribute("chatstatuspoint") == null) {
+						 
+						 
+						 oneChat = new JSONObject();
+						 oneChat.put("log", chatcontent);
+						 oneChat.put("time", time);
+						 
+						 mutiChat.put(oneChat);
+						 //System.out.println(a);
+						 
+					}else {
+						
+						String chatstatuspoint = (String) session.getAttribute("chatstatuspoint");
+						Date pointDate = sdf.parse(chatstatuspoint);
+						Date thisDate = sdf.parse(time);
+						//如果比这个时间点都大的，就都放进去
+						if (thisDate.after(pointDate)) {
+							oneChat = new JSONObject();
+							oneChat.put("log", chatcontent);
+							oneChat.put("time", time);
+							mutiChat.put(oneChat);
+						}
+					}
+				}
+			}
+			
+			newjo.put("mutiChat",mutiChat);
+			
+			Date date = null;
+			
+			
+			for (Object object : mutiChat) {
+				String StringTime = (String) ((JSONObject)object).get("time");
+				Date currentDate = sdf.parse(StringTime);
+				if (date == null) {
+					date = currentDate;
+				}else if (currentDate.after(date) ) {
+					date = currentDate;
+				}
+			}
+			
+			if (date != null) {
+				String dataString = sdf.format(date);
+				session.setAttribute("chatstatuspoint",dataString);	
+			}
+					
+			return JSONHelper.jsonToMap(newjo);
+		}
+		
+		//返回错误信息
+		return JSONHelper.jsonToMap(jo);
 		
 	}
 }

@@ -1,5 +1,8 @@
 package org.blambin.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.blambin.common.MD5Util;
@@ -38,7 +41,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/login")
-	public String login(User user,HttpSession session){
+	public String login(User user,HttpSession session,HttpServletRequest request,HttpServletResponse response){
 		
 		user.setPassword(MD5Util.Md5(user.getPassword()));
 		User u = userService.login(user);
@@ -46,6 +49,20 @@ public class UserController {
 				if (u!=null) {
 					session.setAttribute("user", u);
 					session.setMaxInactiveInterval(3600);
+					//
+					Cookie[] cookies = request.getCookies();
+					
+					if (cookies != null) {
+						for (Cookie cookieobject : cookies) {
+							if ("login".equals(cookieobject.getName())) {
+								cookieobject.setMaxAge(60*60*24*30);
+							} 
+						}
+					}
+					
+					
+					
+					
 					
 					//登陆成功并展示用户服务器
 					session.setAttribute("servers", serverService.queryServerByUser(u)); 

@@ -58,12 +58,24 @@
 								<img
 									src="data:image/png;base64,<imgTag:imgTag imgAddress="images/item/${fn:substringBefore(fn:replace(fn:trim(itemWithCount),' ','_'),':')}.png"></imgTag:imgTag>"
 									alt="" class="img-rounded ">
-								<c:if
-									test="${(fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')) gt 1}">
-									<span class="badge">${fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')}</span>
-								</c:if>
-							</div>
 
+								<c:choose>
+									<c:when
+										test="${fn:contains((fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')),':')}">
+										<c:if
+											test="${fn:substringAfter((fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')),':') gt 1}">
+											<span class="badge">${fn:substringAfter((fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')),':')}</span>
+										</c:if>
+									</c:when>
+									<c:otherwise>
+										<c:if
+											test="${fn:trim((fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':'))) gt 1}">
+											<span class="badge">${fn:substringAfter(fn:replace(fn:trim(itemWithCount),' ','_'),':')}</span>
+										</c:if>
+									</c:otherwise>
+								</c:choose>
+							</div>
+							
 						</c:forTokens>
 					</div>
 					<!-- 装备栏循环 -->
@@ -188,7 +200,8 @@
 					<td>${user.name}</td>
 					<td>${user.group}</td>
 					<td><button class="btn btn-default modifyuser"
-							userid="${user.name}" usergroup="${user.group}" data-toggle="modal" data-target="#modifyuserModal">修改</button></td>
+							userid="${user.name}" usergroup="${user.group}"
+							data-toggle="modal" data-target="#modifyuserModal">修改</button></td>
 					<td><button class="btn btn-default deleteuser"
 							data-toggle="modal" data-target=".deleteuser-confirm-modal"
 							userid="${user.name}">删除</button></td>
@@ -196,60 +209,60 @@
 			</c:forEach>
 
 		</table>
-		
+
 		<!-- 修改用户Modal -->
-				<div class="modal fade" id="modifyuserModal" tabindex="-1"
-					role="dialog" aria-labelledby="modifyuserModalLabel">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								<h4 class="modal-title" id="modifyserModalLabel">修改用户</h4>
-							</div>
-							<div class="modal-body">
-								<div>
-									<form id="modifyuserform" class="form-inline">
-										<div class="form-group">
-											<label for="modifyuserinputusername" class="  control-label">用户名</label>
-											<div class="">
-												<input type="text" readonly="readonly" name="user" class="form-control"
-													id="modifyuserinputusername" placeholder="用户名不能改">
-											</div>
-										</div>
-										<br/>
-										<div class="form-group">
-											<label for="modifyuserinputpassword" class=" control-label">密码</label>
-											<div class="">
-												<input type="text" name="password" class="form-control"
-													id="modifyuserinputpassword" placeholder="请输入密码,不修改则留空">
-											</div>
-										</div>
-										<br/>
-										<div class="form-group">
-											<label for="modifyuserinputgroup" class="  control-label">所在的组</label>
-											<div class="">
-												<input type="text" name="group" class="form-control"
-													id="modifyuserinputgroup" placeholder="请输入组名">
-											</div>
-										</div>
-										<br/>
-									</form>
+		<div class="modal fade" id="modifyuserModal" tabindex="-1"
+			role="dialog" aria-labelledby="modifyuserModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="modifyserModalLabel">修改用户</h4>
+					</div>
+					<div class="modal-body">
+						<div>
+							<form id="modifyuserform" class="form-inline">
+								<div class="form-group">
+									<label for="modifyuserinputusername" class="  control-label">用户名</label>
+									<div class="">
+										<input type="text" readonly="readonly" name="user"
+											class="form-control" id="modifyuserinputusername"
+											placeholder="用户名不能改">
+									</div>
 								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">关闭</button>
-								<button id="modifyuserformsubmitbutton" type="button"
-									class="btn btn-primary">修改</button>
-							</div>
+								<br />
+								<div class="form-group">
+									<label for="modifyuserinputpassword" class=" control-label">密码</label>
+									<div class="">
+										<input type="text" name="password" class="form-control"
+											id="modifyuserinputpassword" placeholder="请输入密码,不修改则留空">
+									</div>
+								</div>
+								<br />
+								<div class="form-group">
+									<label for="modifyuserinputgroup" class="  control-label">所在的组</label>
+									<div class="">
+										<input type="text" name="group" class="form-control"
+											id="modifyuserinputgroup" placeholder="请输入组名">
+									</div>
+								</div>
+								<br />
+							</form>
 						</div>
 					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button id="modifyuserformsubmitbutton" type="button"
+							class="btn btn-primary">修改</button>
+					</div>
 				</div>
-		
-		
+			</div>
+		</div>
+
+
 		<!-- 确认删除模组 -->
 		<div class="modal fade deleteuser-confirm-modal" tabindex="-1"
 			role="dialog" aria-labelledby="deleteuser-confirm-modal">
@@ -258,7 +271,8 @@
 					<div class="modal-body">你确定要删除用户吗，删除了不可以恢复.</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary deleteusermodalbutton">删除</button>
+						<button type="button"
+							class="btn btn-primary deleteusermodalbutton">删除</button>
 					</div>
 				</div>
 			</div>

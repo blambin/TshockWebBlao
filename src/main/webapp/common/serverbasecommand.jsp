@@ -53,20 +53,7 @@
 								href="https://github.com/Zaicon/ExtraRestAdmin">下载地址 </a>
 							</span>
 						</div>
-						<div class="input-group">
-							<span class="input-group-addon">#</span> <input
-								id="chatchatboxmsginputbox" type="text" class="form-control"
-								placeholder="聊天内容"> <span class="input-group-btn">
-								<button class="btn btn-default" type="button"
-									id="chatchatboxmsgbutton">发送!</button>
-								<button class="btn btn-default" type="button"
-									id="chatchatboxmsgbuttonclear">清屏</button>
-
-							</span> <span class="input-group-addon"> <label
-								for="chatcheckbox" class="control-label">是否开启聊天</label> <input
-								id="chatcheckbox" type="checkbox" aria-label="chatcheckbox">
-							</span>
-						</div>
+						
 					</div>
 				</div>
 				<!-- 				<div role="tabpanel" class="tab-pane" id="messages">...</div> -->
