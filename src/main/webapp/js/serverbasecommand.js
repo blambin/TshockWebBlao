@@ -7,11 +7,18 @@
 				url:"home/broadcast.action",
 				data:"msg="+$('#broadcast').val(),
 				success:function(data) {
-					alert(data.status + " 发送成功~");
+					//alert(data.status + " 发送成功~");
+					if (data.status == "200") {
+						toastr.success('发送成功了喵~');
+						toastr.success(data.response);
+					}else {
+						toastr.error('出错 了~');
+						toastr.error(data.msg);
+					}
 					$('#broadcast').val("");
 				},
 				error:function (XMLHttpRequest, textStatus) {
-					alert(textStatus+" , 发送失败." +"我也不知道为什么出错了..");
+					toastr.error(textStatus+" , 发送失败." +"我也不知道为什么出错了..");
 					$('#broadcast').val("");
 				}
 			    
@@ -27,11 +34,12 @@
 		$("#chatboxmsgbutton").click(function(){
 			var inputValue = $("#chatboxmsginputbox").val();
 			$("#chatboxmsg").append('<pre class="bg-success blockquote-reverse">'+inputValue+'</pre>');
-			
+			NProgress.start();
 			$.get("home/rawcmd.action",{cmd:inputValue},function(data){
 				$("#chatboxmsg").append('<pre class="bg-info">'+data.response+'</pre>');
 				//滚到最底
 				$("#chatboxmsg").scrollTop(100000);
+				NProgress.done();
 			});
 			//滚到最底
 			$("#chatboxmsg").scrollTop(100000);

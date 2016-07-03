@@ -15,9 +15,8 @@ import org.blambin.common.exception.TokenUnvalidException;
 import org.blambin.common.exception.URLErrorException;
 import org.blambin.common.exception.UnKnownErrorException;
 import org.blambin.entity.Server;
+import org.json.JSONException;
 import org.json.JSONObject;
-
-
 
 public class RestServer {
 
@@ -90,8 +89,7 @@ public class RestServer {
 	 * 第一次设置成功会返回 200 如果返回 null ,则表示不更改原先的 token 如果返回错误代码，则以msg为准
 	 */
 	public JSONObject setServerToken() {
-		
-		
+
 		// 判断是否为空或过期
 		if (token == null || !isTokenValid(token)) {
 			String exUrl = baseUrl + "/v2/token/create?username=" + server.getServerAdminUserName() + "&password="
@@ -188,14 +186,14 @@ public class RestServer {
 	 */
 
 	public JSONObject broadcast(String msg) {
-		
+
 		JSONObject jo;
 		JSONObject errorJson;
 		String newmsg;
-		
+
 		try {
 			newmsg = URLEncoder.encode(msg, "UTF-8");
-		    String exUrl = baseUrl + "/v2/server/broadcast?msg=" + newmsg + "&token=" + token;
+			String exUrl = baseUrl + "/v2/server/broadcast?msg=" + newmsg + "&token=" + token;
 			jo = getJsonFromUrlString(exUrl);
 			return jo;
 		} catch (URLErrorException e) {
@@ -243,7 +241,7 @@ public class RestServer {
 			errorJson.put("msg", e.getMessage());
 			return errorJson;
 		}
-		
+
 	}
 
 	/***
@@ -307,17 +305,16 @@ public class RestServer {
 	 * 
 	 * @param cmd
 	 * @return
-	 * @throws UnsupportedEncodingException 
+	 * @throws UnsupportedEncodingException
 	 */
 	public JSONObject rawcmd(String cmd) {
-		
+
 		try {
-			
+
 			String newcmd = URLEncoder.encode(cmd, "UTF-8");
 			String exUrl = baseUrl + "/v2/server/rawcmd?token=" + token + "&cmd=" + newcmd;
 			return getJsonFromUrlString(exUrl);
-			
-			
+
 		} catch (URLErrorException e) {
 
 			e.printStackTrace();
@@ -400,13 +397,13 @@ public class RestServer {
 	}
 
 	/***
-	 * 获取当前所有在线玩家列表 
+	 * 获取当前所有在线玩家列表
+	 * 
 	 * @author blambin
 	 * @since 2016年6月25日
 	 * @category TODO:
-	 * @throws 
-	 * @return
-	 * JSONObject
+	 * @throws @return
+	 *             JSONObject
 	 */
 	public JSONObject getActivePlayers() {
 		String exUrl = baseUrl + "/v2/players/list?token=" + token;
@@ -456,16 +453,16 @@ public class RestServer {
 			return errorJson;
 		}
 	}
-	
+
 	/***
 	 * 获取具体一个用户的详细信息
+	 * 
 	 * @author blambin
 	 * @since 2016年6月25日
 	 * @category TODO:
-	 * @throws 
-	 * @param username 游戏名或注册名
-	 * @return
-	 * JSONObject
+	 * @throws @param
+	 *             username 游戏名或注册名
+	 * @return JSONObject
 	 */
 	public JSONObject getPlayerDetail(String username) {
 		String newusername;
@@ -524,6 +521,381 @@ public class RestServer {
 		}
 	}
 
+	/***
+	 * 添加用户
+	 * 
+	 * @author blambin
+	 * @since 2016年7月2日
+	 * @category TODO:
+	 * @throws @param
+	 *             param
+	 * @return JSONObject
+	 */
+	public JSONObject createUser(JSONObject param) {
+
+		JSONObject jo;
+		JSONObject errorJson;
+
+		try {
+			
+			String user = URLEncoder.encode(param.getString("user"), "UTF-8");
+			String group = URLEncoder.encode(param.getString("group"), "UTF-8");
+			String password = URLEncoder.encode(param.getString("password"), "UTF-8");
+			
+			String exUrl = baseUrl + "/v2/users/create?token=" + token + "&user=" + user + "&group="
+					+ group + "&password=" + password;
+			jo = getJsonFromUrlString(exUrl);
+			return jo;
+		} catch (URLErrorException e) {
+
+			e.printStackTrace();
+
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.URLError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ServerUnreachException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ServerUnreach);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (TokenUnvalidException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+
+			errorJson.put("status", ErrorCode.TokenUnvalid);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ErrorAPIException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ErrorAPI);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (UnKnownErrorException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}
+	}
+
+	/***
+	 * 删除玩家
+	 * 
+	 * @author blambin
+	 * @since 2016年7月2日
+	 * @category TODO:
+	 * @throws @param
+	 *             param
+	 * @return JSONObject
+	 */
+	public JSONObject deleteUser(String user) {
+
+		JSONObject jo;
+		JSONObject errorJson;
+
+		try {
+
+			String newuser = URLEncoder.encode(user, "UTF-8");
+			
+			String exUrl = baseUrl + "/v2/users/destroy?token=" + token + "&user=" + newuser;
+			jo = getJsonFromUrlString(exUrl);
+			return jo;
+		} catch (URLErrorException e) {
+
+			e.printStackTrace();
+
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.URLError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ServerUnreachException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ServerUnreach);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (TokenUnvalidException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+
+			errorJson.put("status", ErrorCode.TokenUnvalid);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ErrorAPIException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ErrorAPI);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (UnKnownErrorException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}
+	}
+	
+	
+	
+	/***
+	 * 
+	 * @author blambin
+	 * @since 2016年7月2日
+	 * @category TODO:
+	 * @throws 
+	 * @param param
+	 * @return
+	 * JSONObject
+	 */
+	public JSONObject updateUser(JSONObject param) {
+
+		JSONObject jo;
+		JSONObject errorJson;
+
+		try {
+
+			String user = URLEncoder.encode(param.getString("user"), "UTF-8");
+			String group = URLEncoder.encode(param.getString("group"), "UTF-8");
+			String password = URLEncoder.encode(param.getString("password"), "UTF-8");
+			
+			
+			StringBuilder exUrl = new StringBuilder(baseUrl + "/v2/users/update?token=" + token+ "&user=" + user);
+			
+			if (param.getString("group") != null || param.getString("group") != "") {
+				exUrl.append("&group=" + group);
+			}
+			
+			if (param.getString("password") != null || param.getString("password") != "") {
+				exUrl.append("&password=" + password);
+			}
+			
+			
+			jo = getJsonFromUrlString(exUrl.toString());
+			return jo;
+		} catch (URLErrorException e) {
+
+			e.printStackTrace();
+
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.URLError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ServerUnreachException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ServerUnreach);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (TokenUnvalidException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+
+			errorJson.put("status", ErrorCode.TokenUnvalid);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ErrorAPIException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ErrorAPI);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (UnKnownErrorException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}
+	}
+
+	/***
+	 * 获取所有用户组信息
+	 * 
+	 * @author blambin
+	 * @since 2016年7月1日
+	 * @category TODO:
+	 * @throws @return
+	 *             JSONObject
+	 */
+	public JSONObject getTeamList() {
+
+		JSONObject jo;
+		JSONObject errorJson;
+
+		try {
+
+			String exUrl = baseUrl + "/v2/groups/list?token=" + token;
+			jo = getJsonFromUrlString(exUrl);
+			return jo;
+		} catch (URLErrorException e) {
+
+			e.printStackTrace();
+
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.URLError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ServerUnreachException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ServerUnreach);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (TokenUnvalidException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+
+			errorJson.put("status", ErrorCode.TokenUnvalid);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ErrorAPIException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ErrorAPI);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (UnKnownErrorException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}
+	}
+
+	/***
+	 *  获取日志,需要tshcok提供插件支持
+	 * @author blambin
+	 * @since 2016年7月3日
+	 * @category TODO:
+	 * @throws 
+	 * @param count
+	 * @return
+	 * JSONObject
+	 */
+	public JSONObject getLog(int count) {
+
+		JSONObject jo;
+		JSONObject errorJson;
+
+		try {
+
+			String exUrl = baseUrl + "/AdminREST/getLog?token=" + token + "&count=" + count;
+			jo = getJsonFromUrlString(exUrl);
+			return jo;
+		} catch (URLErrorException e) {
+
+			e.printStackTrace();
+
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.URLError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ServerUnreachException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ServerUnreach);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (TokenUnvalidException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+
+			errorJson.put("status", ErrorCode.TokenUnvalid);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ErrorAPIException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ErrorAPI);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (UnKnownErrorException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}
+	}
+	
+	
+	/***
+	 * 
+	 * @author blambin
+	 * @since 2016年7月1日
+	 * @category TODO:
+	 * @throws @return
+	 *             String
+	 */
+
 	public String getToken() {
 		return token;
 	}
@@ -547,19 +919,16 @@ public class RestServer {
 			String encodeUrlString = urlString.replace(" ", "%20");
 			url = new URL(encodeUrlString);
 
-			
 			StringBuilder contentBuffer = new StringBuilder();
 
 			Scanner sc = new Scanner(url.openStream(), "utf-8");
 			while (sc.hasNextLine()) {
-				
+
 				contentBuffer.append(sc.nextLine());
-				
+
 			}
 			sc.close();
 
-			
-			
 			JSONObject ja = new JSONObject(contentBuffer.toString());
 
 			if (ja.get("status").equals("200")) {

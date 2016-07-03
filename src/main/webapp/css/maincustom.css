@@ -7,9 +7,13 @@
 .item-pic {
 	min-height: 50px;
 	min-width: 50px;
-    background-color: lightblue;
-    display: inline;
-    overflow: hidden;
-    background-image: url("../images/item/white.png");
-    
+	background-color: lightblue;
+	display: inline;
+	overflow: hidden;
+	background-image: url("../images/item/white.png");
+}
+
+.chat-content {
+	position: absolute;
+	margin: 10px;
 }

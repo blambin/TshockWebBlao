@@ -198,7 +198,10 @@ public class HomeController {
 		newjo.put("players", newplayers);
 		request.setAttribute("onlineUser", JSONHelper.jsonToMap(newjo));
 		
+		//获取所有组
 		
+		Map<String, Object> teamListMap = getTeamList(session, request);
+		request.setAttribute("teamList", teamListMap);
 	}
 	
 	
@@ -245,11 +248,21 @@ public class HomeController {
 			
 			JSONArray allja =  jo.getJSONArray("users");//取出所有
 			
+			//过滤空串
+			String newkey = ((key == null)?"":key);
 			
+			//取出搜索匹配KEy的数据
+			JSONArray ja = new JSONArray();
+			for (Object object : allja) {
+				String name = (String) ((JSONObject)object).get("name");
+				if(name.contains(newkey)){
+					ja.put(object);
+				}
+			}
 			
-			JSONArray ja = jo.getJSONArray("users");
+			//分页开始
 			JSONArray newja = new JSONArray();
-			
+
 			int pageindex = (index - 1) * pageSize; //当前页面的起始条目id
 			
 			
@@ -309,6 +322,18 @@ public class HomeController {
 	}
 	
 	
+	/***
+	 * 获取用户详细信息
+	 * @author blambin
+	 * @since 2016年7月1日
+	 * @category TODO:
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @param username
+	 * @return
+	 * Map<String,Object>
+	 */
 	@RequestMapping("/getplayerdetail")
 	public  @ResponseBody Map<String, Object> getPlayerDetail(HttpSession session,HttpServletRequest request,@RequestParam("player") String username){
 		
@@ -317,6 +342,159 @@ public class HomeController {
 		JSONObject jo = rs.getPlayerDetail(username);
 		
 		return JSONHelper.jsonToMap(jo);
+		
+	}
+	
+
+	/***
+	 * 获取所有用户组信息
+	 * @author blambin
+	 * @since 2016年7月2日
+	 * @category TODO:
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @return
+	 * Map<String,Object>
+	 */
+	public  @ResponseBody Map<String, Object> getTeamList(HttpSession session,HttpServletRequest request){
+		
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		JSONObject jo = rs.getTeamList();
+		
+		return JSONHelper.jsonToMap(jo);
+		
+	}
+	
+	/***
+	 * 
+	 * @author blambin
+	 * @since 2016年7月2日
+	 * @category TODO:
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @param args
+	 * @return
+	 * Map<String,Object>
+	 */
+	@RequestMapping("/createuser")
+	public  @ResponseBody Map<String, Object> createUser(HttpSession session,HttpServletRequest request){
+		
+		String user = (null == request.getParameter("user")?"":request.getParameter("user"));
+		String group = (null == request.getParameter("group")?"":request.getParameter("group"));
+		String password = (null == request.getParameter("password")?"":request.getParameter("password"));
+		
+		
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		
+		JSONObject param = new JSONObject();
+		
+		param.put("user", user);
+		param.put("group", group);
+		param.put("password", password);
+		
+		JSONObject jo = rs.createUser(param);
+		
+		return JSONHelper.jsonToMap(jo);
+		
+	}
+	
+	/***
+	 * 删除用户
+	 * @author blambin
+	 * @since 2016年7月2日
+	 * @category TODO:
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @param user
+	 * @return
+	 * Map<String,Object>
+	 */
+	@RequestMapping("/deleteuser")
+	public  @ResponseBody Map<String, Object> deleteuser(HttpSession session,HttpServletRequest request,String user){
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		JSONObject jo = rs.deleteUser(user);
+		return JSONHelper.jsonToMap(jo);
+	}
+	
+	/***
+	 *  更新用户信息
+	 * @author blambin
+	 * @since 2016年7月2日
+	 * @category TODO:
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @return
+	 * Map<String,Object>
+	 */
+	@RequestMapping("/updateuser")
+	public  @ResponseBody Map<String, Object> updateuser(HttpSession session,HttpServletRequest request){
+		
+		String user = (null == request.getParameter("user")?"":request.getParameter("user"));
+		String group = (null == request.getParameter("group")?"":request.getParameter("group"));
+		String password = (null == request.getParameter("password")?"":request.getParameter("password"));
+		
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		
+		JSONObject param = new JSONObject();
+		
+		param.put("user", user);
+		param.put("group", group);
+		param.put("password", password);
+		
+		JSONObject jo = rs.updateUser(param);
+		if (jo.has("group-response")) {
+			jo.put("groupresponse", jo.get("group-response"));
+		}
+		if (jo.has("password-response")) {
+			jo.put("passwordresponse", jo.get("password-response"));
+		}
+		
+		
+		return JSONHelper.jsonToMap(jo);
+		
+	}
+	
+	/**
+	 * 获取日志
+	 * @author blambin
+	 * @since 2016年7月3日
+	 * @category TODO:
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @return
+	 * Map<String,Object>
+	 */
+	@RequestMapping("/getLog")
+	public  @ResponseBody Map<String, Object> getLog(HttpSession session,HttpServletRequest request,int count){
+		
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		
+		JSONObject jo = rs.getLog(count);
+		
+		return  JSONHelper.jsonToMap(jo);
+		
+	}
+	
+	
+	@RequestMapping("/chat")
+	public  @ResponseBody Map<String, Object> chat(HttpSession session,HttpServletRequest request){
+		
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		
+		JSONObject jo = rs.getLog(200);
+		
+		return null;
 		
 	}
 }

@@ -12,18 +12,22 @@
 <link rel="stylesheet"
 	href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/maincustom.css">
+<script src='js/nprogress.js'></script>
+<link rel='stylesheet' href='css/nprogress.css' />
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
+<script src='js/toastr.min.js'></script>
+<link rel='stylesheet' href='css/toastr.min.css' />
+
 <style type="text/css">
 .col-lg-6 {
 	float: left;
 }
 </style>
 <script type="text/javascript">
+NProgress.start();
 </script>
-
-
 
 <title>后台页面</title>
 </head>
@@ -63,7 +67,12 @@
 								class="sr-only">玩家和组</span></a></li>
 
 					</ul>
+					<ul class="nav navbar-nav">
+						<li><a href="home/content.action?contentid=5">浏览日志<span
+								class="sr-only">浏览日志</span></a></li>
 
+					</ul>
+					
 					<p class="navbar-text" id="currentServerp"
 						currentServer="${ not empty sessionScope.currentServer}">
 						<c:choose>
@@ -76,7 +85,13 @@
 				         </c:otherwise>
 						</c:choose>
 					</p>
+
 				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="home/content.action?contentid=6">关于<span
+							class="sr-only">关于</span></a></li>
+
+				</ul>
 			</div>
 		</div>
 	</nav>
@@ -89,7 +104,7 @@
 						href="home/content.action?contentid=1">添加服务器</a></li>
 					<c:if test="${not empty sessionScope.servers}">
 						<c:forEach var="server" items="${sessionScope.servers}">
-							<li role="presentation" id="${server.id}" ><a
+							<li role="presentation" id="${server.id}"><a
 								href="server/queryServerByServerId.action?id=${server.id}">${server.serverName}</a></li>
 						</c:forEach>
 					</c:if>
@@ -103,7 +118,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 </body>
 </html>

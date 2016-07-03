@@ -71,3 +71,8 @@
 			alert("登陆成功了喵~: " + $("#serverstatus").attr("errormsg"));
 		};
 	});
+	
+	//加载完毕
+	$(function() {
+		NProgress.done();
+	})

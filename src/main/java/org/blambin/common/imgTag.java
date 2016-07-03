@@ -52,15 +52,17 @@ public class imgTag extends SimpleTagSupport{
 		//记录图片地址 
 		logger.info(realPath+imgAddress);
 		
-		baseCode = ImageBase64Util.convertImageToByte(realPath+imgAddress, "png");
+		try {
+			baseCode = ImageBase64Util.convertImageToByte(realPath+imgAddress, "png");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//logger.info(baseCode);
 		
 		out.print(baseCode);
 		out.flush();
 		
-		
 	}
-	
-	
 }
