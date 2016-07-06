@@ -3,7 +3,11 @@
  
  tshock  terraria server web manager .
  
- have a demo here : http://tr.blambin.org:8080/TshockWebBlao/
+ have a demo here : 
+ 
+ http://tr.blambin.org:8080/TshockWebBlao
+ 
+ http://home.5dsy.info:233/TshockWebBlao
  
  tshock 泰拉游戏服务器的网页控制台 - tshockwebblao .
  
