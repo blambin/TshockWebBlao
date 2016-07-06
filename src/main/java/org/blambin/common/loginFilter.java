@@ -10,11 +10,17 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.blambin.entity.User;
+
+
 public class loginFilter implements Filter {
 
+
+	
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -54,9 +60,54 @@ public class loginFilter implements Filter {
 		}else if ("/register.action".equals(uri)){
 			chain.doFilter(hreq, hresp);
 			return;
-		}else if (hreq.getSession().getAttribute("user") != null) {
+		}else if ((hreq.getSession().getAttribute("user")) != null) {
 			chain.doFilter(hreq, hresp);
 			return;
+		}else if ("checkCookie.action".equals(uri)) { //如果是检查cookie的，放行
+			chain.doFilter(hreq, hresp);
+			return;
+		}else if (hreq.getCookies() != null) {
+			
+			
+			
+			//获取"user"这个cookie
+			String user = null;
+			//获取"usertoken"这个cookie
+			String webToken = null;
+			
+			
+			//判断Cookie
+			Cookie[] cookies = hreq.getCookies();
+			if (cookies != null) {
+				for (Cookie cookieobject : cookies) {
+					
+					//如果有user字段则赋值
+					if ("user".equals(cookieobject.getName())) {
+						
+						user = cookieobject.getValue();
+						//延时
+						//cookieobject.setMaxAge(60*60*24*30);
+						//hresp.addCookie(cookieobject);
+					}
+					
+					//如果有token字段则赋值
+					if ("token".equals(cookieobject.getName())) {
+						webToken = cookieobject.getValue();
+					}
+				}
+				
+				//再去数据库判断Cookie对不对
+				if (user != null && webToken != null) {
+					
+//					 userService = new UserService();
+//					 serverService = new ServerSevice();
+					hreq.setAttribute("user", user);
+					hreq.setAttribute("webtoken", webToken);
+					hreq.getRequestDispatcher("/checkCookie.action").forward(hreq, hresp);
+					//hresp.sendRedirect(contentpath+"/checkCookie.action");
+				}
+			}
+			
 		}else {
 			hresp.sendRedirect(contentpath+"/login.jsp");
 		}

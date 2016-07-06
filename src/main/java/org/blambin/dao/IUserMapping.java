@@ -9,4 +9,8 @@ public interface IUserMapping {
 	public void saveUser(User user);
 	
 	public int queryUserNameCount(User user);
+	
+	public User checkToken(User user);
+	
+	public void updateUser(User user);
 }

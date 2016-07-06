@@ -85,7 +85,7 @@
 		$.get("home/chat.action",function(data) {
 			if (data.status == "200") {
 				for ( var onechat in data.mutiChat) {
-					toastr.info(data.mutiChat[onechat].log + "  发言时间: "+data.mutiChat[onechat].time);
+					toastr.info(data.mutiChat[onechat].log + " "+data.mutiChat[onechat].time);
 				};
 			};
 			//toastr.success("");

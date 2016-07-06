@@ -109,7 +109,7 @@
 					<label class="sr-only">密码:</label> <input class="form-control"
 						type="password" name="password" placeholder="请输入你的密码"> <br />
 					<div class="fld ">
-						<span style="color: red;">${msg}</span>
+						<span style="color: red;">${msg}${loginmsg}</span>
 					</div>
 				</div>
 				<input type="submit"

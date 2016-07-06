@@ -31,4 +31,22 @@ public class UserService implements IUserService {
 		return userMapping.queryUserNameCount(user);
 	}
 
+	@Override
+	public void save(User user) {
+		userMapping.saveUser(user);
+	}
+
+	@Override
+	public User checkToken(User user) {
+		return userMapping.checkToken(user);
+		
+	}
+
+	@Override
+	public void updateUser(User user) {
+		userMapping.updateUser(user);
+	}
+	
+	
+
 }

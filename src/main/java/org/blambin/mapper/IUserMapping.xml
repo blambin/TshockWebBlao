@@ -7,13 +7,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		parameterType="org.blambin.entity.User">
 		select * from user where username=#{userName} and password=#{password}
 	</select>
+	<select id="checkToken" parameterType="org.blambin.entity.User"  resultType="org.blambin.entity.User">
+	    select * from user where usercookiestring=#{userCookieString} and usertoken=#{userToken}
+	</select>
 	
 	<select id="queryUserNameCount" resultType="int" parameterType="org.blambin.entity.User">
 	   select count(*) from user where username=#{userName}
 	</select>
 		
 	<insert id="saveUser"   parameterType="org.blambin.entity.User" >
-	    insert into user(displayname,username,password) values(#{displayName},#{userName},#{password})
+	    insert into user(displayname,username,password,usercookiestring,usertoken) values(#{displayName},#{userName},#{password},#{userCookieString},#{userToken})
 	</insert>
+	
+	<update id="updateUser" parameterType="org.blambin.entity.User" >
+	    update user set usercookiestring=#{userCookieString},usertoken=#{userToken} where id = #{id}
+	</update>
 	
 </mapper>

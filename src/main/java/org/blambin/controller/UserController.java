@@ -1,11 +1,17 @@
 package org.blambin.controller;
 
+import java.util.UUID;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.blambin.common.MD5Util;
+import org.blambin.common.configbeans.ConfigInfo;
 import org.blambin.entity.User;
 import org.blambin.service.IServerService;
 import org.blambin.service.IUserService;
@@ -23,6 +29,9 @@ public class UserController {
 	
 	@Autowired
 	private IServerService serverService;
+	
+	@Autowired
+	private ConfigInfo config;
 	
 	@RequestMapping("/register")
 	public ModelAndView register(User user,ModelAndView mv) {
@@ -45,21 +54,34 @@ public class UserController {
 		
 		user.setPassword(MD5Util.Md5(user.getPassword()));
 		User u = userService.login(user);
+		
+		
+		
+		
 		//如果能查询出数据,说明成功登陆
 				if (u!=null) {
 					session.setAttribute("user", u);
 					session.setMaxInactiveInterval(3600);
-					//
-					Cookie[] cookies = request.getCookies();
 					
-					if (cookies != null) {
-						for (Cookie cookieobject : cookies) {
-							if ("login".equals(cookieobject.getName())) {
-								cookieobject.setMaxAge(60*60*24*30);
-							} 
-						}
-					}
 					
+					//设置token
+					u.setUserCookieString(MD5Util.Md5(u.getUserName()+"userCookieString"));
+					u.setUserToken(MD5Util.Md5(UUID.randomUUID()+config.getWebTokenSalt()));
+					
+					userService.updateUser(u);
+					
+					//设置"user"这个cookie
+					Cookie usernameCookie = new Cookie("user",u.getUserCookieString());
+					usernameCookie.setPath("/");
+					usernameCookie.setMaxAge(60*60*24*30);
+					response.addCookie(usernameCookie);
+					
+					//设置"webtoken"这个cookie
+					
+					Cookie webTokenCookie = new Cookie("token", u.getUserToken());
+					webTokenCookie.setPath("/");
+					webTokenCookie.setMaxAge(60*60*24*30);
+					response.addCookie(webTokenCookie);
 					
 					
 					
@@ -69,7 +91,44 @@ public class UserController {
 					
 					return "main";
 				} else {
+					
+					request.setAttribute("loginmsg", "用户名或密码错误了喵~");
 					return "login";
 				}
+	}
+
+	
+	/***
+	 * 检查Cookie的值
+	 * @author blambin
+	 * @since 2016年7月7日
+	 * @category TODO:
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @param response
+	 * @return
+	 * String
+	 */
+	@RequestMapping("checkCookie")
+	public String checkCookie(HttpSession session,HttpServletRequest request,HttpServletResponse response){
+		
+		String user = (String) request.getAttribute("user");
+		String webToken = (String) request.getAttribute("webtoken");
+		
+		User u = new User();
+		u.setUserCookieString(user);
+		u.setUserToken(webToken);
+		
+		User returnUser = userService.checkToken(u);
+		if (returnUser != null) {
+			
+			request.getSession().setAttribute("user", returnUser);
+			//登陆成功并展示用户服务器
+			session.setAttribute("servers", serverService.queryServerByUser(returnUser)); 
+			return "main";
+		}
+		return "login";
+		
 	}
 }

@@ -205,9 +205,27 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
 		</dependency>
-
+		<dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.scienjus</groupId>
+            <artifactId>smartqq</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 	</dependencies>
-
+	<repositories>
+		<repository>
+			<id>scienjus-mvn-repo</id>
+			<url>https://raw.github.com/ScienJus/maven/snapshot/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
 	<properties>
 		<!-- spring版本号 -->
 		<spring.version>4.2.6.RELEASE</spring.version>

@@ -86,6 +86,8 @@ CREATE TABLE `user` (
   `displayname` varchar(50) DEFAULT NULL,
   `username` varchar(30) DEFAULT NULL,
   `PASSWORD` varchar(40) DEFAULT NULL,
+  `usertoken` varchar(50) DEFAULT NULL,
+  `usercookiestring` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
