@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.blambin.common.ColorUtil;
 import org.blambin.common.ContentType;
 import org.blambin.common.ErrorCode;
 import org.blambin.common.JSONHelper;
@@ -160,7 +161,6 @@ public class HomeController {
 	 * 用户和组管理详情页面
 	 * @author blambin
 	 * @since 2016年6月25日
-	 * @category TODO:
 	 * @throws 
 	 * @param session
 	 * @param request
@@ -275,7 +275,6 @@ public class HomeController {
 					newja.put(ja.get(i));
 					
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					break; //如果报错是就跳出循环
 				}
@@ -306,7 +305,6 @@ public class HomeController {
 	 * 获取当前所有在线玩家列表 
 	 * @author blambin
 	 * @since 2016年6月25日
-	 * @category TODO:
 	 * @throws 
 	 * @param session
 	 * @param request
@@ -329,7 +327,6 @@ public class HomeController {
 	 * 获取用户详细信息
 	 * @author blambin
 	 * @since 2016年7月1日
-	 * @category TODO:
 	 * @throws 
 	 * @param session
 	 * @param request
@@ -353,13 +350,13 @@ public class HomeController {
 	 * 获取所有用户组信息
 	 * @author blambin
 	 * @since 2016年7月2日
-	 * @category TODO:
 	 * @throws 
 	 * @param session
 	 * @param request
 	 * @return
 	 * Map<String,Object>
 	 */
+	@RequestMapping("/getTeamList")
 	public  @ResponseBody Map<String, Object> getTeamList(HttpSession session,HttpServletRequest request){
 		
 		RestServer rs = (RestServer) session.getAttribute("rs");
@@ -374,7 +371,6 @@ public class HomeController {
 	 * 
 	 * @author blambin
 	 * @since 2016年7月2日
-	 * @category TODO:
 	 * @throws 
 	 * @param session
 	 * @param request
@@ -409,7 +405,6 @@ public class HomeController {
 	 * 删除用户
 	 * @author blambin
 	 * @since 2016年7月2日
-	 * @category TODO:
 	 * @throws 
 	 * @param session
 	 * @param request
@@ -429,7 +424,6 @@ public class HomeController {
 	 *  更新用户信息
 	 * @author blambin
 	 * @since 2016年7月2日
-	 * @category TODO:
 	 * @throws 
 	 * @param session
 	 * @param request
@@ -469,7 +463,6 @@ public class HomeController {
 	 * 获取日志
 	 * @author blambin
 	 * @since 2016年7月3日
-	 * @category TODO:
 	 * @throws 
 	 * @param session
 	 * @param request
@@ -488,7 +481,17 @@ public class HomeController {
 		
 	}
 	
-	
+	/***
+	 * 聊天功能 
+	 * @author blambin
+	 * @since 2016年7月8日
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @return
+	 * @throws ParseException
+	 * Map<String,Object>
+	 */
 	@RequestMapping("/chat")
 	public  @ResponseBody Map<String, Object> chat(HttpSession session,HttpServletRequest request) throws ParseException{
 		
@@ -590,4 +593,130 @@ public class HomeController {
 		return JSONHelper.jsonToMap(jo);
 		
 	}
+	
+	/***
+	 * 获取单个用户组功能 
+	 * @author blambin
+	 * @since 2016年7月8日
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @param groupName
+	 * @return
+	 * Map<String,Object>
+	 */
+	
+	@RequestMapping("getGroup")
+	public @ResponseBody Map<String, Object> getGroup(HttpSession session,HttpServletRequest request,@RequestParam("group") String groupName){
+		
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		JSONObject jo = rs.getGroup(groupName);
+		
+		//把颜色转成Hex表示法
+		if (jo.has("chatcolor")) {
+			String color = jo.getString("chatcolor");
+			String[] Intcolor = color.split(",");
+			
+			String HexColor = ColorUtil.NumberToHex(Integer.parseInt(Intcolor[0]), Integer.parseInt(Intcolor[1]), Integer.parseInt(Intcolor[2]));
+			jo.put("chatcolor", HexColor);
+			
+		}
+		
+		return JSONHelper.jsonToMap(jo);
+		
+	}
+	
+	/***
+	 * 添加组
+	 * @author blambin
+	 * @since 2016年7月11日
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @return
+	 * Map<String,Object>
+	 */
+	@RequestMapping("createGroup")
+	public @ResponseBody Map<String, Object> createGroup(HttpSession session,HttpServletRequest request){
+		
+		String group = (null == request.getParameter("group")?"":request.getParameter("group"));
+		String parent = (null == request.getParameter("parent")?"":request.getParameter("parent"));
+		String permissions = (null == request.getParameter("permissions")?"":request.getParameter("permissions"));
+		String chatcolor = (null == request.getParameter("chatcolor")?"":request.getParameter("chatcolor"));
+		
+		//转charcolor的表现格式
+		String chatcolorNumber = ColorUtil.HexToNumber(chatcolor.replace("%23", ""));
+		
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		
+		JSONObject param = new JSONObject();
+		param.put("group", group);
+		param.put("parent", parent);
+		param.put("permissions", permissions);
+		param.put("chatcolor", chatcolorNumber);
+		
+		JSONObject jo = rs.createGroup(param);
+		return  JSONHelper.jsonToMap(jo);
+		
+	}
+	
+	/***
+	 * 更新用户组
+	 * @author blambin
+	 * @since 2016年7月11日
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @return
+	 * Map<String,Object>
+	 */
+	@RequestMapping("updateGroup")
+	public @ResponseBody Map<String, Object> updateGroup(HttpSession session,HttpServletRequest request){
+		
+		String group = (null == request.getParameter("group")?"":request.getParameter("group"));
+		String parent = (null == request.getParameter("parent")?"":request.getParameter("parent"));
+		String permissions = (null == request.getParameter("permissions")?"":request.getParameter("permissions"));
+		String chatcolor = (null == request.getParameter("chatcolor")?"":request.getParameter("chatcolor"));
+		
+		//转charcolor的表现格式
+		String chatcolorNumber = ColorUtil.HexToNumber(chatcolor.replace("%23", ""));
+		
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		
+		JSONObject param = new JSONObject();
+		param.put("group", group);
+		param.put("parent", parent);
+		param.put("permissions", permissions);
+		param.put("chatcolor", chatcolorNumber);
+		
+		JSONObject jo = rs.updateGroup(param);
+		return  JSONHelper.jsonToMap(jo);
+		
+	}
+	
+	/**
+	 * 删除用户组
+	 * @author blambin
+	 * @since 2016年7月12日
+	 * @throws 
+	 * @param session
+	 * @param request
+	 * @param groupName
+	 * @return
+	 * Map<String,Object>
+	 */
+	@RequestMapping("deleteGroup")
+	public @ResponseBody Map<String, Object> deleteGroup(HttpSession session,HttpServletRequest request,@RequestParam("group") String groupName){
+
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		JSONObject jo = rs.deleteGroup(groupName);
+		return  JSONHelper.jsonToMap(jo);
+	}
+		
+	
+	
 }

@@ -14,8 +14,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.blambin.entity.User;
-
 
 public class loginFilter implements Filter {
 

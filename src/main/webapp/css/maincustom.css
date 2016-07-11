@@ -3,6 +3,9 @@
 .inner-content {
 	margin: 15px;
 }
+.inner-content span{
+    margin-right: 5px;
+}
 
 .item-pic {
 	min-height: 50px;

@@ -86,11 +86,15 @@ CREATE TABLE `user` (
   `displayname` varchar(50) DEFAULT NULL,
   `username` varchar(30) DEFAULT NULL,
   `PASSWORD` varchar(40) DEFAULT NULL,
+  `pics` varchar(100) DEFAULT NULL,
+  `qq` int(50) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `website` varchar(100) DEFAULT NULL,
   `usertoken` varchar(50) DEFAULT NULL,
   `usercookiestring` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -72,13 +72,12 @@ NProgress.start();
 								class="sr-only">浏览日志</span></a></li>
 
 					</ul>
-					
+
 					<p class="navbar-text" id="currentServerp"
 						currentServer="${ not empty sessionScope.currentServer}">
 						<c:choose>
 							<c:when test="${ not empty sessionScope.currentServer}">
-				                                                当前选择服务器:<span
-									style="color: green;">${sessionScope.currentServer.serverName}</span>
+				                                                当前选择服务器:<span class="label label-info">${sessionScope.currentServer.serverName}</span>
 							</c:when>
 							<c:otherwise>
 				                                                当前没有选择任何服务器。
@@ -87,9 +86,19 @@ NProgress.start();
 					</p>
 
 				</div>
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav navbar-right">
 					<li><a href="home/content.action?contentid=6">关于<span
 							class="sr-only">关于</span></a></li>
+
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">个人设置<span class="sr-only">个人设置</span></a>
+						<ul class="dropdown-menu">
+							<li><a>基本资料设置</a></li>
+							<li><a>退出登陆</a></li>
+						</ul></li>
 
 				</ul>
 			</div>

@@ -75,7 +75,7 @@
 									</c:otherwise>
 								</c:choose>
 							</div>
-							
+
 						</c:forTokens>
 					</div>
 					<!-- 装备栏循环 -->
@@ -310,7 +310,7 @@
 		<div class="panel-body">
 			<div class="form-group form-inline">
 				<label>所有组</label>
-				<button class="btn btn-default">添加新组</button>
+				<button class="btn btn-default" data-toggle="modal" data-target=".add-group-modal" id="openAddGroupModal" >添加新组</button>
 			</div>
 		</div>
 		<table class="table table-hover table-condensed table-striped "
@@ -319,8 +319,7 @@
 				<th>组名</th>
 				<th>父用户组</th>
 				<th>组聊天颜色</th>
-				<th>组详情</th>
-				<th>修改</th>
+				<th>组详情和修改</th>
 				<th>删除</th>
 			</tr>
 			<c:forEach var="group" items="${teamList.groups}">
@@ -329,14 +328,196 @@
 					<td>${group.parent}</td>
 					<td><div
 							style="border: 1px; border-color: gray; background-color: rgb(${group.chatcolor});height: 15px;width: 15px;"></div></td>
-					<td><button class="btn btn-default">详情</button></td>
-					<td><button class="btn btn-default modifygroup">修改</button></td>
-					<td><button class="btn btn-default deletegroup">删除</button></td>
+
+					<td><button class="btn btn-default modifygroup"
+							data-toggle="modal" data-target=".modify-group-modal"
+							group-name="${group.name}">详细和修改</button></td>
+					<td><button class="btn btn-default deletegroup" data-toggle="modal" data-target=".deletgroup-confirm-modal"
+					
+							group-name="${group.name}">删除</button></td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
 </div>
+
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button> -->
+
+<!-- 修改组的模态框 -->
+<div class="modal fade modify-group-modal" tabindex="-1" role="dialog"
+	aria-labelledby="modify-group-modal-label">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">修改组</h4>
+			</div>
+			<div class="modal-body">
+				<form id="modifygroupform" class="form-inline">
+					<div class="form-group">
+						<label for="modifygroupinputusername" class="  control-label">组名</label>
+						<div class="">
+							<input type="text" readonly="readonly" name="group"
+								class="form-control" id="modifygroupinputusername"
+								placeholder="组名不能改">
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<label for="modifygroupinputgroupparentname"
+							class=" control-label">父组名</label>
+						<div class="">
+<!-- 							<input type="text" name="parent" class="form-control" -->
+<!-- 								id="modifygroupinputgroupparentname" placeholder="父组名"> -->
+							<select name="parent"  class="form-control"
+								id="modifygroupinputgroupparentname">
+							    <option value="" ></option>
+							</select>
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<label for="modifygroupinputcolor" class="control-label">组聊天颜色</label>
+						<div class="">
+							<input type="color" style="width: 100px;" name="chatcolor"
+								class="form-control" id="modifygroupinputcolor"
+								placeholder="组聊天颜色">
+
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<label for="modifygrouppermissions" class="control-label">添加或删除权限(如果想删除权限,则在要删除的前面加个"!"号)</label>
+						<div class="">
+							<textarea name="permissions" class="form-control"
+								id="modifygrouppermissions" placeholder="添加或删除权限"></textarea>
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<label for="modifygroupinputdirectpermissions"
+							class="control-label">直接权限</label>
+						<div class="">
+							<div class=" panel panel-default "
+								id="modifygroupinputdirectpermissions">
+								<div class="panel-body inner-content"></div>
+							</div>
+
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<label for="modifygroupinputnegatedpermissions"
+							class="control-label">排除权限</label>
+						<div class="">
+							<div class=" panel panel-default "
+								id="modifygroupinputnegatedpermissions">
+								<div class="panel-body inner-content"></div>
+							</div>
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<label for="modifygroupinputtotalpermissions"
+							class="control-label">最终权限</label>
+						<div class="">
+							<div class=" panel panel-default "
+								id="modifygroupinputtotalpermissions">
+								<div class="panel-body inner-content"></div>
+							</div>
+						</div>
+					</div>
+					<br />
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" id="modifygroupformsave">保存</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 添加组的模态框 -->
+<div class="modal fade add-group-modal" tabindex="-1" role="dialog"
+	aria-labelledby="add-group-modal-label">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">添加组</h4>
+			</div>
+			<div class="modal-body">
+				<form id="addgroupform" class="form-inline">
+					<div class="form-group">
+						<label for="addgroupinputusername" class="  control-label">组名</label>
+						<div class="">
+							<input type="text" name="group"
+								class="form-control" id="addgroupinputusername"
+								placeholder="填写组名">
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<label for="addgroupinputgroupparentname"
+							class=" control-label">父组名</label>
+						<div class="">
+<!-- 							<input type="text" name="parent" class="form-control" -->
+<!-- 								id="addgroupinputgroupparentname" placeholder="父组名"> -->
+							<select name="parent"  class="form-control"
+								id="addgroupinputgroupparentname">
+							    <option value="" ></option>
+							</select>
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<label for="addgroupinputcolor" class="control-label">组聊天颜色</label>
+						<div class="">
+							<input type="color" style="width: 100px;" name="chatcolor"
+								class="form-control" id="addgroupinputcolor"
+								placeholder="组聊天颜色" value="#FFFFFF" >
+
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<label for="addgrouppermissions" class="control-label">添加权限</label>
+						<div class="">
+							<textarea name="permissions" class="form-control"
+								id="addgrouppermissions" placeholder="添加或删除权限"></textarea>
+						</div>
+					</div>
+					<br />
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" id="addgroupformsave">保存</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 确认删除模组 -->
+		<div class="modal fade deletgroup-confirm-modal" tabindex="-1"
+			role="dialog" aria-labelledby="deletegroup-confirm-modal">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-body">你确定要删除组吗，删除了不可以恢复.</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button"
+							class="btn btn-primary deletegroupmodalbutton">删除</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 

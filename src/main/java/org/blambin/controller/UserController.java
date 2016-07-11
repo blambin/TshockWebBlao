@@ -2,9 +2,6 @@ package org.blambin.controller;
 
 import java.util.UUID;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -99,7 +96,7 @@ public class UserController {
 
 	
 	/***
-	 * 检查Cookie的值
+	 * 检查 Cookie的值
 	 * @author blambin
 	 * @since 2016年7月7日
 	 * @category TODO:

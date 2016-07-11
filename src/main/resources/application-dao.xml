@@ -34,7 +34,7 @@
 			<value>root</value>
 		</property>
 		<property name="maxIdleTime">
-		    <value>120</value>
+		    <value>86400</value>
 		</property>
 	</bean>
 

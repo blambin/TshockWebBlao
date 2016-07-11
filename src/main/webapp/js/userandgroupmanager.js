@@ -214,7 +214,156 @@
 	});
 	
 	
+	/**
+	 * 添加修改组的按钮事件
+	 */
 	$(function(){
 		
+		$.get("home/getTeamList.action",function(data){
+			var SelectInnerHtml = "";
+			for ( var groupIndex in data.groups) {
+				SelectInnerHtml += '<option value="'+data.groups[groupIndex].name+'" >'+data.groups[groupIndex].name+'</option>';
+			};
+			$("#modifygroupinputgroupparentname").html(SelectInnerHtml);
+		});
+		
+		$(".modifygroup").each(function() {
+			
+			$(this).on("click", function() {
+				var groupname = $(this).attr("group-name");
+				//alert(groupname);
+				$.get("home/getGroup.action",{"group":groupname},function(data){
+					//alert(data);
+					$("#modifygroupinputusername").val(data.name);
+					
+					$("#modifygroupinputgroupparentname option").each(function() {
+						$(this).removeAttr("selected");
+					});
+					$("#modifygroupinputgroupparentname option").each(function() {
+						
+						//alert($(this).val() +":"+ data.parent);
+						if ($(this).val() == data.parent) {
+							//$(this).attr("selected","selected");
+							$("#modifygroupinputgroupparentname").val(data.parent);
+						};
+					});
+					
+					$("#modifygroupinputcolor").val(data.chatcolor);
+					
+					
+					
+					//给权限文字加badge美化
+					var modifygroupinputdirectpermissionsval = '';
+					for ( var permissions in data.permissions) {
+						modifygroupinputdirectpermissionsval += '<span class="badge">'+data.permissions[permissions]+'</span>';
+					}
+					$("#modifygroupinputdirectpermissions div").html(modifygroupinputdirectpermissionsval);
+					
+					//
+					var modifygroupinputnegatedpermissionsval = '';
+					for ( var negatedpermissions in data.negatedpermissions) {
+						modifygroupinputnegatedpermissionsval += '<span class="badge">'+data.negatedpermissions[negatedpermissions]+'</span>';
+					}
+					$("#modifygroupinputnegatedpermissions div").html(modifygroupinputnegatedpermissionsval);
+					
+					//
+					
+					var modifygroupinputtotalpermissionsval = '';
+					for ( var totalpermissions in data.totalpermissions) {
+						modifygroupinputtotalpermissionsval += '<span class="badge">'+data.totalpermissions[totalpermissions]+'</span>';
+					}
+					$("#modifygroupinputtotalpermissions div").html(modifygroupinputtotalpermissionsval);
+					
+					//保存按钮事件
+					
+				});
+			});
+		});
+		
+		/***
+		 * 修改用户组
+		 */
+		$("#modifygroupformsave").click(function() {
+			
+			var groupFormData = $("#modifygroupform").serialize();
+			
+			//alert(groupFormData);
+			$.get("home/updateGroup.action",groupFormData,function(data){
+				if (data.status == "200") {
+					toastr.success('修改成功');
+				}else {
+					toastr.warning('修改失败.错误原因:' + data.msg);
+				}
+				
+			});
+			$(".modify-group-modal").modal('toggle');
+		});
+		
+		
+		/***
+		 * 添加用户组
+		 */
+		$("#addgroupformsave").click(function() {
+			
+			var groupFormData = $("#addgroupform").serialize();
+			
+			//alert(groupFormData);
+			$.get("home/createGroup.action",groupFormData,function(data){
+				//alert(data);
+				if (data.status == "200") {
+					toastr.success('添加成功');
+				}else {
+					toastr.warning('添加失败.错误原因:' + data.msg);
+				}
+				
+			});
+			
+			$(".add-group-modal").modal('toggle');
+		});
+		
+		/***
+		 * 载入组列表
+		 */
+		function loadTeamList(ModalId) {
+			
+		}
+		
+		//添加组打开对话框按钮
+		$("#openAddGroupModal").click(function() {
+			$.get("home/getTeamList.action",function(data){
+				
+				var SelectInnerHtml = '<option value="" >请选择父组</option>';
+				for ( var groupIndex in data.groups) {
+					SelectInnerHtml += '<option value="'+data.groups[groupIndex].name+'" >'+data.groups[groupIndex].name+'</option>';
+				};
+				$("#addgroupinputgroupparentname").html(SelectInnerHtml);
+			});
+		});
+		
+		//删除修改组打开对话框确认删除
+		$(".deletegroup").each(function() {
+			
+			$(this).click(function() {
+				$(".deletegroupmodalbutton").attr("group-name",$(this).attr("group-name"));
+			});
+			
+		});
+		
+		//删除之前的绑定事件再添加新的事件
+		$(".deletegroupmodalbutton").unbind("click").click(function() {
+			
+			$.get("home/deleteGroup.action",{group:$(this).attr("group-name")},function(data){
+				if (data.status == "200") {
+					toastr.success('删除成功');
+					$(".deletgroup-confirm-modal").modal('toggle');
+				}else {
+					toastr.warning('删除失败 .错误原因:' + data.msg);
+					$(".deletgroup-confirm-modal").modal('toggle');
+				}
+				
+			});
+
+			
+		});
 		
 	});
