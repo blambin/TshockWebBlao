@@ -29,7 +29,7 @@
 NProgress.start();
 </script>
 
-<title>后台页面</title>
+<title>Control Panel</title>
 </head>
 <body>
 
@@ -44,7 +44,7 @@ NProgress.start();
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">欢迎你,
+				<a class="navbar-brand" href="#">Welcome back,
 					${sessionScope.user.displayName}</a>
 			</div>
 
@@ -52,24 +52,24 @@ NProgress.start();
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="home/content.action?contentid=1">添加服务器<span
-							class="sr-only">添加服务器</span></a></li>
+					<li><a href="home/content.action?contentid=1">Add Server<span
+							class="sr-only">Add Server</span></a></li>
 				</ul>
 
 				<div id="2levernav" class="">
 					<ul class="nav navbar-nav">
-						<li><a href="home/content.action?contentid=3">服务器基本信息和命令行<span
-								class="sr-only">服务器基本信息和命令行</span></a></li>
+						<li><a href="home/content.action?contentid=3">Command Line<span
+								class="sr-only">Command Line</span></a></li>
 
 					</ul>
 					<ul class="nav navbar-nav">
-						<li><a href="home/content.action?contentid=4">玩家和组<span
-								class="sr-only">玩家和组</span></a></li>
+						<li><a href="home/content.action?contentid=4">Players and Groups<span
+								class="sr-only">Players and Groups</span></a></li>
 
 					</ul>
 					<ul class="nav navbar-nav">
-						<li><a href="home/content.action?contentid=5">浏览日志<span
-								class="sr-only">浏览日志</span></a></li>
+						<li><a href="home/content.action?contentid=5">Log<span
+								class="sr-only">Log</span></a></li>
 
 					</ul>
 
@@ -77,27 +77,27 @@ NProgress.start();
 						currentServer="${ not empty sessionScope.currentServer}">
 						<c:choose>
 							<c:when test="${ not empty sessionScope.currentServer}">
-				                                                当前选择服务器:<span class="label label-info">${sessionScope.currentServer.serverName}</span>
+				                                                Current Server:<span class="label label-info">${sessionScope.currentServer.serverName}</span>
 							</c:when>
 							<c:otherwise>
-				                                                当前没有选择任何服务器。
+				                                                Have not select a server yet.
 				         </c:otherwise>
 						</c:choose>
 					</p>
 
 				</div>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="home/content.action?contentid=6">关于<span
-							class="sr-only">关于</span></a></li>
+					<li><a href="home/content.action?contentid=6">About<span
+							class="sr-only">About</span></a></li>
 
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">个人设置<span class="sr-only">个人设置</span></a>
+						aria-expanded="false">Personal Settings<span class="sr-only">Personal Settings</span></a>
 						<ul class="dropdown-menu">
-							<li><a>基本资料设置</a></li>
-							<li><a>退出登陆</a></li>
+							<li><a>Basic Information</a></li>
+							<li><a>Logout</a></li>
 						</ul></li>
 
 				</ul>
@@ -110,7 +110,7 @@ NProgress.start();
 				<ul class="nav nav-tabs nav-stacked nav-pills"
 					id="leftserverlistmenu">
 					<li role="presentation" class="active" id="addserver"><a
-						href="home/content.action?contentid=1">添加服务器</a></li>
+						href="home/content.action?contentid=1">Add Server</a></li>
 					<c:if test="${not empty sessionScope.servers}">
 						<c:forEach var="server" items="${sessionScope.servers}">
 							<li role="presentation" id="${server.id}"><a
