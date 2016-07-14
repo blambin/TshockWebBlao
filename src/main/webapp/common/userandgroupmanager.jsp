@@ -109,15 +109,42 @@
 							</div>
 						</c:forTokens>
 					</div>
+					<button class="btn btn-danger inner-content">踢掉</button>
+					<button class="btn btn-danger inner-content">BAN掉</button>
+					<button class="btn btn-danger inner-content">杀死</button>
+					<button class="btn btn-warning inner-content">禁言并发送全服广播</button>
+					<button class="btn btn-warning inner-content">解除禁言</button>
 				</div>
 			</c:forEach>
 			<!-- 			<div role="tabpanel" class="tab-pane active" id="home">home</div> -->
 		</div>
 	</div>
 </div>
+<!-- 被禁了的玩家管理 -->
+<div class="panel panel-default panel-warning" id="banneduserpanel">
+	<div class="panel-heading">
+		<div class="panel-title">
+			<a role="button" data-toggle="collapse" data-parent="banneduserpanel"
+				aria-expanded="true" data-target="#bannedusertable">被禁了的玩家管理</a>
+		</div>
+	</div>
+	<div id="bannedusertable" class="collapse in">
+		<div class="panel-body">
+		   <button id="refreshbanneduserbutton" class="btn btn-default">刷新列表</button>
+		</div>
+		<table class="table table-hover table-condensed table-striped "
+			id="banneduserdatatable">
+			<tr>
+				<th>玩家名</th>
+				<th>IP</th>
+				<th>原因</th>
+				<th>解除封禁</th>
+			</tr>
+		</table>
+	</div>
+</div>
 
-
-
+<!-- 玩家管理面板 -->
 <div class="panel panel-default panel-warning" id="userpanel">
 	<div class="panel-heading">
 		<div class="panel-title">
@@ -514,6 +541,20 @@
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button type="button"
 							class="btn btn-primary deletegroupmodalbutton">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 确认解除封禁模态框 -->
+		<div class="modal fade removebanned-confirm-modal" tabindex="-1"
+			role="dialog" aria-labelledby="removebanned-confirm-modal">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-body">你确定要解除封禁吗，</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button"
+							class="btn btn-primary removebannedmodalbutton">删除</button>
 					</div>
 				</div>
 			</div>

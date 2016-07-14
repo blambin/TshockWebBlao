@@ -1105,6 +1105,129 @@ public class RestServer {
 		}
 	}
 	
+	/**
+	 * 获取所有被Ban玩家
+	 * @author blambin
+	 * @since 2016年7月13日
+	 * @throws 
+	 * @return
+	 * JSONObject
+	 */
+	public JSONObject getBannedList() {
+
+		JSONObject jo;
+		JSONObject errorJson;
+
+		try {
+
+			String exUrl = baseUrl + "/v2/bans/list?token=" + token;
+			jo = getJsonFromUrlString(exUrl);
+			return jo;
+		} catch (URLErrorException e) {
+
+			e.printStackTrace();
+
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.URLError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ServerUnreachException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ServerUnreach);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (TokenUnvalidException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+
+			errorJson.put("status", ErrorCode.TokenUnvalid);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ErrorAPIException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ErrorAPI);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (UnKnownErrorException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}
+	}
+	
+	/***
+	 * 解除用户的Ban状态
+	 * @author blambin
+	 * @since 2016年7月13日
+	 * @throws 
+	 * @param username
+	 * @return
+	 * JSONObject
+	 */
+	public JSONObject removeUserBanned(String username) {
+
+		JSONObject jo;
+		JSONObject errorJson;
+
+		try {
+
+			String newusername = URLEncoder.encode(username, "UTF-8");
+			String exUrl = baseUrl + "/v2/bans/destroy?token=" + token + "&ban=" + newusername;
+			jo = getJsonFromUrlString(exUrl);
+			return jo;
+		} catch (URLErrorException e) {
+
+			e.printStackTrace();
+
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.URLError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ServerUnreachException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ServerUnreach);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (TokenUnvalidException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+
+			errorJson.put("status", ErrorCode.TokenUnvalid);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (ErrorAPIException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.ErrorAPI);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		} catch (UnKnownErrorException e) {
+
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			errorJson = new JSONObject();
+			errorJson.put("status", ErrorCode.UnKnownError);
+			errorJson.put("msg", e.getMessage());
+			return errorJson;
+		}
+	}
 	
 	/***
 	 *  获取日志,需要tshcok提供插件支持
