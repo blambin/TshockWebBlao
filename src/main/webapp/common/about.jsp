@@ -5,16 +5,21 @@
 
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">关于</h3>
+		<h3 class="panel-title">About</h3>
 	</div>
 	<div class="panel-body">
 		<div class="col-lg-12" >
-			<p>本程式发布在 通用性公开许可证(General Public License，简称GPL)下.你可以有运行、复制软件的自由，发行传播软件的自由，获得软件源码的自由，改进软件并将自己作出的改进版本向社会发行传播的自由。 </p>
+			<p>This program is free software: you can redistribute it and/or modify<br>
+			it under the terms of the GNU General Public License as published by<br>
+			the Free Software Foundation, either version 3 of the License, or<br>
+			(at your option) any later version.<br><br>
+			You should have received a copy of the GNU General Public License<br>
+			along with this program.  If not, see <http://www.gnu.org/licenses/>.<br></p>
 			<p>
-				Copyleft <img alt="版责" src="images/copyleft.png" height="20px"
-					width="20px"> <a class="active" href="http://blambin.org">程式作者
-					:blambin</a>&nbsp;&nbsp; <a class="active" href="https://www.tshockcn.com/">提供文本
-					:欲情</a>
+				Copyleft <img alt="版责" src="images/copyleft.png" height="20px" width="20px">
+				<a class="active" href="http://blambin.org">Author: blambin</a>&nbsp;&nbsp;
+				<a class="active" href="https://www.tshockcn.com/">Guide Author: 欲情</a>&nbsp;&nbsp;
+				<a href="https://github.com/gyrodrill/">Translation: Gyrodrill(Koishi)</a>
 			</p>
 		</div>
 	</div>

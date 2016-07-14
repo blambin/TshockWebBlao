@@ -6,17 +6,17 @@
 
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">浏览Tshock日志</h3>
+		<h3 class="panel-title">View Log</h3>
 	</div>
 	<div class="panel-body">
 		<div class="col-lg-4">
 			<div class="input-group">
 				<input type="text" class="form-control" aria-label="..."
-					placeholder="请输入要获取的日志条数" id="countinput">
+					placeholder="Enter the count of log you want to view" id="countinput">
 				<div class="input-group-btn">
 					<button type="button" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						条目数<span class="caret"></span>
+						Count<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu dropdown-menu-right countdropdownmenu">
 						<li><a>50</a></li>
@@ -36,7 +36,7 @@
 		
 		<div class="col-lg-12" id="logsbox">
 			<ul class="list-group">
-				<li class="list-group-item">日记会显示在这里喵~</li>
+				<li class="list-group-item">Logs will be shown here~</li>
 			</ul>
 		</div>
 	</div>

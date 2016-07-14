@@ -10,11 +10,11 @@
 	<div class="panel-heading">
 		<div class="panel-title">
 			<a role="button" data-toggle="collapse" data-parent="activeuserpanel"
-				aria-expanded="true" data-target="#onlineuserdiv">在线玩家查背包</a>
+				aria-expanded="true" data-target="#onlineuserdiv">Inventory Viewer</a>
 		</div>
 	</div>
 	<c:if test="${empty onlineUser.players }">
-		<div class="panel-body">没有任何在线玩家....</div>
+		<div class="panel-body">Nobody's online now...</div>
 	</c:if>
 
 	<div id="onlineuserdiv" class="collapse in">
@@ -46,7 +46,7 @@
 
 					<!-- 物品栏循环 -->
 					<div class="inner-content">
-						<span class="label label-success">背包栏</span>
+						<span class="label label-success">Inventory</span>
 					</div>
 					<div class="items-div inner-content">
 
@@ -80,7 +80,7 @@
 					</div>
 					<!-- 装备栏循环 -->
 					<div class="inner-content">
-						<span class="label label-success">装备栏</span>
+						<span class="label label-success">Armors</span>
 					</div>
 					<div class="items-div inner-content">
 						<c:forTokens var="armorWithPrefix" items="${player.armor}"
@@ -94,7 +94,7 @@
 					</div>
 					<!-- 染料栏循环 -->
 					<div class="inner-content">
-						<span class="label label-success">染料栏</span>
+						<span class="label label-success">Dye</span>
 					</div>
 					<div class="items-div inner-content">
 
@@ -122,18 +122,18 @@
 	<div class="panel-heading">
 		<div class="panel-title">
 			<a role="button" data-toggle="collapse" data-parent="userpanel"
-				aria-expanded="true" data-target="#usertable">玩家管理面板</a>
+				aria-expanded="true" data-target="#usertable">Players Control Panel</a>
 		</div>
 	</div>
 
 	<div id="usertable" class="collapse in">
 		<div class="panel-body">
 			<div class="form-group form-inline">
-				<label>所有注册玩家</label> <input id="searchtext" type="text"
-					class="form-control" placeholder="输入玩家名字搜索" />
-				<button id="searchbutton" class="btn btn-default">搜索</button>
+				<label>All registered player</label> <input id="searchtext" type="text"
+					class="form-control" placeholder="Enter the name of player to search" />
+				<button id="searchbutton" class="btn btn-default">Search</button>
 				<button class="btn btn-default" data-toggle="modal"
-					data-target="#adduserModal">添加新用户</button>
+					data-target="#adduserModal">Add a new player</button>
 				<!-- 添加用户Modal -->
 				<div class="modal fade" id="adduserModal" tabindex="-1"
 					role="dialog" aria-labelledby="adduserModalLabel">
@@ -144,30 +144,30 @@
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								<h4 class="modal-title" id="adduserModalLabel">添加用户</h4>
+								<h4 class="modal-title" id="adduserModalLabel">Add a new player</h4>
 							</div>
 							<div class="modal-body">
 								<div>
 									<form id="adduserform" class="form-inline">
 										<div class="form-group">
-											<label for="createuserinputusername" class="  control-label">用户名</label>
+											<label for="createuserinputusername" class="  control-label">Player name</label>
 											<div class="">
 												<input type="text" name="user" class="form-control"
-													id="createuserinputusername" placeholder="请输入用户名">
+													id="createuserinputusername" placeholder="Enter the name of player">
 											</div>
 										</div>
 										<div class="form-group">
-											<label for="createuserinputpassword" class=" control-label">密码</label>
+											<label for="createuserinputpassword" class=" control-label">Password</label>
 											<div class="">
 												<input type="text" name="password" class="form-control"
-													id="createuserinputpassword" placeholder="请输入密码">
+													id="createuserinputpassword" placeholder="Enter the password">
 											</div>
 										</div>
 										<div class="form-group">
-											<label for="createuserinputgroup" class="  control-label">所在的组</label>
+											<label for="createuserinputgroup" class="  control-label">Group</label>
 											<div class="">
 												<input type="text" name="group" class="form-control"
-													id="createuserinputgroup" placeholder="请输入组名">
+													id="createuserinputgroup" placeholder="Enter the group">
 											</div>
 										</div>
 
@@ -176,9 +176,9 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
-									data-dismiss="modal">关闭</button>
+									data-dismiss="modal">Close</button>
 								<button id="adduserformsubmitbutton" type="button"
-									class="btn btn-primary">添加</button>
+									class="btn btn-primary">Add</button>
 							</div>
 						</div>
 					</div>
@@ -189,10 +189,10 @@
 			id="userdatatable">
 			<tr>
 				<th>id</th>
-				<th>用户名</th>
-				<th>用户组</th>
-				<th>修改</th>
-				<th>删除</th>
+				<th>Player Name</th>
+				<th>Group</th>
+				<th>Edit</th>
+				<th>Delete</th>
 			</tr>
 			<c:forEach var="user" items="${user.users}">
 				<tr class="info">
@@ -201,10 +201,10 @@
 					<td>${user.group}</td>
 					<td><button class="btn btn-default modifyuser"
 							userid="${user.name}" usergroup="${user.group}"
-							data-toggle="modal" data-target="#modifyuserModal">修改</button></td>
+							data-toggle="modal" data-target="#modifyuserModal">Edit</button></td>
 					<td><button class="btn btn-default deleteuser"
 							data-toggle="modal" data-target=".deleteuser-confirm-modal"
-							userid="${user.name}">删除</button></td>
+							userid="${user.name}">Delete</button></td>
 				</tr>
 			</c:forEach>
 
@@ -220,33 +220,33 @@
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title" id="modifyserModalLabel">修改用户</h4>
+						<h4 class="modal-title" id="modifyserModalLabel">Edit player</h4>
 					</div>
 					<div class="modal-body">
 						<div>
 							<form id="modifyuserform" class="form-inline">
 								<div class="form-group">
-									<label for="modifyuserinputusername" class="  control-label">用户名</label>
+									<label for="modifyuserinputusername" class="  control-label">Player name</label>
 									<div class="">
 										<input type="text" readonly="readonly" name="user"
 											class="form-control" id="modifyuserinputusername"
-											placeholder="用户名不能改">
+											placeholder="Unchangeable">
 									</div>
 								</div>
 								<br />
 								<div class="form-group">
-									<label for="modifyuserinputpassword" class=" control-label">密码</label>
+									<label for="modifyuserinputpassword" class=" control-label">Password</label>
 									<div class="">
 										<input type="text" name="password" class="form-control"
-											id="modifyuserinputpassword" placeholder="请输入密码,不修改则留空">
+											id="modifyuserinputpassword" placeholder="New password, leave empty for no change">
 									</div>
 								</div>
 								<br />
 								<div class="form-group">
-									<label for="modifyuserinputgroup" class="  control-label">所在的组</label>
+									<label for="modifyuserinputgroup" class="  control-label">Group</label>
 									<div class="">
 										<input type="text" name="group" class="form-control"
-											id="modifyuserinputgroup" placeholder="请输入组名">
+											id="modifyuserinputgroup" placeholder="Group name">
 									</div>
 								</div>
 								<br />
@@ -254,9 +254,9 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button id="modifyuserformsubmitbutton" type="button"
-							class="btn btn-primary">修改</button>
+							class="btn btn-primary">Edit</button>
 					</div>
 				</div>
 			</div>
@@ -268,11 +268,11 @@
 			role="dialog" aria-labelledby="deleteuser-confirm-modal">
 			<div class="modal-dialog modal-sm">
 				<div class="modal-content">
-					<div class="modal-body">你确定要删除用户吗，删除了不可以恢复.</div>
+					<div class="modal-body">Are you sure to DELETE the player? NOTICE: This action can not be undone</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button type="button"
-							class="btn btn-primary deleteusermodalbutton">删除</button>
+							class="btn btn-primary deleteusermodalbutton">Delete</button>
 					</div>
 				</div>
 			</div>
@@ -302,25 +302,25 @@
 	<div class="panel-heading">
 		<div class="panel-title">
 			<a role="button" data-toggle="collapse" data-parent="grouppanel"
-				aria-expanded="true" data-target="#grouptable">组管理面板</a>
+				aria-expanded="true" data-target="#grouptable">Group Control Panel</a>
 		</div>
 	</div>
 
 	<div id="grouptable" class="collapse in">
 		<div class="panel-body">
 			<div class="form-group form-inline">
-				<label>所有组</label>
-				<button class="btn btn-default" data-toggle="modal" data-target=".add-group-modal" id="openAddGroupModal" >添加新组</button>
+				<label>All groups</label>
+				<button class="btn btn-default" data-toggle="modal" data-target=".add-group-modal" id="openAddGroupModal" >Add a new group</button>
 			</div>
 		</div>
 		<table class="table table-hover table-condensed table-striped "
 			id="groupdatatable">
 			<tr>
-				<th>组名</th>
-				<th>父用户组</th>
-				<th>组聊天颜色</th>
-				<th>组详情和修改</th>
-				<th>删除</th>
+				<th>Group name</th>
+				<th>Parent group</th>
+				<th>Chat color</th>
+				<th>Details and Edit</th>
+				<th>Delete</th>
 			</tr>
 			<c:forEach var="group" items="${teamList.groups}">
 				<tr class="info">
@@ -331,10 +331,10 @@
 
 					<td><button class="btn btn-default modifygroup"
 							data-toggle="modal" data-target=".modify-group-modal"
-							group-name="${group.name}">详细和修改</button></td>
+							group-name="${group.name}">Details and Edit</button></td>
 					<td><button class="btn btn-default deletegroup" data-toggle="modal" data-target=".deletgroup-confirm-modal"
 					
-							group-name="${group.name}">删除</button></td>
+							group-name="${group.name}">Delete</button></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -353,22 +353,22 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">修改组</h4>
+				<h4 class="modal-title">Details and Edit</h4>
 			</div>
 			<div class="modal-body">
 				<form id="modifygroupform" class="form-inline">
 					<div class="form-group">
-						<label for="modifygroupinputusername" class="  control-label">组名</label>
+						<label for="modifygroupinputusername" class="  control-label">Group name</label>
 						<div class="">
 							<input type="text" readonly="readonly" name="group"
 								class="form-control" id="modifygroupinputusername"
-								placeholder="组名不能改">
+								placeholder="Unchangeable">
 						</div>
 					</div>
 					<br />
 					<div class="form-group">
 						<label for="modifygroupinputgroupparentname"
-							class=" control-label">父组名</label>
+							class=" control-label">Parent group</label>
 						<div class="">
 <!-- 							<input type="text" name="parent" class="form-control" -->
 <!-- 								id="modifygroupinputgroupparentname" placeholder="父组名"> -->
@@ -380,26 +380,26 @@
 					</div>
 					<br />
 					<div class="form-group">
-						<label for="modifygroupinputcolor" class="control-label">组聊天颜色</label>
+						<label for="modifygroupinputcolor" class="control-label">Chat color</label>
 						<div class="">
 							<input type="color" style="width: 100px;" name="chatcolor"
 								class="form-control" id="modifygroupinputcolor"
-								placeholder="组聊天颜色">
+								placeholder="Chat color">
 
 						</div>
 					</div>
 					<br />
 					<div class="form-group">
-						<label for="modifygrouppermissions" class="control-label">添加或删除权限(如果想删除权限,则在要删除的前面加个"!"号)</label>
+						<label for="modifygrouppermissions" class="control-label">Add or delete permissions (Add a exclamation mark("!") before it for deletion)</label>
 						<div class="">
 							<textarea name="permissions" class="form-control"
-								id="modifygrouppermissions" placeholder="添加或删除权限"></textarea>
+								id="modifygrouppermissions" placeholder="Permission Edit"></textarea>
 						</div>
 					</div>
 					<br />
 					<div class="form-group">
 						<label for="modifygroupinputdirectpermissions"
-							class="control-label">直接权限</label>
+							class="control-label">Permission</label>
 						<div class="">
 							<div class=" panel panel-default "
 								id="modifygroupinputdirectpermissions">
@@ -411,7 +411,7 @@
 					<br />
 					<div class="form-group">
 						<label for="modifygroupinputnegatedpermissions"
-							class="control-label">排除权限</label>
+							class="control-label">Exclusion</label>
 						<div class="">
 							<div class=" panel panel-default "
 								id="modifygroupinputnegatedpermissions">
@@ -422,7 +422,7 @@
 					<br />
 					<div class="form-group">
 						<label for="modifygroupinputtotalpermissions"
-							class="control-label">最终权限</label>
+							class="control-label">Final Permission</label>
 						<div class="">
 							<div class=" panel panel-default "
 								id="modifygroupinputtotalpermissions">
@@ -434,8 +434,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				<button type="button" class="btn btn-primary" id="modifygroupformsave">保存</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">CLose</button>
+				<button type="button" class="btn btn-primary" id="modifygroupformsave">Save</button>
 			</div>
 		</div>
 	</div>
@@ -451,22 +451,22 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">添加组</h4>
+				<h4 class="modal-title">Add a new group</h4>
 			</div>
 			<div class="modal-body">
 				<form id="addgroupform" class="form-inline">
 					<div class="form-group">
-						<label for="addgroupinputusername" class="  control-label">组名</label>
+						<label for="addgroupinputusername" class="  control-label">Group name</label>
 						<div class="">
 							<input type="text" name="group"
 								class="form-control" id="addgroupinputusername"
-								placeholder="填写组名">
+								placeholder="Group name">
 						</div>
 					</div>
 					<br />
 					<div class="form-group">
 						<label for="addgroupinputgroupparentname"
-							class=" control-label">父组名</label>
+							class=" control-label">Parent group</label>
 						<div class="">
 <!-- 							<input type="text" name="parent" class="form-control" -->
 <!-- 								id="addgroupinputgroupparentname" placeholder="父组名"> -->
@@ -478,28 +478,28 @@
 					</div>
 					<br />
 					<div class="form-group">
-						<label for="addgroupinputcolor" class="control-label">组聊天颜色</label>
+						<label for="addgroupinputcolor" class="control-label">Chat color</label>
 						<div class="">
 							<input type="color" style="width: 100px;" name="chatcolor"
 								class="form-control" id="addgroupinputcolor"
-								placeholder="组聊天颜色" value="#FFFFFF" >
+								placeholder="Chat color" value="#FFFFFF" >
 
 						</div>
 					</div>
 					<br />
 					<div class="form-group">
-						<label for="addgrouppermissions" class="control-label">添加权限</label>
+						<label for="addgrouppermissions" class="control-label">Edit Permission</label>
 						<div class="">
 							<textarea name="permissions" class="form-control"
-								id="addgrouppermissions" placeholder="添加或删除权限"></textarea>
+								id="addgrouppermissions" placeholder="Edit Permission"></textarea>
 						</div>
 					</div>
 					<br />
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				<button type="button" class="btn btn-primary" id="addgroupformsave">保存</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" id="addgroupformsave">Save</button>
 			</div>
 		</div>
 	</div>
@@ -509,11 +509,11 @@
 			role="dialog" aria-labelledby="deletegroup-confirm-modal">
 			<div class="modal-dialog modal-sm">
 				<div class="modal-content">
-					<div class="modal-body">你确定要删除组吗，删除了不可以恢复.</div>
+					<div class="modal-body">Are you sure to DELETE the group? NOTICE: This action can not be undone</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button type="button"
-							class="btn btn-primary deletegroupmodalbutton">删除</button>
+							class="btn btn-primary deletegroupmodalbutton">Delete</button>
 					</div>
 				</div>
 			</div>
