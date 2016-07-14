@@ -366,4 +366,55 @@
 			
 		});
 		
+		//被ban用户面板的刷新按钮
+		$("#refreshbanneduserbutton").click(function() {
+			//alert("a");
+			getBannedUserData();
+		});
+		//请求被ban用户数据
+		function getBannedUserData() {
+			
+			NProgress.configure({ minimum: 0.1 });
+			NProgress.start(); //进度条开始
+			$.get("home/getBannedList.action",null,function(data){
+				
+				// 替换数据
+				$("#banneduserdatatable").empty();
+				$("#banneduserdatatable").append("<tr><th>玩家名</th><th>IP</th><th>原因</th><th>解除封禁</th></tr>");
+				//console.log(data.users[0].id);
+				$.each(data.bans,function(i,bans){
+					$("#banneduserdatatable").append('<tr><th>'+bans.name+'</th><td>'+bans.ip+'</td><td>'+bans.reason+'</td><td><button class="btn btn-default removebanned" data-toggle="modal" data-target=".removebanned-confirm-modal" username="'+bans.name+'"  >解除</button></td></tr>');	
+				});
+					
+				NProgress.done(); //进度条结束
+				
+				
+				//解除封禁打开对话框确认解除
+				$(".removebanned").each(function() {
+					
+					$(this).click(function() {
+						$(".removebannedmodalbutton").attr("username",$(this).attr("username"));
+					});
+					
+				});
+			});
+		};
+		
+		
+		
+		//解除封禁 确认按钮 -删除之前的绑定事件再添加新的事件
+		$(".removebannedmodalbutton").unbind("click").click(function() {
+			
+			$.get("home/removeUserBanned.action",{group:$(this).attr("username")},function(data){
+				if (data.status == "200") {
+					toastr.success('解除成功');
+					$(".deletgroup-confirm-modal").modal('toggle');
+				}else {
+					toastr.warning('解除失败 .错误原因:' + data.msg);
+					$(".deletgroup-confirm-modal").modal('toggle');
+				}
+				
+			});
+		});
+		
 	});

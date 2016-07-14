@@ -716,7 +716,41 @@ public class HomeController {
 		JSONObject jo = rs.deleteGroup(groupName);
 		return  JSONHelper.jsonToMap(jo);
 	}
-		
+
+
+	/***
+	 *  获取所有被Ban玩家
+	 * @author blambin
+	 * @since 2016年7月13日
+	 * @throws 
+	 * @param session
+	 * @return
+	 * Map<String,Object>
+	 */
+	@RequestMapping("getBannedList")
+	public @ResponseBody Map<String, Object> getBannedList(HttpSession session){
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		JSONObject jo = rs.getBannedList();
+		return  JSONHelper.jsonToMap(jo);
+	}
 	
+	/***
+	 * 解除用户的Ban状态
+	 * @author blambin
+	 * @since 2016年7月13日
+	 * @throws 
+	 * @param session
+	 * @param username
+	 * @return
+	 * Map<String,Object>
+	 */
+	@RequestMapping("removeUserBanned")
+	public @ResponseBody Map<String, Object> removeUserBanned(HttpSession session,String username){
+		RestServer rs = (RestServer) session.getAttribute("rs");
+		rs.setServerToken();
+		JSONObject jo = rs.removeUserBanned(username);
+		return  JSONHelper.jsonToMap(jo);
+	}
 	
 }

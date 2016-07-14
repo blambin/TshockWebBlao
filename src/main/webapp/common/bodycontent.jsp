@@ -24,7 +24,7 @@
               <jsp:include page="about.jsp"></jsp:include>
           </c:when>
           <c:otherwise>
-                                         请点击左边添加服务器 或者选择一个服务器
+                                         Click to add a server or choose one from the left side.
           </c:otherwise>
       </c:choose>
   </div>
