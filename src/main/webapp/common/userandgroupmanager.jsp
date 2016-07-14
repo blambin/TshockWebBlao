@@ -109,11 +109,11 @@
 							</div>
 						</c:forTokens>
 					</div>
-					<button class="btn btn-danger inner-content">踢掉</button>
-					<button class="btn btn-danger inner-content">BAN掉</button>
-					<button class="btn btn-danger inner-content">杀死</button>
-					<button class="btn btn-warning inner-content">禁言并发送全服广播</button>
-					<button class="btn btn-warning inner-content">解除禁言</button>
+					<button class="btn btn-danger inner-content">Kick</button>
+					<button class="btn btn-danger inner-content">Ban</button>
+					<button class="btn btn-danger inner-content">Kill</button>
+					<button class="btn btn-warning inner-content">Mute and broadcast</button>
+					<button class="btn btn-warning inner-content">Unmute</button>
 				</div>
 			</c:forEach>
 			<!-- 			<div role="tabpanel" class="tab-pane active" id="home">home</div> -->
@@ -125,20 +125,20 @@
 	<div class="panel-heading">
 		<div class="panel-title">
 			<a role="button" data-toggle="collapse" data-parent="banneduserpanel"
-				aria-expanded="true" data-target="#bannedusertable">被禁了的玩家管理</a>
+				aria-expanded="true" data-target="#bannedusertable">Muted Player Control</a>
 		</div>
 	</div>
 	<div id="bannedusertable" class="collapse in">
 		<div class="panel-body">
-		   <button id="refreshbanneduserbutton" class="btn btn-default">刷新列表</button>
+		   <button id="refreshbanneduserbutton" class="btn btn-default">Refresh</button>
 		</div>
 		<table class="table table-hover table-condensed table-striped "
 			id="banneduserdatatable">
 			<tr>
-				<th>玩家名</th>
+				<th>Player name</th>
 				<th>IP</th>
-				<th>原因</th>
-				<th>解除封禁</th>
+				<th>Reason</th>
+				<th>Unban</th>
 			</tr>
 		</table>
 	</div>
@@ -550,11 +550,11 @@
 			role="dialog" aria-labelledby="removebanned-confirm-modal">
 			<div class="modal-dialog modal-sm">
 				<div class="modal-content">
-					<div class="modal-body">你确定要解除封禁吗，</div>
+					<div class="modal-body">Are you sure to unban?</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button type="button"
-							class="btn btn-primary removebannedmodalbutton">删除</button>
+							class="btn btn-primary removebannedmodalbutton">Yes</button>
 					</div>
 				</div>
 			</div>

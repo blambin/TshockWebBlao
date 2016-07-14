@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>游戏服务器错误</title>
+<title>Server Error</title>
 </head>
 <body>
-  游戏服务器无法连接 。
-  
+
+Can not connect to the game server.
+
 
 </body>
 </html>

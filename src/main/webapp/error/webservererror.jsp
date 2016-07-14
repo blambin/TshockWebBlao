@@ -6,11 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>游戏服务器未指定</title>
+<title>Select a server</title>
 </head>
 <body>
  
- 不知道你现在选了什么 游戏服务器呢 。 <a href="#">带我去首页</a>吧
+Please select a server first. <a href="#">Home Page</a>
   
 
 </body>
