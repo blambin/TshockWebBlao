@@ -3,9 +3,7 @@ package org.blambin.common.configbeans;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import lombok.Getter;
 
-@Getter
 @Component("ConfigInfo")
 public class ConfigInfo {
 
@@ -20,6 +18,22 @@ public class ConfigInfo {
 	 */
 	@Value("${webTokenSalt}")
 	private String webTokenSalt;
+
+	public String getRc4Pwd() {
+		return rc4Pwd;
+	}
+
+	public void setRc4Pwd(String rc4Pwd) {
+		this.rc4Pwd = rc4Pwd;
+	}
+
+	public String getWebTokenSalt() {
+		return webTokenSalt;
+	}
+
+	public void setWebTokenSalt(String webTokenSalt) {
+		this.webTokenSalt = webTokenSalt;
+	}
 
 	
 }

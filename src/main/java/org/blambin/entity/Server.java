@@ -1,8 +1,6 @@
 package org.blambin.entity;
 
-import lombok.Data;
 
-@Data
 public class Server {
 
 	private int id ;
@@ -15,5 +13,66 @@ public class Server {
     private String serverAdminPassword;
     private User serverOwner;
     private String isPublic;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getServerName() {
+		return serverName;
+	}
+	public void setServerName(String serverName) {
+		this.serverName = serverName;
+	}
+	public String getServerUrl() {
+		return serverUrl;
+	}
+	public void setServerUrl(String serverUrl) {
+		this.serverUrl = serverUrl;
+	}
+	public int getServerPort() {
+		return serverPort;
+	}
+	public void setServerPort(int serverPort) {
+		this.serverPort = serverPort;
+	}
+	public int getServerRestAPIPort() {
+		return serverRestAPIPort;
+	}
+	public void setServerRestAPIPort(int serverRestAPIPort) {
+		this.serverRestAPIPort = serverRestAPIPort;
+	}
+	public String getServerPassword() {
+		return serverPassword;
+	}
+	public void setServerPassword(String serverPassword) {
+		this.serverPassword = serverPassword;
+	}
+	public String getServerAdminUserName() {
+		return serverAdminUserName;
+	}
+	public void setServerAdminUserName(String serverAdminUserName) {
+		this.serverAdminUserName = serverAdminUserName;
+	}
+	public String getServerAdminPassword() {
+		return serverAdminPassword;
+	}
+	public void setServerAdminPassword(String serverAdminPassword) {
+		this.serverAdminPassword = serverAdminPassword;
+	}
+	public User getServerOwner() {
+		return serverOwner;
+	}
+	public void setServerOwner(User serverOwner) {
+		this.serverOwner = serverOwner;
+	}
+	public String getIsPublic() {
+		return isPublic;
+	}
+	public void setIsPublic(String isPublic) {
+		this.isPublic = isPublic;
+	}
+    
     
 } 
